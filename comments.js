@@ -1,9 +1,7 @@
-// 初始化 Supabase 云端连接 (修正全局对象首字母大小写逻辑)
+// 初始化 Supabase 云端连接
 const SUPABASE_URL = "https://yafbnddgdugykbiaqmuw.supabase.co"; 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhZmJuZGRnZHVneWtiaWFxbXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTU0ODcsImV4cCI6MjA5ODY5MTQ4N30.FlKeKfqJkxrYCm11834wb0g_xJdw-Y8CQ0iqJNxTTns"; 
-
-// 兼容处理：有些浏览器打包会识别 window.supabase，标准 CDN 会识别全局 supabase
-const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // 1. 从云端加载全部评论
 async function loadComments() {
