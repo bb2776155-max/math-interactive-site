@@ -37,9 +37,9 @@ async function loadComments() {
         const isMainAuthorMe = (comment.user_hash === currentHash);
         const mainLabel = isMainAuthorMe ? "💡 我的思维沉淀" : `💡 学生思维沉淀 (#${index + 1})`;
 
-        // 判断是否显示主评论的删除按钮
+        // 【修改点】用最稳妥的单引号包裹数字 ID，确保 onclick 里的参数能被安全转成数字字面量
         const deleteMainBtnHtml = isMainAuthorMe 
-            ? `<button onclick="deleteComment(${comment.id})" class="text-slate-600 hover:text-rose-400 transition-colors text-[11px] cursor-pointer font-medium">删除</button>` 
+            ? `<button onclick="deleteComment('${comment.id}')" class="text-slate-600 hover:text-rose-400 transition-colors text-[11px] cursor-pointer font-medium">删除</button>` 
             : '';
 
         let htmlContent = `
@@ -63,9 +63,9 @@ async function loadComments() {
                 const isReplyAuthorMe = (reply.user_hash === currentHash);
                 const replyLabel = isReplyAuthorMe ? "💬 我的点拨" : "💬 思维碰撞 / 老师点拨";
 
-                // 判断是否显示回复的删除按钮
+                // 【修改点】同样处理子回复的删除按钮绑定
                 const deleteReplyBtnHtml = isReplyAuthorMe 
-                    ? `<button onclick="deleteComment(${reply.id})" class="text-slate-600 hover:text-rose-400 transition-colors text-[10px] cursor-pointer font-medium">删除</button>` 
+                    ? `<button onclick="deleteComment('${reply.id}')" class="text-slate-600 hover:text-rose-400 transition-colors text-[10px] cursor-pointer font-medium">删除</button>` 
                     : '';
 
                 htmlContent += `
@@ -93,7 +93,7 @@ async function loadComments() {
             <div id="reply-container-${index}" class="hidden mt-3 gap-2 items-start animate-fade-in">
                 <input type="text" id="reply-input-${index}" placeholder="在此输入你的补充思路..."
                        class="flex-grow bg-slate-950 border border-slate-900 rounded-lg px-3 py-2 text-xs text-slate-300 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors">
-                <button onclick="submitReply(${index}, ${comment.id})" class="shrink-0 bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-bold text-[11px] px-3 h-8 rounded-lg transition-all cursor-pointer">
+                <button onclick="submitReply(${index}, '${comment.id}')" class="shrink-0 bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-bold text-[11px] px-3 h-8 rounded-lg transition-all cursor-pointer">
                     提交
                 </button>
             </div>
@@ -179,15 +179,16 @@ async function deleteComment(commentId) {
     if (!confirm('确定要删除这条思维沉淀吗？')) return;
 
     const currentHash = getCurrentUserHash();
-
-    // 首先尝试删除当前评论（如果是主评论，需要先清理或同时清理其子回复）
-    // 为了防止部分数据库未开启外键级联删除导致报错，我们两步走
     
     // 步骤 A：如果该评论是主评论，先干掉它底下的所有回复
-    await supabaseClient
+    const { error: replyError } = await supabaseClient
         .from('comments')
         .delete()
         .eq('parent_id', commentId);
+
+    if (replyError) {
+        console.error('清空子回复失败:', replyError);
+    }
 
     // 步骤 B：删除这条评论本身（强限制只能删自己的 user_hash）
     const { error } = await supabaseClient
@@ -197,8 +198,8 @@ async function deleteComment(commentId) {
         .eq('user_hash', currentHash);
 
     if (error) {
-        console.error('删除失败:', error);
-        alert('删除失败，请稍后再试');
+        console.error('删除主记录失败详情:', error);
+        alert(`删除失败: ${error.message || '权限不足'}`);
         return;
     }
 
