@@ -1,3 +1,7 @@
+// 初始化 Supabase 云端连接
+const SUPABASE_URL = "https://yafbnddgdugykbiaqmuw.supabase.co"; 
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhZmJuZGRnZHVneWtiaWFxbXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTU0ODcsImV4cCI6MjA5ODY5MTQ4N30.FlKeKfqJkxrYCm11834wb0g_xJdw-Y8CQ0iqJNxTTns"; 
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 function loadComments() {
     const flow = document.getElementById('comments-flow');
     flow.innerHTML = '';
