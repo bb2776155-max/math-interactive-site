@@ -205,4 +205,20 @@ async function deleteComment(commentId) {
 
     // 重新刷新视图
     loadComments();
-}
+}// 5. 开启云端实时监听（聊天室级别秒级同步）
+supabaseClient
+.channel('schema-db-changes')
+.on(
+    'postgres_changes',
+    {
+        event: '*', // 无论是有人新增(INSERT)还是有人删除(DELETE)，全方位监听
+        schema: 'public',
+        table: 'comments'
+    },
+    (payload) => {
+        console.log('检测到云端思维流变动，正在同步视图...', payload);
+        // 只要云端一变，多端立刻免刷新重新加载评论列表
+        loadComments();
+    }
+)
+.subscribe();
