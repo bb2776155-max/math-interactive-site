@@ -37,11 +37,19 @@ async function loadComments() {
         const isMainAuthorMe = (comment.user_hash === currentHash);
         const mainLabel = isMainAuthorMe ? "💡 我的思维沉淀" : `💡 学生思维沉淀 (#${index + 1})`;
 
+        // 判断是否显示主评论的删除按钮
+        const deleteMainBtnHtml = isMainAuthorMe 
+            ? `<button onclick="deleteComment(${comment.id})" class="text-slate-600 hover:text-rose-400 transition-colors text-[11px] cursor-pointer font-medium">删除</button>` 
+            : '';
+
         let htmlContent = `
             <div class="space-y-1">
                 <div class="flex items-center justify-between text-[11px] font-semibold ${isMainAuthorMe ? 'text-indigo-400' : 'text-slate-500'}">
                     <span>${mainLabel}</span>
-                    <span class="text-slate-500 font-normal">${comment.time_str}</span>
+                    <div class="flex items-center space-x-3">
+                        <span class="text-slate-500 font-normal">${comment.time_str}</span>
+                        ${deleteMainBtnHtml}
+                    </div>
                 </div>
                 <p class="text-slate-300 leading-relaxed break-all whitespace-pre-wrap text-sm font-medium">${comment.text}</p>
             </div>
@@ -55,11 +63,19 @@ async function loadComments() {
                 const isReplyAuthorMe = (reply.user_hash === currentHash);
                 const replyLabel = isReplyAuthorMe ? "💬 我的点拨" : "💬 思维碰撞 / 老师点拨";
 
+                // 判断是否显示回复的删除按钮
+                const deleteReplyBtnHtml = isReplyAuthorMe 
+                    ? `<button onclick="deleteComment(${reply.id})" class="text-slate-600 hover:text-rose-400 transition-colors text-[10px] cursor-pointer font-medium">删除</button>` 
+                    : '';
+
                 htmlContent += `
                     <div class="bg-slate-950/40 border border-slate-900/60 rounded-lg px-3 py-2 space-y-0.5 text-xs">
                         <div class="flex items-center justify-between text-[10px] font-medium ${isReplyAuthorMe ? 'text-indigo-400' : 'text-slate-600'}">
                             <span>${replyLabel}</span>
-                            <span class="text-slate-600 font-normal">${reply.time_str}</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-slate-600 font-normal">${reply.time_str}</span>
+                                ${deleteReplyBtnHtml}
+                            </div>
                         </div>
                         <p class="text-slate-400 leading-relaxed break-all whitespace-pre-wrap">${reply.text}</p>
                     </div>
@@ -155,5 +171,37 @@ async function submitReply(commentIndex, parentId) {
         return;
     }
 
+    loadComments();
+}
+
+// 4. 删除自己的评论/回复（安全隔离双重校验）
+async function deleteComment(commentId) {
+    if (!confirm('确定要删除这条思维沉淀吗？')) return;
+
+    const currentHash = getCurrentUserHash();
+
+    // 首先尝试删除当前评论（如果是主评论，需要先清理或同时清理其子回复）
+    // 为了防止部分数据库未开启外键级联删除导致报错，我们两步走
+    
+    // 步骤 A：如果该评论是主评论，先干掉它底下的所有回复
+    await supabaseClient
+        .from('comments')
+        .delete()
+        .eq('parent_id', commentId);
+
+    // 步骤 B：删除这条评论本身（强限制只能删自己的 user_hash）
+    const { error } = await supabaseClient
+        .from('comments')
+        .delete()
+        .eq('id', commentId)
+        .eq('user_hash', currentHash);
+
+    if (error) {
+        console.error('删除失败:', error);
+        alert('删除失败，请稍后再试');
+        return;
+    }
+
+    // 重新刷新视图
     loadComments();
 }
