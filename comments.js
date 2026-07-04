@@ -1,7 +1,9 @@
-// 初始化 Supabase 云端连接
+// 初始化 Supabase 云端连接 (修正全局对象首字母大小写逻辑)
 const SUPABASE_URL = "https://yafbnddgdugykbiaqmuw.supabase.co"; 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhZmJuZGRnZHVneWtiaWFxbXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTU0ODcsImV4cCI6MjA5ODY5MTQ4N30.FlKeKfqJkxrYCm11834wb0g_xJdw-Y8CQ0iqJNxTTns"; 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// 兼容处理：有些浏览器打包会识别 window.supabase，标准 CDN 会识别全局 supabase
+const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // 1. 从云端加载全部评论
 async function loadComments() {
@@ -10,13 +12,19 @@ async function loadComments() {
     const currentHash = getCurrentUserHash();
 
     // 从 Supabase 抓取当前题目的所有主评论和回复
-    const { data: dbComments, error } = await supabase
+    const { data: dbComments, error } = await supabaseClient
         .from('comments')
         .select('*')
         .eq('lesson_id', activeLessonId)
         .order('created_at', { ascending: true });
 
-    if (error || !dbComments || dbComments.length === 0) {
+    if (error) {
+        console.error('Supabase 读取错误:', error);
+        flow.innerHTML = `<div class="text-xs text-rose-500 italic py-2">云端数据读取失败，请检查网络或配置。</div>`;
+        return;
+    }
+
+    if (!dbComments || dbComments.length === 0) {
         flow.innerHTML = `<div class="text-xs text-slate-700 italic py-2">当前题目尚未记录思维快照...</div>`;
         return;
     }
@@ -92,7 +100,7 @@ async function submitComment() {
     const timeString = `${now.getMonth() + 1}-${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
     // 向 Supabase 插入数据
-    const { error } = await supabase
+    const { error } = await supabaseClient
         .from('comments')
         .insert([{
             lesson_id: activeLessonId,
@@ -101,10 +109,14 @@ async function submitComment() {
             user_hash: getCurrentUserHash()
         }]);
 
-    if (!error) {
-        input.value = '';
-        loadComments();
+    if (error) {
+        console.error('Supabase 写入错误:', error);
+        alert('评论发送失败，请查看控制台报错');
+        return;
     }
+
+    input.value = '';
+    loadComments();
 }
 
 function toggleReplyBox(index) {
@@ -129,7 +141,7 @@ async function submitReply(commentIndex, parentId) {
     const timeString = `${now.getMonth() + 1}-${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
     // 向 Supabase 插入回复数据
-    const { error } = await supabase
+    const { error } = await supabaseClient
         .from('comments')
         .insert([{
             lesson_id: activeLessonId,
@@ -139,7 +151,11 @@ async function submitReply(commentIndex, parentId) {
             parent_id: parentId
         }]);
 
-    if (!error) {
-        loadComments();
+    if (error) {
+        console.error('Supabase 回复写入错误:', error);
+        alert('回复失败');
+        return;
     }
+
+    loadComments();
 }
