@@ -81,3 +81,29 @@ function setStepStatus(lessonId, stepId, statusKey) {
         localStorage.setItem(storageKey, statusKey);
     }
 }
+
+function getAnnotationKey(lessonId, stepId) {
+    return `annotations_${lessonId}_${stepId}`;
+}
+
+function getStepAnnotations(lessonId, stepId) {
+    try {
+        return JSON.parse(localStorage.getItem(getAnnotationKey(lessonId, stepId)) || '[]');
+    } catch {
+        return [];
+    }
+}
+
+function setStepAnnotations(lessonId, stepId, annotations) {
+    localStorage.setItem(getAnnotationKey(lessonId, stepId), JSON.stringify(annotations));
+}
+
+function addStepAnnotation(lessonId, stepId, annotation) {
+    const annotations = getStepAnnotations(lessonId, stepId);
+    annotations.push(annotation);
+    setStepAnnotations(lessonId, stepId, annotations);
+}
+
+function clearStepAnnotations(lessonId, stepId) {
+    localStorage.removeItem(getAnnotationKey(lessonId, stepId));
+}

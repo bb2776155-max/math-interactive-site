@@ -1,6 +1,7 @@
 let activeLessonId = ALL_LESSONS[0].id;
 let selectedTagFilter = null;
 let reviewMode = 'full';
+let activeAnnotationSelection = null;
 
 const REVIEW_MODES = [
     { key: 'full', label: '正常阅读', dotClass: 'bg-slate-600' },
@@ -20,6 +21,150 @@ function escapeHtml(value) {
     const div = document.createElement('div');
     div.innerText = value || '';
     return div.innerHTML;
+}
+
+function escapeRegExp(value) {
+    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function applyAnnotationHighlights(root, annotations) {
+    if (!annotations || annotations.length === 0) return;
+
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent || parent.closest('script, style, svg, mjx-container, .student-highlight')) {
+                return NodeFilter.FILTER_REJECT;
+            }
+            return node.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+    });
+
+    const textNodes = [];
+    while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+    annotations.forEach(annotation => {
+        const selectedText = annotation.text;
+        if (!selectedText || selectedText.length < 2) return;
+
+        const pattern = new RegExp(escapeRegExp(selectedText), 'g');
+        textNodes.forEach(node => {
+            if (!node.parentNode || !node.nodeValue.includes(selectedText)) return;
+
+            const fragment = document.createDocumentFragment();
+            let lastIndex = 0;
+            node.nodeValue.replace(pattern, (match, index) => {
+                if (index > lastIndex) {
+                    fragment.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, index)));
+                }
+                const mark = document.createElement('span');
+                mark.className = `student-highlight student-highlight-${annotation.color || 'blue'}`;
+                mark.textContent = match;
+                fragment.appendChild(mark);
+                lastIndex = index + match.length;
+            });
+            if (lastIndex < node.nodeValue.length) {
+                fragment.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex)));
+            }
+            node.parentNode.replaceChild(fragment, node);
+        });
+    });
+}
+
+function renderAnnotationToolbar() {
+    let toolbar = document.getElementById('annotation-toolbar');
+    if (toolbar) return toolbar;
+
+    toolbar = document.createElement('div');
+    toolbar.id = 'annotation-toolbar';
+    toolbar.className = 'annotation-toolbar hidden';
+    toolbar.innerHTML = `
+        <button onclick="saveCurrentAnnotation('blue')">蓝笔</button>
+        <button onclick="saveCurrentAnnotation('yellow')">黄笔</button>
+        <button onclick="markCurrentSelectionForReview()">需回看</button>
+        <button onclick="clearCurrentStepAnnotations()">清空本题</button>
+    `;
+    document.body.appendChild(toolbar);
+    return toolbar;
+}
+
+function hideAnnotationToolbar() {
+    const toolbar = document.getElementById('annotation-toolbar');
+    if (toolbar) toolbar.classList.add('hidden');
+}
+
+function handleAnnotationSelection() {
+    const selection = window.getSelection();
+    const selectedText = selection ? selection.toString().trim() : '';
+    const toolbar = renderAnnotationToolbar();
+
+    if (!selection || selectedText.length < 2 || selection.rangeCount === 0) {
+        hideAnnotationToolbar();
+        activeAnnotationSelection = null;
+        return;
+    }
+
+    const range = selection.getRangeAt(0);
+    const answerEl = range.commonAncestorContainer.nodeType === Node.TEXT_NODE
+        ? range.commonAncestorContainer.parentElement.closest('.lesson-answer')
+        : range.commonAncestorContainer.closest('.lesson-answer');
+    const details = answerEl ? answerEl.closest('details') : null;
+
+    if (!answerEl || !details || !details.id) {
+        hideAnnotationToolbar();
+        activeAnnotationSelection = null;
+        return;
+    }
+
+    activeAnnotationSelection = {
+        lessonId: activeLessonId,
+        stepId: details.id,
+        text: selectedText.slice(0, 180)
+    };
+
+    const rect = range.getBoundingClientRect();
+    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + window.scrollX))}px`;
+    toolbar.style.top = `${Math.max(12, rect.top + window.scrollY - 44)}px`;
+    toolbar.classList.remove('hidden');
+}
+
+function refreshStepAnnotations(lessonId, stepId) {
+    const details = document.getElementById(stepId);
+    const answerEl = details ? details.querySelector('.lesson-answer') : null;
+    if (!answerEl) return;
+
+    answerEl.querySelectorAll('.student-highlight').forEach(mark => {
+        mark.replaceWith(document.createTextNode(mark.textContent));
+    });
+    answerEl.normalize();
+    applyAnnotationHighlights(answerEl, getStepAnnotations(lessonId, stepId));
+}
+
+function saveCurrentAnnotation(color) {
+    if (!activeAnnotationSelection) return;
+    addStepAnnotation(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId, {
+        text: activeAnnotationSelection.text,
+        color,
+        createdAt: Date.now()
+    });
+    window.getSelection().removeAllRanges();
+    hideAnnotationToolbar();
+    refreshStepAnnotations(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId);
+}
+
+function markCurrentSelectionForReview() {
+    if (!activeAnnotationSelection) return;
+    setStepStatus(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId, 'review');
+    updateStepStatusButton(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId);
+    saveCurrentAnnotation('yellow');
+}
+
+function clearCurrentStepAnnotations() {
+    if (!activeAnnotationSelection) return;
+    clearStepAnnotations(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId);
+    window.getSelection().removeAllRanges();
+    hideAnnotationToolbar();
+    refreshStepAnnotations(activeAnnotationSelection.lessonId, activeAnnotationSelection.stepId);
 }
 
 function getSearchMatchReason(lesson, searchQuery) {
@@ -277,6 +422,11 @@ function switchLesson(id, resetScroll = true) {
             </div>
         `;
 
+        applyAnnotationHighlights(
+            details.querySelector('.lesson-answer'),
+            getStepAnnotations(id, stepId)
+        );
+
         // 监听展开动作，静默捕获当前的步骤ID实现进度坐标保存
         details.addEventListener('toggle', function() {
             if (this.open) {
@@ -301,6 +451,14 @@ function switchLesson(id, resetScroll = true) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    renderAnnotationToolbar();
+    document.addEventListener('mouseup', () => setTimeout(handleAnnotationSelection, 0));
+    document.addEventListener('touchend', () => setTimeout(handleAnnotationSelection, 80));
+    document.addEventListener('mousedown', (event) => {
+        if (!event.target.closest('#annotation-toolbar')) {
+            hideAnnotationToolbar();
+        }
+    });
     updateReviewModeButton();
     if (localStorage.getItem('math_auth_passed') === 'true') {
         unlockSite();

@@ -67,6 +67,24 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-trig-02",
+        "title": "找好用条件并尝试基本工具",
+        "difficulty_tag": "中档",
+        "stage_tag": "1阶段",
+        "mindset_tags": [
+            "三角函数",
+            "变形",
+            "找好用条件然后尝试用基本工具"
+        ],
+        "steps": [
+            {
+                "id": "trig_condition_tool_01",
+                "question": "在$\\triangle ABC$中，$\\sin(B-A)=\\frac{1}{4}$，$2a^2+c^2=2b^2$，则$\\sin C=$(  )",
+                "answer": "<div class='thick-content'>看到这个题，可能会觉得无从下手，因为这两个条件离目标 $\\sin C$ 都挺远的。那就不管 $\\sin C$ 这个目标了，像我们反复说的那样，把目标改成：我们能从条件中得到什么。<br><br>但是这两个条件看起来都不好用？那么，<span class='text-indigo-400'>哪个条件看起来更好用？</span>我想是第二个。因为第一个拆开后正余弦乘在一起，如果再用正余弦定理就变得更复杂；如果不拆开，角 $B-A$ 的正弦有什么几何意义吗？也没有。第二个条件更干净一点。<br><br>然后我们就直接在它上面尝试基本工具：正弦定理、余弦定理。若尝试正弦定理之后，会发现它没有很好的结果。那就试余弦定理。<br><br>有三种应用余弦定理的路径：把 $c^2$ 变了，把 $a^2$ 变了，把 $b^2$ 变了。真令人纠结啊，把谁变了好呢？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>那就直接都试一遍</span><span class='hidden'>请你自己试一下，看看能不能得到好的结果。</span><br><br>如果你把 $c^2$ 变掉，那么：<br><br>$$c^2=a^2+b^2-2ab\\cos C$$<br><br>代入 $2a^2+c^2=2b^2$ 得：<br><br>$$2a^2+a^2+b^2-2ab\\cos C=2b^2$$<br><br>化简得：<br><br>$$3a^2-b^2-2ab\\cos C=0$$<br><br>看上去好像没有头绪。<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后怎么办呢？</span><span class='hidden'>然后你就换条路走呀。</span><br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>比如把 $b^2$ 换了</span><span class='hidden'>由余弦定理：$$b^2=a^2+c^2-2ac\\cos B$$所以：$$2a^2+c^2=2(a^2+c^2-2ac\\cos B)$$你会发现左边的 $2a^2$ 和右边的 $2a^2$ 消掉了。</span><br><br>化简得：<br><br>$$c^2=4ac\\cos B$$<br><br>再化简：<br><br>$$c=4a\\cos B$$<br><br>这就是得到了一个不错的结果了，我们把它单独写出来。<br><br>$$c=4a\\cos B$$<br><br>我们要对它怎么做呢？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>还是用基本工具</span><span class='hidden'>余弦定理或者正弦定理。</span><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>这里该用哪个？</span><span class='hidden'>当然是用正弦定理，余弦定理又会把它变复杂了。</span><br><br>用正弦定理得：<br><br>$$\\sin C=4\\sin A\\cos B$$<br><br>然后这个式子已经不太能继续化简了，于是我们再去看它能否和另一个还没有用过的条件产生化学反应。<br><br>$$\\sin(B-A)=\\frac{1}{4}$$<br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>这里有地方对应上了吗？</span><span class='hidden'>$\\sin(B-A)$ 里面包含一个 $\\sin A\\cos B$。进一步自然会想到：刚才把 $b^2$ 换了得到 $\\sin A\\cos B$，那把 $a^2$ 换了是不是也能得到一个好东西？而且得到的东西一定不会还是刚才的 $\\sin A\\cos B$。</span><br><br>于是我们把 $a^2$ 用余弦定理换掉：<br><br>$$a^2=b^2+c^2-2bc\\cos A$$<br><br>代入 $2a^2+c^2=2b^2$：<br><br>$$2(b^2+c^2-2bc\\cos A)+c^2=2b^2$$<br><br>化简得：<br><br>$$3c=4b\\cos A$$<br><br>再用正弦定理得到：<br><br>$$3\\sin C=4\\sin B\\cos A$$<br><br>现在把两个结果合在一起：<br><br>$$\\sin C=4\\sin A\\cos B$$<br>$$3\\sin C=4\\sin B\\cos A$$<br><br>两式相加：<br><br>$$4\\sin C=4(\\sin A\\cos B+\\sin B\\cos A)$$<br><br>所以：<br><br>$$\\sin C=\\sin(A+B)$$<br><br>因为 $A+B=\\pi-C$，所以 $\\sin(A+B)=\\sin C$，这一步本身只是自洽。真正要用的是相减：<br><br>$$3\\sin C-\\sin C=4\\sin B\\cos A-4\\sin A\\cos B$$<br><br>即：<br><br>$$2\\sin C=4\\sin(B-A)$$<br><br>代入 $\\sin(B-A)=\\frac{1}{4}$：<br><br>$$2\\sin C=1$$<br><br>因此：<br><br>$$\\sin C=\\frac{1}{2}$$</div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】当目标不好下手时，先找更好用的条件；对干净的边长关系尝试正弦定理、余弦定理。某条路不好用就换路，得到可用结果后再回头和另一个条件对接。</div>"
+            }
+        ]
+    },
+    {
         "id": "lesson-composite-01",
         "title": "复合函数的单调性",
         "difficulty_tag": "中档",
