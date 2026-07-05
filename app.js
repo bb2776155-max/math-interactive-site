@@ -214,6 +214,8 @@ function formatLessonAnswer(html) {
     wrapper.innerHTML = html;
 
     wrapper.querySelectorAll('.thick-content:not(.no-auto-format)').forEach(block => {
+        if (block.querySelector('.hidden')) return;
+
         const parts = block.innerHTML
             .split(/(?:<br\s*\/?>\s*){2,}/i)
             .map(part => part.trim())
