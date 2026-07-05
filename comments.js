@@ -1,7 +1,100 @@
 // 初始化 Supabase 云端连接
 const SUPABASE_URL = "https://yafbnddgdugykbiaqmuw.supabase.co"; 
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhZmJuZGRnZHVneWtiaWFxbXV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxMTU0ODcsImV4cCI6MjA5ODY5MTQ4N30.FlKeKfqJkxrYCm11834wb0g_xJdw-Y8CQ0iqJNxTTns"; 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    global: {
+        fetch: (url, options = {}) => {
+            const headers = new Headers(options.headers || {});
+            headers.set('x-user-hash', getCurrentUserHash());
+            options.headers = headers;
+            return fetch(url, options);
+        }
+    }
+});
+const COMMENT_IMAGE_BUCKET = 'comment-images';
+const MAX_COMMENT_IMAGES = 4;
+
+function getCommentImageFiles() {
+    const input = document.getElementById('comment-image-input');
+    return input ? Array.from(input.files || []).slice(0, MAX_COMMENT_IMAGES) : [];
+}
+
+function handleCommentImageChange() {
+    const input = document.getElementById('comment-image-input');
+    const status = document.getElementById('comment-image-status');
+    const files = getCommentImageFiles();
+    if (!status) return;
+
+    if (files.length === 0) {
+        status.innerText = '';
+        return;
+    }
+
+    const names = files.map(file => file.name).join('、');
+    const rawCount = input ? input.files.length : files.length;
+    status.innerText = rawCount > MAX_COMMENT_IMAGES ? `最多上传 ${MAX_COMMENT_IMAGES} 张，已取前 ${MAX_COMMENT_IMAGES} 张` : names;
+}
+
+function normalizeImageUrls(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') {
+        try {
+            const parsed = JSON.parse(value);
+            return Array.isArray(parsed) ? parsed : [value];
+        } catch {
+            return [value];
+        }
+    }
+    return [];
+}
+
+function renderCommentImages(comment) {
+    const imageUrls = normalizeImageUrls(comment.image_urls);
+    if (imageUrls.length === 0 && comment.image_url) {
+        imageUrls.push(comment.image_url);
+    }
+    if (imageUrls.length === 0) return '';
+
+    return `
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2">
+            ${imageUrls.map(url => `
+                <a href="${url}" target="_blank" rel="noopener" class="block overflow-hidden rounded-lg border border-slate-800 bg-slate-950/50">
+                    <img src="${url}" alt="评论图片" class="w-full h-28 object-cover hover:opacity-90 transition-opacity">
+                </a>
+            `).join('')}
+        </div>
+    `;
+}
+
+async function uploadCommentImages(files) {
+    const uploadedUrls = [];
+    const userHash = getCurrentUserHash();
+
+    for (const file of files) {
+        if (!file.type.startsWith('image/')) {
+            throw new Error('只能上传图片文件');
+        }
+
+        const extension = file.name.split('.').pop() || 'jpg';
+        const safeName = `${activeLessonId}/${userHash}/${Date.now()}-${Math.random().toString(16).slice(2)}.${extension}`;
+        const { error } = await supabaseClient.storage
+            .from(COMMENT_IMAGE_BUCKET)
+            .upload(safeName, file, { cacheControl: '3600', upsert: false });
+
+        if (error) {
+            throw new Error(`图片上传失败：${error.message}`);
+        }
+
+        const { data } = supabaseClient.storage
+            .from(COMMENT_IMAGE_BUCKET)
+            .getPublicUrl(safeName);
+
+        uploadedUrls.push(data.publicUrl);
+    }
+
+    return uploadedUrls;
+}
 
 // 1. 从云端加载全部评论
 async function loadComments() {
@@ -52,6 +145,7 @@ async function loadComments() {
                     </div>
                 </div>
                 <p class="text-slate-300 leading-relaxed break-all whitespace-pre-wrap text-sm font-medium">${comment.text}</p>
+                ${renderCommentImages(comment)}
             </div>
         `;
 
@@ -78,6 +172,7 @@ async function loadComments() {
                             </div>
                         </div>
                         <p class="text-slate-400 leading-relaxed break-all whitespace-pre-wrap">${reply.text}</p>
+                        ${renderCommentImages(reply)}
                     </div>
                 `;
             });
@@ -91,8 +186,17 @@ async function loadComments() {
                 </button>
             </div>
             <div id="reply-container-${index}" class="hidden mt-3 gap-2 items-start animate-fade-in">
-                <input type="text" id="reply-input-${index}" placeholder="在此输入你的补充思路..."
-                       class="flex-grow bg-slate-950 border border-slate-900 rounded-lg px-3 py-2 text-xs text-slate-300 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors">
+                <div class="flex-grow space-y-1.5">
+                    <input type="text" id="reply-input-${index}" placeholder="在此输入你的补充思路..."
+                           class="w-full bg-slate-950 border border-slate-900 rounded-lg px-3 py-2 text-xs text-slate-300 placeholder-slate-700 focus:outline-none focus:border-indigo-500 transition-colors">
+                    <div class="flex items-center justify-between gap-2">
+                        <label class="text-[10px] font-bold text-slate-600 hover:text-indigo-400 cursor-pointer transition-colors">
+                            <input id="reply-image-input-${index}" type="file" accept="image/*" multiple class="hidden" onchange="handleReplyImageChange(${index})">
+                            上传图片
+                        </label>
+                        <span id="reply-image-status-${index}" class="text-[10px] text-slate-700 truncate"></span>
+                    </div>
+                </div>
                 <button onclick="submitReply(${index}, '${comment.id}')" class="shrink-0 bg-slate-800 hover:bg-indigo-600 text-slate-300 hover:text-white font-bold text-[11px] px-3 h-8 rounded-lg transition-all cursor-pointer">
                     提交
                 </button>
@@ -107,11 +211,27 @@ async function loadComments() {
 // 2. 将新评论写入云端
 async function submitComment() {
     const input = document.getElementById('comment-input');
+    const imageInput = document.getElementById('comment-image-input');
+    const status = document.getElementById('comment-image-status');
     const text = input.value.trim();
-    if (!text) return;
+    const files = getCommentImageFiles();
+    if (!text && files.length === 0) return;
 
     const now = new Date();
     const timeString = `${now.getMonth() + 1}-${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    let imageUrls = [];
+
+    try {
+        if (files.length > 0) {
+            if (status) status.innerText = '图片上传中...';
+            imageUrls = await uploadCommentImages(files);
+        }
+    } catch (error) {
+        console.error('图片上传错误:', error);
+        alert(error.message || '图片上传失败，请检查 Supabase Storage 配置');
+        if (status) status.innerText = '';
+        return;
+    }
 
     // 向 Supabase 插入数据
     const { error } = await supabaseClient
@@ -120,16 +240,20 @@ async function submitComment() {
             lesson_id: activeLessonId,
             text: text,
             time_str: timeString,
-            user_hash: getCurrentUserHash()
+            user_hash: getCurrentUserHash(),
+            image_urls: imageUrls
         }]);
 
     if (error) {
         console.error('Supabase 写入错误:', error);
-        alert('评论发送失败，请查看控制台报错');
+        alert(`评论发送失败：${error.message || '请查看控制台报错'}。如果刚刚上传了图片，请确认 comments 表已添加 image_urls 字段。`);
+        if (status) status.innerText = '';
         return;
     }
 
     input.value = '';
+    if (imageInput) imageInput.value = '';
+    if (status) status.innerText = '';
     loadComments();
 }
 
@@ -145,14 +269,45 @@ function toggleReplyBox(index) {
     }
 }
 
+function getReplyImageFiles(index) {
+    const input = document.getElementById(`reply-image-input-${index}`);
+    return input ? Array.from(input.files || []).slice(0, MAX_COMMENT_IMAGES) : [];
+}
+
+function handleReplyImageChange(index) {
+    const input = document.getElementById(`reply-image-input-${index}`);
+    const status = document.getElementById(`reply-image-status-${index}`);
+    const files = getReplyImageFiles(index);
+    if (!status) return;
+
+    const rawCount = input ? input.files.length : files.length;
+    status.innerText = rawCount > MAX_COMMENT_IMAGES ? `最多 ${MAX_COMMENT_IMAGES} 张` : files.map(file => file.name).join('、');
+}
+
 // 3. 将新回复写入云端
 async function submitReply(commentIndex, parentId) {
     const input = document.getElementById(`reply-input-${commentIndex}`);
+    const imageInput = document.getElementById(`reply-image-input-${commentIndex}`);
+    const status = document.getElementById(`reply-image-status-${commentIndex}`);
     const text = input.value.trim();
-    if (!text) return;
+    const files = getReplyImageFiles(commentIndex);
+    if (!text && files.length === 0) return;
 
     const now = new Date();
     const timeString = `${now.getMonth() + 1}-${now.getDate()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    let imageUrls = [];
+
+    try {
+        if (files.length > 0) {
+            if (status) status.innerText = '图片上传中...';
+            imageUrls = await uploadCommentImages(files);
+        }
+    } catch (error) {
+        console.error('回复图片上传错误:', error);
+        alert(error.message || '回复图片上传失败，请检查 Supabase Storage 配置');
+        if (status) status.innerText = '';
+        return;
+    }
 
     // 向 Supabase 插入回复数据
     const { error } = await supabaseClient
@@ -162,15 +317,20 @@ async function submitReply(commentIndex, parentId) {
             text: text,
             time_str: timeString,
             user_hash: getCurrentUserHash(),
-            parent_id: parentId
+            parent_id: parentId,
+            image_urls: imageUrls
         }]);
 
     if (error) {
         console.error('Supabase 回复写入错误:', error);
-        alert('回复失败');
+        alert(`回复失败：${error.message || '请查看控制台报错'}。如果刚刚上传了图片，请确认 comments 表已添加 image_urls 字段。`);
+        if (status) status.innerText = '';
         return;
     }
 
+    input.value = '';
+    if (imageInput) imageInput.value = '';
+    if (status) status.innerText = '';
     loadComments();
 }
 

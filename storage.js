@@ -64,3 +64,20 @@ function toggleLessonStatus() {
     updateStatusButton(activeLessonId);
     renderSidebar();
 }
+
+function getStepStatusKey(lessonId, stepId) {
+    return `step_status_${lessonId}_${stepId}`;
+}
+
+function getStepStatus(lessonId, stepId) {
+    return localStorage.getItem(getStepStatusKey(lessonId, stepId)) || 'none';
+}
+
+function setStepStatus(lessonId, stepId, statusKey) {
+    const storageKey = getStepStatusKey(lessonId, stepId);
+    if (statusKey === 'none') {
+        localStorage.removeItem(storageKey);
+    } else {
+        localStorage.setItem(storageKey, statusKey);
+    }
+}
