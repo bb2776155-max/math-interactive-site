@@ -213,7 +213,7 @@ function formatLessonAnswer(html) {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = html;
 
-    wrapper.querySelectorAll('.thick-content, .hidden').forEach(block => {
+    wrapper.querySelectorAll('.thick-content:not(.no-auto-format)').forEach(block => {
         const parts = block.innerHTML
             .split(/(?:<br\s*\/?>\s*){2,}/i)
             .map(part => part.trim())
