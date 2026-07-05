@@ -112,14 +112,7 @@ $$2(b^2+c^2-2bc\\cos A)+c^2=2b^2$$
 $$3c=4b\\cos A$$
 再用正弦定理得到：
 $$3\\sin C=4\\sin B\\cos A$$
-现在把两个结果合在一起：
-$$\\sin C=4\\sin A\\cos B$$
-$$3\\sin C=4\\sin B\\cos A$$
-两式相加：
-$$4\\sin C=4(\\sin A\\cos B+\\sin B\\cos A)$$
-所以：
-$$\\sin C=\\sin(A+B)$$
-因为 $A+B=\\pi-C$，所以 $\\sin(A+B)=\\sin C$，这一步本身只是自洽。真正要用的是相减：
+于是直接把这两个结果用进 $\\sin(B-A)$：
 $$3\\sin C-\\sin C=4\\sin B\\cos A-4\\sin A\\cos B$$
 即：
 $$2\\sin C=4\\sin(B-A)$$
