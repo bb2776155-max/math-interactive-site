@@ -13,6 +13,7 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
 });
 const COMMENT_IMAGE_BUCKET = 'comment-images';
 const MAX_COMMENT_IMAGES = 4;
+let latestCommentsRequestId = 0;
 
 function getCommentImageFiles() {
     const input = document.getElementById('comment-image-input');
@@ -98,6 +99,8 @@ async function uploadCommentImages(files) {
 
 // 1. 从云端加载全部评论
 async function loadComments() {
+    const requestId = ++latestCommentsRequestId;
+    const requestedLessonId = activeLessonId;
     const flow = document.getElementById('comments-flow');
     flow.innerHTML = '';
     const currentHash = getCurrentUserHash();
@@ -106,8 +109,12 @@ async function loadComments() {
     const { data: dbComments, error } = await supabaseClient
         .from('comments')
         .select('*')
-        .eq('lesson_id', activeLessonId)
+        .eq('lesson_id', requestedLessonId)
         .order('created_at', { ascending: true });
+
+    if (requestId !== latestCommentsRequestId || requestedLessonId !== activeLessonId) {
+        return;
+    }
 
     if (error) {
         console.error('Supabase 读取错误:', error);
