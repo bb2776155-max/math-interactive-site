@@ -55,14 +55,14 @@ const ALL_LESSONS = [
     }, // <-- 就是这里！刚才漏掉了这个至关重要的分隔逗号
     {
         "id": "lesson-trig-01",
-        "title": "已知条件的信息压榨与角的拆凑",
-        "difficulty_tag": "1阶段",
-        "stage_tag": "三角函数",
-        "mindset_tags": ["把能做的事情先做"],
+        "title": "三角函数",
+        "difficulty_tag": "常规",
+        "stage_tag": "1阶段",
+        "mindset_tags": ["三角函数","把能做的事情先做"],
         "steps": [
             {
-                "question": "已知 $\\alpha \\in \\left[\\frac{\\pi}{2}, \\pi\\right]$, $\\beta \\in \\left[0, \\frac{\\pi}{2}\right]$, 若 $\\sin(\\alpha+\\beta)=\\frac{1}{3}$, $\\cos \\beta=\\frac{\\sqrt{3}}{3}$, 则 $\\cos 2\\alpha = (\\quad)$",
-                "answer": "<div class='thick-content'>我们先追求得到尽可能多的信息，题目有 $\\cos \\beta$ 我们自然想知道 $\\sin\\beta$ 是多少。因为 $\\beta \\in \\left[0, \\frac{\\pi}{2}\\right]$，所以 $\\sin\\beta\\geq0$，所以 $\\sin\\beta=+\\sqrt{1-\\cos^2\\beta}=\\frac{\\sqrt 6}{3}$。同样我们看能否知道 $\\cos(\\alpha+\\beta)$ 是多少：<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>因为$\\alpha+\\beta\\in\\left[\\frac{\\pi}{2}, \\frac{3\\pi}{2}\\right]$，所以$\\cos(\\alpha+\\beta)\\leq 0$，所以$\\cos(\\alpha+\\beta)=-\\sqrt{1-\\sin^2(\\alpha+\\beta)}=-\\frac{2\\sqrt 2}{3}$。</span><span class='hidden'>然后我们能做什么？知道两个角的正弦和余弦值能做什么？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>那我们就可以算出这两个角相加，相减的正弦和余弦：$\\sin(\\alpha+\\beta-\\beta)=\\sin(\\alpha+\\beta)\\cos\\beta-\\cos(\\alpha+\\beta)\\sin\\beta=\\frac{5\\sqrt 3}{9}=\\sin\\alpha$，所以$\\cos2\\alpha=1-2\\sin^2\\alpha=-\\frac{23}{27}$</span><span class='hidden'></span></span></div>"
+                "question": "已知 $\\alpha \\in \\left[\\frac{\\pi}{2}, \\pi\\right]$, $\\beta \\in \\left[0, \\frac{\\pi}{2}\\right]$, 若 $\\sin(\\alpha+\\beta)=\\frac{1}{3}$, $\\cos \\beta=\\frac{\\sqrt{3}}{3}$, 则 $\\cos 2\\alpha = (\\quad)$",
+                "answer": "<div class='thick-content'>我们先追求得到尽可能多的信息，题目有 $\\cos \\beta$ 我们自然想知道 $\\sin\\beta$ 是多少。因为 $\\beta \\in \\left[0, \\frac{\\pi}{2}\\right]$，所以 $\\sin\\beta\\geq0$，所以 $\\sin\\beta=+\\sqrt{1-\\cos^2\\beta}=\\frac{\\sqrt 6}{3}$。同样我们<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>看能否知道 $\\cos(\\alpha+\\beta)$ 是多少：</span><span class='hidden'>因为 $\\alpha+\\beta\\in\\left[\\frac{\\pi}{2}, \\frac{3\\pi}{2}\\right]$，所以 $\\cos(\\alpha+\\beta)\\leq 0$，所以 $\\cos(\\alpha+\\beta)=-\\sqrt{1-\\sin^2(\\alpha+\\beta)}=-\\frac{2\\sqrt 2}{3}$。实用然后我们能做什么？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>知道两个角的正弦和余弦值能做什么？</span><span class='hidden'>那我们就可以算出这两个角相加，相减的正弦和余弦：$\\sin(\\alpha+\\beta-\\beta)=\\sin(\\alpha+\\beta)\\cos\\beta-\\cos(\\alpha+\\beta)\\sin\\beta=\\frac{5\\sqrt 3}{9}=\\sin\\alpha$，所以$\\cos2\\alpha=1-2\\sin^2\\alpha=-\\frac{23}{27}$</span></span></div>"
             }
         ]
     }
