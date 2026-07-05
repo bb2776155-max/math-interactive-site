@@ -98,11 +98,11 @@ async function uploadCommentImages(files) {
 }
 
 // 1. 从云端加载全部评论
-async function loadComments() {
+async function loadComments(lessonId = activeLessonId) {
     const requestId = ++latestCommentsRequestId;
-    const requestedLessonId = activeLessonId;
+    const requestedLessonId = lessonId;
     const flow = document.getElementById('comments-flow');
-    flow.innerHTML = '';
+    flow.innerHTML = `<div class="text-xs text-slate-700 italic py-2">评论加载中...</div>`;
     const currentHash = getCurrentUserHash();
 
     // 从 Supabase 抓取当前题目的所有主评论和回复
@@ -121,6 +121,8 @@ async function loadComments() {
         flow.innerHTML = `<div class="text-xs text-rose-500 italic py-2">云端数据读取失败，请检查网络或配置。</div>`;
         return;
     }
+
+    console.log('评论加载完成:', requestedLessonId, dbComments ? dbComments.length : 0);
 
     if (!dbComments || dbComments.length === 0) {
         flow.innerHTML = `<div class="text-xs text-slate-700 italic py-2">当前题目尚未记录思维快照...</div>`;
@@ -261,7 +263,7 @@ async function submitComment() {
     input.value = '';
     if (imageInput) imageInput.value = '';
     if (status) status.innerText = '';
-    loadComments();
+    loadComments(activeLessonId);
 }
 
 function toggleReplyBox(index) {
@@ -338,7 +340,7 @@ async function submitReply(commentIndex, parentId) {
     input.value = '';
     if (imageInput) imageInput.value = '';
     if (status) status.innerText = '';
-    loadComments();
+    loadComments(activeLessonId);
 }
 
 // 4. 删除自己的评论/回复（安全隔离双重校验）
@@ -371,7 +373,7 @@ async function deleteComment(commentId) {
     }
 
     // 重新刷新视图
-    loadComments();
+    loadComments(activeLessonId);
 }// 5. 开启云端实时监听（聊天室级别秒级同步）
 supabaseClient
 .channel('schema-db-changes')
@@ -385,7 +387,7 @@ supabaseClient
     (payload) => {
         console.log('检测到云端思维流变动，正在同步视图...', payload);
         // 只要云端一变，多端立刻免刷新重新加载评论列表
-        loadComments();
+        loadComments(activeLessonId);
     }
 )
 .subscribe();

@@ -274,7 +274,7 @@ function switchLesson(id, resetScroll = true) {
     }
 
     checkHistoryProgress();
-    loadComments();
+    loadComments(id);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
