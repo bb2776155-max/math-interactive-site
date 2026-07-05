@@ -53,4 +53,31 @@ const ALL_LESSONS = [
             }
         ]
     }
+    {
+        id: "lesson-trig-01", // 可根据你的课时编号自行修改
+        title: "三角函数",
+        tags: ["1阶段", "三角函数", "把能做的事情先做"],
+        steps: [
+            {
+                type: "problem",
+                text: "已知 $\\alpha \\in \\left[\\frac{\\pi}{2}, \\pi\\right]$, $\\beta \\in \\left[0, \\frac{\\pi}{2}\right]$, 若 $\\sin(\\alpha+\\beta)=\\frac{1}{3}$, $\\cos \\beta=\\frac{\\sqrt{3}}{3}$, 则 $\\cos 2\\alpha = (\\quad)$"
+            },
+            {
+                type: "thought",
+                text: "我们先追求得到尽可能多的信息，题目有 $\\cos \\beta$ 我们自然想知道 $\\sin\\beta$ 是多少。因为 $\\beta \\in \\left[0, \\frac{\\pi}{2}\\right]$，所以 $\\sin\\beta\\geq0$，所以 $\\sin\\beta=+\\sqrt{1-\\cos^2\\beta}=\\frac{\\sqrt 6}{3}$。同样我们看能否知道 $\\cos(\\alpha+\\beta)$ 是多少："
+            },
+            {
+                type: "hidden",
+                text: "因为 $\\alpha+\\beta\\in\\left[\\frac{\\pi}{2}, \\frac{3\\pi}{2}\\right]$，且已知 $\\sin(\\alpha+\\beta)=\\frac{1}{3} > 0$，可以进一步将范围精确锁定在第二象限 $\\alpha+\\beta\\in\\left[\\frac{\\pi}{2}, \\pi\\right]$。因此 $\\cos(\\alpha+\\beta)\\leq 0$，由此可以硬榨出：$$\\cos(\\alpha+\\beta)=-\\sqrt{1-\\sin^2(\\alpha+\\beta)}=-\\frac{2\\sqrt 2}{3}$$"
+            },
+            {
+                type: "thought",
+                text: "现在已知了 $\\beta$ 以及 $\\alpha+\\beta$ 的正弦和余弦值。接下来我们能做什么？知道两个角的正弦和余弦值能做什么？"
+            },
+            {
+                type: "hidden",
+                text: "既然我们要算的是关于 $\\alpha$ 的式子，自然想到利用已知角去拆凑未知角：$\\alpha = (\\alpha+\\beta) - \\beta$。那我们就可以算出这两个角相减的正弦值：$$\\sin\\alpha = \\sin(\\alpha+\\beta-\\beta) = \\sin(\\alpha+\\beta)\\cos\\beta - \\cos(\\alpha+\\beta)\\sin\\beta$$ 代入数据计算：$$\\sin\\alpha = \\frac{1}{3} \\cdot \\frac{\\sqrt{3}}{3} - \\left(-\\frac{2\\sqrt{2}}{3}\\right) \\cdot \\frac{\\sqrt{6}}{3} = \\frac{\\sqrt{3}}{9} + \\frac{4\\sqrt{3}}{9} = \\frac{5\\sqrt 3}{9}$$ 知道了 $\\sin\\alpha$，最后利用二倍角公式即可一枪干掉答案：$$\\cos2\\alpha = 1 - 2\\sin^2\\alpha = 1 - 2 \\cdot \\left(\\frac{5\\sqrt{3}}{9}\\right)^2 = 1 - 2 \\cdot \\frac{75}{81} = 1 - \\frac{50}{27} = -\\frac{23}{27}$$"
+            }
+        ]
+    },
 ];
