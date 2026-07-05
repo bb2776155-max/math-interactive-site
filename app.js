@@ -64,6 +64,27 @@ function updateStepStatusButton(lessonId, stepId) {
     btn.innerHTML = `<span class="font-mono mr-1">${stage.icon}</span>${stage.label}`;
 }
 
+function formatLessonAnswer(html) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html;
+
+    wrapper.querySelectorAll('.thick-content, .hidden').forEach(block => {
+        const parts = block.innerHTML
+            .split(/(?:<br\s*\/?>\s*){2,}/i)
+            .map(part => part.trim())
+            .filter(Boolean);
+
+        if (parts.length <= 1) return;
+
+        const paragraphTag = block.tagName === 'SPAN' ? 'span' : 'div';
+        block.innerHTML = parts
+            .map(part => `<${paragraphTag} class="lesson-paragraph">${part}</${paragraphTag}>`)
+            .join('');
+    });
+
+    return wrapper.innerHTML;
+}
+
 function toggleInlinePPT(triggerElement) {
     const contentElement = triggerElement.nextElementSibling;
     if (contentElement) {
@@ -241,6 +262,8 @@ function switchLesson(id, resetScroll = true) {
             `;
         }
 
+        stepRenderedAnswer = formatLessonAnswer(stepRenderedAnswer);
+
         details.innerHTML = `
             <summary class="flex items-center justify-between px-5 py-4.5 select-none bg-slate-900/30 border-b border-slate-900 cursor-pointer group-open:border-indigo-500/20 transition-colors">
                 <div class="flex items-center space-x-3 pr-4 min-w-0">
@@ -249,7 +272,7 @@ function switchLesson(id, resetScroll = true) {
                 </div>
                 <button data-step-status-btn="${id}__${stepId}" onclick="cycleStepStatus(event, '${id}', '${stepId}')" title="切换这一步的学习状态"></button>
             </summary>
-            <div class="px-6 py-5 bg-slate-950/40 text-slate-300 text-sm leading-relaxed tracking-wide font-medium border-t border-slate-950">
+            <div class="lesson-answer px-6 py-5 bg-slate-950/40 text-slate-300 text-sm tracking-wide font-medium border-t border-slate-950">
                 ${stepRenderedAnswer}
             </div>
         `;

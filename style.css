@@ -22,3 +22,35 @@ summary { list-style: none; }
 .animate-fade-in {
     animation: fadeIn 0.2s ease-out forwards;
 }
+.lesson-answer {
+    line-height: 1.9;
+}
+.lesson-answer .lesson-paragraph {
+    display: block;
+    margin: 0.85rem 0;
+}
+.lesson-answer .lesson-paragraph:first-child {
+    margin-top: 0;
+}
+.lesson-answer .lesson-paragraph:last-child {
+    margin-bottom: 0;
+}
+.lesson-answer mjx-container[display="true"] {
+    margin: 1rem 0 !important;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    background: rgba(15, 23, 42, 0.38);
+    border: 1px solid rgba(30, 41, 59, 0.7);
+    border-radius: 0.75rem;
+}
+.lesson-answer .thin-content {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.85rem 1rem;
+    background: rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.18);
+    border-radius: 0.75rem;
+}
+.lesson-answer svg {
+    max-width: 100%;
+}
