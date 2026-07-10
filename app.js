@@ -242,15 +242,16 @@ function formatLessonAnswer(html) {
 }
 
 function toggleInlinePPT(triggerElement) {
-    const contentElement = triggerElement.nextElementSibling?.classList?.contains('hidden')
+    const contentElement = triggerElement.nextElementSibling?.matches('.hidden, [data-reveal-open="true"]')
         ? triggerElement.nextElementSibling
-        : triggerElement.parentElement?.nextElementSibling?.classList?.contains('hidden')
+        : triggerElement.parentElement?.nextElementSibling?.matches('.hidden, [data-reveal-open="true"]')
             ? triggerElement.parentElement.nextElementSibling
             : null;
 
     if (contentElement) {
         if (contentElement.classList.contains('hidden')) {
             contentElement.classList.remove('hidden');
+            contentElement.dataset.revealOpen = 'true';
             contentElement.classList.add(contentElement.tagName === 'SPAN' ? 'inline' : 'block', 'animate-fade-in');
             triggerElement.style.borderBottom = '1px dashed rgba(148, 163, 184, 0.6)';
             if (window.MathJax) {
@@ -258,6 +259,7 @@ function toggleInlinePPT(triggerElement) {
             }
         } else {
             contentElement.classList.remove('inline', 'block', 'animate-fade-in');
+            delete contentElement.dataset.revealOpen;
             contentElement.classList.add('hidden');
             triggerElement.style.borderBottom = '1px dashed rgba(148, 163, 184, 0.25)';
         }
