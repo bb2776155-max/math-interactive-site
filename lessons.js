@@ -48,39 +48,39 @@ $$f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2},\\qquad g(x)=\\frac{\\mathrm{e}
 $$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
 <p class='lesson-paragraph'>当 $x<0$ 时，$\\mathrm{e}^x<\\mathrm{e}^{-x}$，所以 $f'(x)<0$；当 $x>0$ 时，$\\mathrm{e}^x>\\mathrm{e}^{-x}$，所以 $f'(x)>0$。因此 $f(x)$ 的单调递减区间为 $(-\\infty,0]$，单调递增区间为 $[0,+\\infty)$。</p>
 <span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><div class='hidden'>
-<p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
-$$a\leq \frac{3+g^2(x)}{f(x)}.$$
-<p class='lesson-paragraph'><span class='text-indigo-400'>养成</span>也可以直接均值不等式得$f(x)\geq 1$。</p>
+<p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
+$$a\\leq \\frac{3+g^2(x)}{f(x)}.$$
+<p class='lesson-paragraph'><span class='text-indigo-400'>养成</span>也可以直接均值不等式得$f(x)\\geq 1$。</p>
 
 <p class='lesson-paragraph'>法一：直接代入$f,g$，</p>
-$$\frac{3+g^2(x)}{f(x)}=\frac{3+\frac{e^{2x}-2+e^{-2x}}{4}}{\frac{e^x+e^{-x}}{2}}
-\overset{\text{去分母}}{=}\frac{12+e^{2x}-2+e^{-2x}}{2(e^x+e^{-x})}
-=\frac{10+e^{2x}+e^{-2x}}{2(e^x+e^{-x})}.$$
+$$\\frac{3+g^2(x)}{f(x)}=\\frac{3+\\frac{e^{2x}-2+e^{-2x}}{4}}{\\frac{e^x+e^{-x}}{2}}
+\\overset{\\text{去分母}}{=}\\frac{12+e^{2x}-2+e^{-2x}}{2(e^x+e^{-x})}
+=\\frac{10+e^{2x}+e^{-2x}}{2(e^x+e^{-x})}.$$
 
-<p class='lesson-paragraph'>观察分子和分母的关系，它其实就是$\frac{10+a^2(x)+b^2(x)}{2(a(x)+b(x))}$的形式，而$a^2+b^2=(a+b)^2-2ab$，而且$a(x)\cdot b(x)=e^x\cdot e^{-x}=1$是常数，所以分子可以转化成和分母更有关系的形式：</p>
-$$\frac{10+e^{2x}+e^{-2x}}{2(e^x+e^{-x})}
-=\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}
-=\frac{(e^x+e^{-x})^2+8}{2(e^x+e^{-x})}.$$
+<p class='lesson-paragraph'>观察分子和分母的关系，它其实就是$\\frac{10+a^2(x)+b^2(x)}{2(a(x)+b(x))}$的形式，而$a^2+b^2=(a+b)^2-2ab$，而且$a(x)\\cdot b(x)=e^x\\cdot e^{-x}=1$是常数，所以分子可以转化成和分母更有关系的形式：</p>
+$$\\frac{10+e^{2x}+e^{-2x}}{2(e^x+e^{-x})}
+=\\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}
+=\\frac{(e^x+e^{-x})^2+8}{2(e^x+e^{-x})}.$$
 
 <p class='lesson-paragraph'>所以变成</p>
-$$\frac{e^x+e^{-x}}{2}+\frac{4}{e^x+e^{-x}}.$$
-<p class='lesson-paragraph'>所以$a\leq \frac{3+g^2(x)}{f(x)}$恒成立$\iff a\leq \frac{e^x+e^{-x}}{2}+\frac{4}{e^x+e^{-x}}$恒成立$\iff a\leq \min\left\{\frac{e^x+e^{-x}}{2}+\frac{4}{e^x+e^{-x}}\right\}$。由均值不等式</p>
-$$\frac{e^x+e^{-x}}{2}+\frac{4}{e^x+e^{-x}}\geq 2\sqrt 2,$$
+$$\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}.$$
+<p class='lesson-paragraph'>所以$a\\leq \\frac{3+g^2(x)}{f(x)}$恒成立$\\iff a\\leq \\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}$恒成立$\\iff a\\leq \\min\\left\{\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}\\right\}$。由均值不等式</p>
+$$\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}\\geq 2\\sqrt 2,$$
 <p class='lesson-paragraph'>验证它是最小值：等号成立当且仅当</p>
-$$\frac{e^x+e^{-x}}{2}=\frac{4}{e^x+e^{-x}}
-\iff (e^x+e^{-x})^2=8
-\iff e^x+e^{-x}=2\sqrt 2,$$
-<p class='lesson-paragraph'>而$e^x+e^{-x}$的值域是$[2,+\infty)$，故能取到最小值<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>。</span><span class='hidden'>若是要考虑$e^x+e^{-x}+\frac{1}{2(e^x+e^{-x})}$的最小值怎么办？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>继续</span><span class='hidden'>$f(t)=t+\frac{1}{2t}(t>0)$是对勾函数，在均值不等式取等时取最小值，即$t=\frac{1}{2t}\iff t^2=\frac{1}{2}\iff t=\frac{\sqrt 2}{2}$时。然后我们有$f(t)$在$(0,\frac{\sqrt 2}{2}]$上单调递减，$[\frac{\sqrt 2}{2},+\infty)$上单调递增。$e^x+e^{-x}+\frac{1}{2(e^x+e^{-x})}=f(e^x+e^{-x})$，内层函数的值域是$[2,+\infty)$，而$2>\frac{\sqrt 2}{2}$，$f$在$[2,+\infty)$上单调递增，所以$e^x+e^{-x}+\frac{1}{2(e^x+e^{-x})}$的最小值在$e^x+e^{-x}=2$时取得。</span></span></p>
+$$\\frac{e^x+e^{-x}}{2}=\\frac{4}{e^x+e^{-x}}
+\\iff (e^x+e^{-x})^2=8
+\\iff e^x+e^{-x}=2\\sqrt 2,$$
+<p class='lesson-paragraph'>而$e^x+e^{-x}$的值域是$[2,+\\infty)$，故能取到最小值<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>。</span><span class='hidden'>若是要考虑$e^x+e^{-x}+\\frac{1}{2(e^x+e^{-x})}$的最小值怎么办？<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>继续</span><span class='hidden'>$f(t)=t+\\frac{1}{2t}(t>0)$是对勾函数，在均值不等式取等时取最小值，即$t=\\frac{1}{2t}\\iff t^2=\\frac{1}{2}\\iff t=\\frac{\\sqrt 2}{2}$时。然后我们有$f(t)$在$(0,\\frac{\\sqrt 2}{2}]$上单调递减，$[\\frac{\\sqrt 2}{2},+\\infty)$上单调递增。$e^x+e^{-x}+\\frac{1}{2(e^x+e^{-x})}=f(e^x+e^{-x})$，内层函数的值域是$[2,+\\infty)$，而$2>\\frac{\\sqrt 2}{2}$，$f$在$[2,+\\infty)$上单调递增，所以$e^x+e^{-x}+\\frac{1}{2(e^x+e^{-x})}$的最小值在$e^x+e^{-x}=2$时取得。</span></span></p>
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>要意识到$e^{2x}+e^{-2x}$这种形式的特别之处，它俩的乘积为常数，所以它可以转化成$(e^x+e^{-x})^2-2$。同理，$e^{2x}-e^{-2x}$也可以转化成$(e^x-e^{-x})(e^x+e^{-x})$<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>。</span><span class='hidden'>它还多一种更通用的转化方法：$e^{2x}-e^{-2x}=(e^x+e^{-x})\cdot(e^x-e^{-x})$。</span></span></p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>要意识到$e^{2x}+e^{-2x}$这种形式的特别之处，它俩的乘积为常数，所以它可以转化成$(e^x+e^{-x})^2-2$。同理，$e^{2x}-e^{-2x}$也可以转化成$(e^x-e^{-x})(e^x+e^{-x})$<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>。</span><span class='hidden'>它还多一种更通用的转化方法：$e^{2x}-e^{-2x}=(e^x+e^{-x})\\cdot(e^x-e^{-x})$。</span></span></p>
 
-<p class='lesson-paragraph'>（法二）题目的形式$3+g^2(x)-af(x)\geq 0$可能暗示我们把这个式子变成只含$f$或者只含$g$的形式。直接观察到$e^x+e^{-x}$和$e^x-e^{-x}$的关系，它俩的平方的差是4，从而去计算得$f^2(x)-g^2(x)=1$，代入原式把$g$变成$f$：</p>
-$$3+f^2(x)-1-af(x)\geq 0.$$
+<p class='lesson-paragraph'>（法二）题目的形式$3+g^2(x)-af(x)\\geq 0$可能暗示我们把这个式子变成只含$f$或者只含$g$的形式。直接观察到$e^x+e^{-x}$和$e^x-e^{-x}$的关系，它俩的平方的差是4，从而去计算得$f^2(x)-g^2(x)=1$，代入原式把$g$变成$f$：</p>
+$$3+f^2(x)-1-af(x)\\geq 0.$$
 <p class='lesson-paragraph'>把$a$移到一边得</p>
-$$a\leq f(x)+\frac{2}{f(x)},$$
+$$a\\leq f(x)+\\frac{2}{f(x)},$$
 <p class='lesson-paragraph'>然后同法一用均值不等式或对勾函数求最小值。</p>
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>这题第一问对题目条件进行使用即可；第二问观察函数特殊形式。法二训练的是更迅速的感觉，法一训练的是假设你看到$\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}$也要能看出来怎么化简。</span></p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>这题第一问对题目条件进行使用即可；第二问观察函数特殊形式。法二训练的是更迅速的感觉，法一训练的是假设你看到$\\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}$也要能看出来怎么化简。</span></p>
 </div>
 </div></div>`
             }
