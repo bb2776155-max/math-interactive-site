@@ -47,32 +47,35 @@ $$f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2},\\qquad g(x)=\\frac{\\mathrm{e}
 <p class='lesson-paragraph'>于是：</p>
 $$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
 <p class='lesson-paragraph'>当 $x<0$ 时，$\\mathrm{e}^x<\\mathrm{e}^{-x}$，所以 $f'(x)<0$；当 $x>0$ 时，$\\mathrm{e}^x>\\mathrm{e}^{-x}$，所以 $f'(x)>0$。因此 $f(x)$ 的单调递减区间为 $(-\\infty,0]$，单调递增区间为 $[0,+\\infty)$。</p>
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><span class='hidden'>把 $a$ 单独放到一边。因为 $f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}\\geq 1>0$，所以：
-$$3+g^2(x)-af(x)\\geq 0$$
-$$\\Longleftrightarrow a\\leq \\frac{3+g^2(x)}{f(x)}.$$
-要让它对任意实数 $x$ 都成立，就要让 $a$ 不超过右边的最小值。
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><span class='hidden'>把 $a$ 单独放到一边，转化成最值问题：
+$$3+g^2(x)\\geq af(x).$$
+由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识。有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span> $f(x)\\geq f(0)=1$，所以 $f(x)>0$，因此等价于：
+$$a\\leq \\frac{3+g^2(x)}{f(x)}.$$
+<span class='text-indigo-400'>养成</span>直接用均值不等式得到 $f(x)\\geq 1$ 的反应。
 
-法一：直接把 $f(x)$ 和 $g(x)$ 的样子代入整理：
+法一：直接代入 $f,g$：
 $$\\frac{3+g^2(x)}{f(x)}
-=\\frac{3+\\left(\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}\\right)^2}{\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}}.$$
-令：
-$$t=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}.$$
-因为：
-$$\\left(\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}\\right)^2=\\left(\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}\\right)^2-1=t^2-1,$$
-所以：
-$$\\frac{3+g^2(x)}{f(x)}=\\frac{3+t^2-1}{t}=t+\\frac{2}{t}.$$
-而 $t\\geq 1$，所以问题变成求：
-$$t+\\frac{2}{t}\\quad(t\\geq 1)$$
-的最小值。由基本不等式：
-$$t+\\frac{2}{t}\\geq 2\\sqrt{2},$$
-当 $t=\\sqrt{2}$ 时取等号，而 $\\sqrt{2}\\in[1,+\\infty)$，所以这个最小值可以取到。因此：
+=\\frac{3+\\frac{\\mathrm{e}^{2x}-2+\\mathrm{e}^{-2x}}{4}}{\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}}
+\\overset{\\text{去分母}}{=}\\frac{12+\\mathrm{e}^{2x}-2+\\mathrm{e}^{-2x}}{2(\\mathrm{e}^x+\\mathrm{e}^{-x})}
+=\\frac{10+\\mathrm{e}^{2x}+\\mathrm{e}^{-2x}}{2(\\mathrm{e}^x+\\mathrm{e}^{-x})}.$$
+观察分子和分母的关系，它其实就是 $\\frac{10+a^2(x)+b^2(x)}{2(a(x)+b(x))}$ 的形式，而 $a^2+b^2=(a+b)^2-2ab$，而且 $a(x)\\cdot b(x)=\\mathrm{e}^x\\cdot\\mathrm{e}^{-x}=1$ 是常数，所以分子可以转化成和分母更有关系的形式：
+$$\\frac{10+\\mathrm{e}^{2x}+\\mathrm{e}^{-2x}}{2(\\mathrm{e}^x+\\mathrm{e}^{-x})}
+=\\frac{10+(\\mathrm{e}^x+\\mathrm{e}^{-x})^2-2}{2(\\mathrm{e}^x+\\mathrm{e}^{-x})}
+=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}+\\frac{4}{\\mathrm{e}^x+\\mathrm{e}^{-x}}.$$
+令 $t=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}$，则 $t\\geq 1$，上式等于：
+$$t+\\frac{2}{t}.$$
+由基本不等式：
+$$t+\\frac{2}{t}\\geq 2\\sqrt{2}.$$
+当 $t=\\sqrt{2}$ 时取等号，而 $\\sqrt{2}\\in[1,+\\infty)$，所以最小值为 $2\\sqrt{2}$。因此：
 $$a\\leq 2\\sqrt{2}.$$
 所以实数 $a$ 的取值范围为：
 $$(-\\infty,2\\sqrt{2}].$$
 
-法二：注意 $f(x)$ 和 $g(x)$ 的形式，一个是 $\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}$，一个是 $\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}$。<span class='text-indigo-400'>养成</span>这种反应：看到这种一加一减的结构，就要立刻意识到 $f^2(x)$ 和 $g^2(x)$ 可以互相转化。因为平方之后中间项一正一负，会刚好差一个常数：
+<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>要意识到 $\\mathrm{e}^{2x}+\\mathrm{e}^{-2x}$ 这种形式的特别之处，它俩的乘积为常数，所以它可以在相差一个常数的情况下转化成 $(\\mathrm{e}^x+\\mathrm{e}^{-x})^2$。同理，$\\mathrm{e}^{2x}-\\mathrm{e}^{-2x}$ 也可以转化成 $(\\mathrm{e}^x+\\mathrm{e}^{-x})(\\mathrm{e}^x-\\mathrm{e}^{-x})$。</span>
+
+（法二）直接观察到 $\\mathrm{e}^x+\\mathrm{e}^{-x}$ 和 $\\mathrm{e}^x-\\mathrm{e}^{-x}$ 的关系：一个是加法，一个是减法，平方以后中间项一正一负，所以二者平方只差一个常数。也就是说：
 $$f^2(x)-g^2(x)=1.$$
-所以也可以直接写：
+因此：
 $$g^2(x)=f^2(x)-1,$$
 于是：
 $$\\frac{3+g^2(x)}{f(x)}=\\frac{f^2(x)+2}{f(x)}=f(x)+\\frac{2}{f(x)}.$$
