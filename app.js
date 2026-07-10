@@ -242,7 +242,12 @@ function formatLessonAnswer(html) {
 }
 
 function toggleInlinePPT(triggerElement) {
-    const contentElement = triggerElement.nextElementSibling;
+    const contentElement = triggerElement.nextElementSibling?.classList?.contains('hidden')
+        ? triggerElement.nextElementSibling
+        : triggerElement.parentElement?.nextElementSibling?.classList?.contains('hidden')
+            ? triggerElement.parentElement.nextElementSibling
+            : null;
+
     if (contentElement) {
         if (contentElement.classList.contains('hidden')) {
             contentElement.classList.remove('hidden');
