@@ -36,7 +36,7 @@ const ALL_LESSONS = [
             {
                 "id": "parity_exp_01",
                 "question": "已知 $f(x)$、$g(x)$ 分别为定义域为 $\\mathbf{R}$ 的偶函数和奇函数，且 $f(x)+g(x)=\\mathrm{e}^x$.<br><br>(1) 求 $f(x)$ 的单调区间；<br><br>(2) 对任意实数 $x$ 均有 $3+g^2(x)-af(x)\\geq 0$ 成立，求实数 $a$ 的取值范围.",
-                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答：</span><span class='hidden'>
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答：</span><div class='hidden'>
 <p class='lesson-paragraph'>（1）条件有三个：$f$ 是偶函数，$g$ 是奇函数，$f(x)+g(x)=\\mathrm{e}^x$。要让它们之间发生化学反应，也就是把某几个条件用在其他条件上面。</p>
 <p class='lesson-paragraph'>那么如何使用“$f$ 是偶函数，$g$ 是奇函数”呢？$f(x)=f(-x)$，$g(x)=-g(-x)$，所以要有 $-x$ 才能用。因为 $f(x)+g(x)=\\mathrm{e}^x$ 对所有的实数 $x$ 都成立，所以直接把 $-x$ 代入：</p>
 $$f(-x)+g(-x)=\\mathrm{e}^{-x}=f(x)-g(x)$$
@@ -47,8 +47,9 @@ $$f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2},\\qquad g(x)=\\frac{\\mathrm{e}
 <p class='lesson-paragraph'>于是：</p>
 $$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
 <p class='lesson-paragraph'>当 $x<0$ 时，$\\mathrm{e}^x<\\mathrm{e}^{-x}$，所以 $f'(x)<0$；当 $x>0$ 时，$\\mathrm{e}^x>\\mathrm{e}^{-x}$，所以 $f'(x)>0$。因此 $f(x)$ 的单调递减区间为 $(-\\infty,0]$，单调递增区间为 $[0,+\\infty)$。</p>
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><span class='hidden'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\geq f(0)=1$，所以$f(x)>0$，所以等价于</span></p>
-<span class='hidden'>$$a\leq \frac{3+g^2(x)}{f(x)}.$$
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span></p><div class='hidden'>
+<p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
+$$a\leq \frac{3+g^2(x)}{f(x)}.$$
 <p class='lesson-paragraph'><span class='text-indigo-400'>养成</span>也可以直接均值不等式得$f(x)\geq 1$。</p>
 
 <p class='lesson-paragraph'>法一：直接代入$f,g$，</p>
@@ -79,8 +80,9 @@ $$3+f^2(x)-1-af(x)\geq 0.$$
 $$a\leq f(x)+\frac{2}{f(x)},$$
 <p class='lesson-paragraph'>然后同法一用均值不等式或对勾函数求最小值。</p>
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>这题第一问对题目条件进行使用即可；第二问观察函数特殊形式。法二训练的是更迅速的感觉，法一训练的是假设你看到$\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}$也要能看出来怎么化简。</span></p></span>
-</span></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】这题第一问对题目条件进行使用即可；第二问知道均值不等式即可。</div>`
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>读薄</span><span class='hidden'>这题第一问对题目条件进行使用即可；第二问观察函数特殊形式。法二训练的是更迅速的感觉，法一训练的是假设你看到$\frac{10+(e^x+e^{-x})^2-2}{2(e^x+e^{-x})}$也要能看出来怎么化简。</span></p>
+</div>
+</div></div>`
             }
         ]
     },

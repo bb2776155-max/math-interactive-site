@@ -246,13 +246,13 @@ function toggleInlinePPT(triggerElement) {
     if (contentElement) {
         if (contentElement.classList.contains('hidden')) {
             contentElement.classList.remove('hidden');
-            contentElement.classList.add('inline', 'animate-fade-in');
+            contentElement.classList.add(contentElement.tagName === 'SPAN' ? 'inline' : 'block', 'animate-fade-in');
             triggerElement.style.borderBottom = '1px dashed rgba(148, 163, 184, 0.6)';
             if (window.MathJax) {
                 MathJax.typesetPromise([contentElement]);
             }
         } else {
-            contentElement.classList.remove('inline', 'animate-fade-in');
+            contentElement.classList.remove('inline', 'block', 'animate-fade-in');
             contentElement.classList.add('hidden');
             triggerElement.style.borderBottom = '1px dashed rgba(148, 163, 184, 0.25)';
         }
