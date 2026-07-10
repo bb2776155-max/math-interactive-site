@@ -64,7 +64,7 @@ $$\\frac{10+e^{2x}+e^{-2x}}{2(e^x+e^{-x})}
 
 <p class='lesson-paragraph'>所以变成</p>
 $$\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}.$$
-<p class='lesson-paragraph'>所以$a\\leq \\frac{3+g^2(x)}{f(x)}$恒成立$\\iff a\\leq \\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}$恒成立$\\iff a\\leq \\min\\left\{\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}\\right\}$。由均值不等式</p>
+<p class='lesson-paragraph'>所以$a\\leq \\frac{3+g^2(x)}{f(x)}$恒成立$\\iff a\\leq \\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}$恒成立$\\iff a\\leq \\min\\{\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}\\}$。由均值不等式</p>
 $$\\frac{e^x+e^{-x}}{2}+\\frac{4}{e^x+e^{-x}}\\geq 2\\sqrt 2,$$
 <p class='lesson-paragraph'>验证它是最小值：等号成立当且仅当</p>
 $$\\frac{e^x+e^{-x}}{2}=\\frac{4}{e^x+e^{-x}}
