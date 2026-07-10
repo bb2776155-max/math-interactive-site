@@ -50,7 +50,7 @@ $$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
 <span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><div class='hidden'>
 <p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
 $$a\\leq \\frac{3+g^2(x)}{f(x)}.$$
-<p class='lesson-paragraph'><span class='text-indigo-400'>养成</span>也可以直接均值不等式得$f(x)\\geq 1$。</p>
+<p class='lesson-paragraph'><span class='text-indigo-400'>（养成）</span>也可以直接均值不等式得$f(x)\\geq 1$。</p>
 
 <p class='lesson-paragraph'>法一：直接代入$f,g$，</p>
 $$\\frac{3+g^2(x)}{f(x)}=\\frac{3+\\frac{e^{2x}-2+e^{-2x}}{4}}{\\frac{e^x+e^{-x}}{2}}
