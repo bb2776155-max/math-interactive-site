@@ -52,20 +52,31 @@ $$3+g^2(x)-af(x)\\geq 0$$
 $$\\Longleftrightarrow a\\leq \\frac{3+g^2(x)}{f(x)}.$$
 要让它对任意实数 $x$ 都成立，就要让 $a$ 不超过右边的最小值。
 
-接下来把右边化成只含 $f(x)$ 的式子。由刚才的联立式：
-$$f(x)+g(x)=\\mathrm{e}^x,\\qquad f(x)-g(x)=\\mathrm{e}^{-x},$$
-两式相乘得：
-$$f^2(x)-g^2(x)=1,$$
-所以 $g^2(x)=f^2(x)-1$。于是：
-$$\\frac{3+g^2(x)}{f(x)}=\\frac{f^2(x)+2}{f(x)}=f(x)+\\frac{2}{f(x)}.$$
-令 $t=f(x)$。由第（1）问可知 $t\\in[1,+\\infty)$，所以问题变成求：
+法一：直接把 $f(x)$ 和 $g(x)$ 的样子代入整理：
+$$\\frac{3+g^2(x)}{f(x)}
+=\\frac{3+\\left(\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}\\right)^2}{\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}}.$$
+令：
+$$t=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}.$$
+因为：
+$$\\left(\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}\\right)^2=\\left(\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}\\right)^2-1=t^2-1,$$
+所以：
+$$\\frac{3+g^2(x)}{f(x)}=\\frac{3+t^2-1}{t}=t+\\frac{2}{t}.$$
+而 $t\\geq 1$，所以问题变成求：
 $$t+\\frac{2}{t}\\quad(t\\geq 1)$$
 的最小值。由基本不等式：
 $$t+\\frac{2}{t}\\geq 2\\sqrt{2},$$
 当 $t=\\sqrt{2}$ 时取等号，而 $\\sqrt{2}\\in[1,+\\infty)$，所以这个最小值可以取到。因此：
 $$a\\leq 2\\sqrt{2}.$$
 所以实数 $a$ 的取值范围为：
-$$(-\\infty,2\\sqrt{2}].$$</span></p>
+$$(-\\infty,2\\sqrt{2}].$$
+
+法二：注意 $f(x)$ 和 $g(x)$ 的形式，一个是 $\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}$，一个是 $\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}$。<span class='text-indigo-400'>养成</span>这种反应：看到这种一加一减的结构，就要立刻意识到 $f^2(x)$ 和 $g^2(x)$ 可以互相转化。因为平方之后中间项一正一负，会刚好差一个常数：
+$$f^2(x)-g^2(x)=1.$$
+所以也可以直接写：
+$$g^2(x)=f^2(x)-1,$$
+于是：
+$$\\frac{3+g^2(x)}{f(x)}=\\frac{f^2(x)+2}{f(x)}=f(x)+\\frac{2}{f(x)}.$$
+后面同法一。</span></p>
 </span></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】这题第一问对题目条件进行使用即可；第二问知道均值不等式即可。</div>`
             }
         ]
