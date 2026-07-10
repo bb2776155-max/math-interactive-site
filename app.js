@@ -229,6 +229,15 @@ function formatLessonAnswer(html) {
             .join('');
     });
 
+    wrapper.querySelectorAll('.thin-content').forEach(block => {
+        const marker = '【读薄】';
+        const html = block.innerHTML.trim();
+        if (!html.startsWith(marker)) return;
+
+        const rest = html.slice(marker.length).trim();
+        block.innerHTML = `<span class="math-inline-trigger" onclick="toggleInlinePPT(this)">${marker}</span><span class="hidden">${rest}</span>`;
+    });
+
     return wrapper.innerHTML;
 }
 
