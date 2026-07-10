@@ -27,6 +27,50 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-parity-01",
+        "title": "函数方程",
+        "difficulty_tag": "简单",
+        "stage_tag": "1阶段",
+        "mindset_tags": ["奇偶性", "联立", "恒成立", "换元求最值"],
+        "steps": [
+            {
+                "id": "parity_exp_01",
+                "question": "已知 $f(x)$、$g(x)$ 分别为定义域为 $\\mathbf{R}$ 的偶函数和奇函数，且 $f(x)+g(x)=\\mathrm{e}^x$.<br><br>(1) 求 $f(x)$ 的单调区间；<br><br>(2) 对任意实数 $x$ 均有 $3+g^2(x)-af(x)\\geq 0$ 成立，求实数 $a$ 的取值范围.",
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答：</span><span class='hidden'>
+<p class='lesson-paragraph'>（1）条件有三个：$f$ 是偶函数，$g$ 是奇函数，$f(x)+g(x)=\\mathrm{e}^x$。要让它们之间发生化学反应，也就是把某几个条件用在其他条件上面。</p>
+<p class='lesson-paragraph'>那么如何使用“$f$ 是偶函数，$g$ 是奇函数”呢？$f(x)=f(-x)$，$g(x)=-g(-x)$，所以要有 $-x$ 才能用。因为 $f(x)+g(x)=\\mathrm{e}^x$ 对所有的实数 $x$ 都成立，所以直接把 $-x$ 代入：</p>
+$$f(-x)+g(-x)=\\mathrm{e}^{-x}=f(x)-g(x)$$
+<p class='lesson-paragraph'>然后联立：</p>
+$$\\begin{cases}f(x)+g(x)=\\mathrm{e}^x,\\\\ f(x)-g(x)=\\mathrm{e}^{-x}.\\end{cases}$$
+<p class='lesson-paragraph'>两式相加可以消掉 $g(x)$，两式相减可以消掉 $f(x)$，解得：</p>
+$$f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2},\\qquad g(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
+<p class='lesson-paragraph'>于是：</p>
+$$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
+<p class='lesson-paragraph'>当 $x<0$ 时，$\\mathrm{e}^x<\\mathrm{e}^{-x}$，所以 $f'(x)<0$；当 $x>0$ 时，$\\mathrm{e}^x>\\mathrm{e}^{-x}$，所以 $f'(x)>0$。因此 $f(x)$ 的单调递减区间为 $(-\\infty,0]$，单调递增区间为 $[0,+\\infty)$。</p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><span class='hidden'>把 $a$ 单独放到一边。因为 $f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2}\\geq 1>0$，所以：
+$$3+g^2(x)-af(x)\\geq 0$$
+$$\\Longleftrightarrow a\\leq \\frac{3+g^2(x)}{f(x)}.$$
+要让它对任意实数 $x$ 都成立，就要让 $a$ 不超过右边的最小值。
+
+接下来把右边化成只含 $f(x)$ 的式子。由刚才的联立式：
+$$f(x)+g(x)=\\mathrm{e}^x,\\qquad f(x)-g(x)=\\mathrm{e}^{-x},$$
+两式相乘得：
+$$f^2(x)-g^2(x)=1,$$
+所以 $g^2(x)=f^2(x)-1$。于是：
+$$\\frac{3+g^2(x)}{f(x)}=\\frac{f^2(x)+2}{f(x)}=f(x)+\\frac{2}{f(x)}.$$
+令 $t=f(x)$。由第（1）问可知 $t\\in[1,+\\infty)$，所以问题变成求：
+$$t+\\frac{2}{t}\\quad(t\\geq 1)$$
+的最小值。由基本不等式：
+$$t+\\frac{2}{t}\\geq 2\\sqrt{2},$$
+当 $t=\\sqrt{2}$ 时取等号，而 $\\sqrt{2}\\in[1,+\\infty)$，所以这个最小值可以取到。因此：
+$$a\\leq 2\\sqrt{2}.$$
+所以实数 $a$ 的取值范围为：
+$$(-\\infty,2\\sqrt{2}].$$</span></p>
+</span></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】这题第一问对题目条件进行使用即可；第二问知道均值不等式即可。</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson_001",
         "title": "同构",
         "difficulty_tag": "中档",
