@@ -48,7 +48,7 @@ $$f(x)=\\frac{\\mathrm{e}^x+\\mathrm{e}^{-x}}{2},\\qquad g(x)=\\frac{\\mathrm{e}
 $$f'(x)=\\frac{\\mathrm{e}^x-\\mathrm{e}^{-x}}{2}.$$
 <p class='lesson-paragraph'>当 $x<0$ 时，$\\mathrm{e}^x<\\mathrm{e}^{-x}$，所以 $f'(x)<0$；当 $x>0$ 时，$\\mathrm{e}^x>\\mathrm{e}^{-x}$，所以 $f'(x)>0$。因此 $f(x)$ 的单调递减区间为 $(-\\infty,0]$，单调递增区间为 $[0,+\\infty)$。</p>
 <span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（2）</span><div class='hidden'>
-<p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\\geq af(x)$，由（1）<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>可知</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
+<p class='lesson-paragraph'>把 $a$ 单独放到一边转化成最值问题：$3+g^2(x)\\geq af(x)$，由<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>（1）</span><span class='hidden'><span class='text-indigo-400'>养成</span>使用大题第一小问结论的意识，有些大题是层层递进地设计的，后面的小问会用到前几个小问的结论。</span>$f(x)\\geq f(0)=1$，所以$f(x)>0$，所以等价于</p>
 $$a\\leq \\frac{3+g^2(x)}{f(x)}.$$
 <p class='lesson-paragraph'><span class='text-indigo-400'>（养成）</span>也可以直接均值不等式得$f(x)\\geq 1$。</p>
 
