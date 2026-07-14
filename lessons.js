@@ -109,15 +109,20 @@ $$a_6=S_6-S_5=29-9=20.$$
             },
             {
                 "id": "sequence_log_recurrence_02",
-                "question": `已知数列 $\\{a_n\\}$ 满足 $a_1=1$，$a_2=2$，$a_{n+1}=a_n\\cdot a_{n-1}^2$（$n\\geq2$），记 $b_n=\\log_2(a_na_{n+1})$，$S_n$ 为数列 $\\{b_n\\}$ 的前 $n$ 项和，则 $S_6=$（　　）<br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>提示</span><span class='hidden'>题目中 $b_n$ 的形式提示我们：直接根据 $a_n$ 的递推关系研究 $b_n$，看看 $b_{n+1}$ 和 $b_n$ 有什么关系。</span>`,
+                "question": `已知数列 $\\{a_n\\}$ 满足 $a_1=1$，$a_2=2$，$a_{n+1}=a_n\\cdot a_{n-1}^2$（$n\\geq2$），记 $b_n=\\log_2(a_na_{n+1})$，$S_n$ 为数列 $\\{b_n\\}$ 的前 $n$ 项和，则 $S_6=$（　　）<br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>提示</span><span class='hidden'>题目中 $b_n$ 的形式提示我们……</span>`,
                 "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
-<p class='lesson-paragraph'>由 $a_{n+2}=a_{n+1}a_n^2$，得：</p>
+<p class='lesson-paragraph'>题目中 $b_n=\\log_2(a_na_{n+1})$ 的形式提示我们去考虑 $a_na_{n+1}$。于是，我们可以在 $a_n$ 的递推式中把这个形式造出来：在</p>
+$$a_{n+1}=a_na_{n-1}^2$$
+<p class='lesson-paragraph'>两边同乘 $a_n$，得：</p>
 $$
-b_{n+1}=\\log_2(a_{n+1}a_{n+2})
-=\\log_2(a_{n+1}^2a_n^2)
-=2\\log_2(a_na_{n+1})
-=2b_n.
+a_na_{n+1}=a_n^2a_{n-1}^2=(a_{n-1}a_n)^2.
 $$
+<p class='lesson-paragraph'>两边取以 $2$ 为底的对数：</p>
+$$
+\\log_2(a_na_{n+1})=2\\log_2(a_{n-1}a_n),
+$$
+<p class='lesson-paragraph'>也就是：</p>
+$$b_n=2b_{n-1}.$$
 <p class='lesson-paragraph'>又因为：</p>
 $$b_1=\\log_2(a_1a_2)=\\log_2 2=1,$$
 <p class='lesson-paragraph'>所以数列 $\\{b_n\\}$ 是首项为 $1$、公比为 $2$ 的等比数列。因此：</p>
