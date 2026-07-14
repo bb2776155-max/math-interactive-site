@@ -89,7 +89,7 @@ $$
                 "id": "trig-two-unknown-endpoints-01",
                 "question": `若 $f(x)=\\cos\\left(\\omega x+\\frac{\\pi}{5}\\right)$（$\\omega>0$）在区间 $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$ 上恰有两个零点，则 $\\omega$ 的取值范围是________。`,
                 "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
-<p class='lesson-paragraph'>法一：令</p>
+<p class='lesson-paragraph'>令</p>
 $$t=\\omega x+\\frac{\\pi}{5}.$$
 <p class='lesson-paragraph'>因为 $\\omega>0$，当 $x\\in\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$ 时，$t$ 遍历区间：</p>
 $$
@@ -273,11 +273,17 @@ $$
 $$
 \\exists a>0,\\quad \\forall x>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>先固定一个 $a>0$。把不等式整理为：</p>
+<p class='lesson-paragraph'>这里连续出现了两个量词。遇到这种形式，我们就先考虑后面那个量词。</p>
+<p class='lesson-paragraph'>比如“存在 $a>0$，使命题 $P$ 成立”，如果我们经过研究发现 $P\\iff Q$，那么原命题就等价于“存在 $a>0$，使命题 $Q$ 成立”。所以我们可以暂时不管前面的“存在 $a>0$”，先单独研究后面的命题 $P$，把它转化成更简单的命题 $Q$，然后再回来处理前面的量词。</p>
+<p class='lesson-paragraph'>在这个题中，把</p>
+$$
+P:\\quad \\forall x>0,\\quad x\\ln x+2a\\geq ax+b
+$$
+<p class='lesson-paragraph'>单独拿出来研究。此时 $a$ 暂时不动，把不等式整理为：</p>
 $$b\\leq x\\ln x+2a-ax.$$
 <p class='lesson-paragraph'>令：</p>
 $$f_a(x)=x\\ln x+2a-ax.$$
-<p class='lesson-paragraph'>对这个固定的 $a$，不等式要对任意 $x>0$ 成立，所以：</p>
+<p class='lesson-paragraph'>命题 $P$ 要求不等式对任意 $x>0$ 成立，所以：</p>
 $$
 b\\leq\\inf_{x>0}f_a(x).
 $$
@@ -291,7 +297,11 @@ $$
 $$
 <p class='lesson-paragraph'>记：</p>
 $$g(a)=2a-\\mathrm e^{a-1}.$$
-<p class='lesson-paragraph'>于是原命题等价于：</p>
+<p class='lesson-paragraph'>于是我们已经把后面那个量词处理完了：</p>
+$$
+P\\iff b\\leq g(a).
+$$
+<p class='lesson-paragraph'>现在再回去处理前面的“存在 $a>0$”。原命题等价于：</p>
 $$
 \\exists a>0,\\quad b\\leq g(a).
 $$
@@ -331,13 +341,17 @@ $$
 
 <h3 class='font-semibold text-indigo-300 mt-4 mb-2'>四、改变量词顺序</h3>
 
-<p class='lesson-paragraph'>现在保留同一个不等式，依次改变 $a,x$ 前面的量词。重点不是把五道题重新算一遍，而是看清：先固定谁，对谁取确界，再处理外层的哪个量词。</p>
+<p class='lesson-paragraph'>现在保留同一个不等式，依次改变 $a,x$ 前面的量词。重点不是把五道题重新算一遍，而是把刚才的动作练熟：连续出现两个量词，就先考虑后面那个。先把后面那个量词连同不等式看成命题 $P$，把 $P$ 转化成一个不再含这个量词的命题 $Q$；然后回到外面，再处理前一个量词。也就是从后往前，一层一层地处理。</p>
 
 <p class='lesson-paragraph'><strong>变式一：</strong></p>
 $$
 \\forall a>0,\\quad \\forall x>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>对每个固定的 $a$，仍有 $b\\leq g(a)$。现在要求对任意 $a>0$ 都成立，所以：</p>
+<p class='lesson-paragraph'>先考虑后面的 $\\forall x>0$。和原题完全一样，它等价于 $b\\leq g(a)$。处理完这一层后，原命题变成：</p>
+$$
+\\forall a>0,\\quad b\\leq g(a).
+$$
+<p class='lesson-paragraph'>再处理外面的 $\\forall a>0$，所以：</p>
 $$
 b\\leq\\inf_{a>0}g(a)=-\\infty.
 $$
@@ -347,7 +361,7 @@ $$
 $$
 \\forall a>0,\\quad \\exists x>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>固定 $a$ 后，只需要存在一个 $x$ 使 $b\\leq f_a(x)$。而：</p>
+<p class='lesson-paragraph'>先考虑后面的 $\\exists x>0$，也就是只需要存在一个 $x$ 使 $b\\leq f_a(x)$。而：</p>
 $$
 \\sup_{x>0}f_a(x)=+\\infty.
 $$
@@ -358,7 +372,7 @@ $$b\\in\\mathbb R.$$
 $$
 \\forall x>0,\\quad \\exists a>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>这一次先固定 $x$，把关于 $a$ 的部分写成：</p>
+<p class='lesson-paragraph'>这一次后面的量词是 $\\exists a>0$，所以先研究“存在 $a>0$ 使不等式成立”这个命题。把关于 $a$ 的部分写成：</p>
 $$
 x\\ln x+(2-x)a.
 $$
@@ -371,7 +385,7 @@ $$b\\leq2\\ln2.$$
 $$
 \\exists x>0,\\quad \\forall a>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>仍然固定 $x$。现在要求对任意 $a>0$ 都成立，所以要看：</p>
+<p class='lesson-paragraph'>先考虑后面的 $\\forall a>0$。它要求不等式对任意 $a>0$ 都成立，所以要看：</p>
 $$
 b\\leq\\inf_{a>0}\left[x\\ln x+(2-x)a\right].
 $$
@@ -385,7 +399,7 @@ $$b\\leq2\\ln2.$$
 $$
 \\exists x>0,\\quad \\exists a>0,\\quad x\\ln x+2a\\geq ax+b.
 $$
-<p class='lesson-paragraph'>只要找到一组 $x,a$ 即可。例如固定任意 $x\\in(0,2)$，此时 $2-x\\gt0$，让 $a$ 足够大，$x\\ln x+(2-x)a$ 就可以超过任意给定的实数 $b$。所以：</p>
+<p class='lesson-paragraph'>先考虑后面的 $\\exists a>0$。例如取任意 $x\\in(0,2)$，此时 $2-x\\gt0$，让 $a$ 足够大，$x\\ln x+(2-x)a$ 就可以超过任意给定的实数 $b$。于是对于这样的 $x$，后面的命题成立；再处理外面的 $\\exists x>0$，当然也成立。所以：</p>
 $$b\\in\\mathbb R.$$
 
 <h3 class='font-semibold text-indigo-300 mt-4 mb-2'>五、量词为什么不能随便交换</h3>
