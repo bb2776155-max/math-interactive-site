@@ -106,6 +106,23 @@ $$S_6-2S_5=11,$$
 <p class='lesson-paragraph'>所以 $S_6=29$。最后：</p>
 $$a_6=S_6-S_5=29-9=20.$$
 </div></div>`
+            },
+            {
+                "id": "sequence_log_recurrence_02",
+                "question": `已知数列 $\\{a_n\\}$ 满足 $a_1=1$，$a_2=2$，$a_{n+1}=a_n\\cdot a_{n-1}^2$（$n\\geq2$），记 $b_n=\\log_2(a_na_{n+1})$，$S_n$ 为数列 $\\{b_n\\}$ 的前 $n$ 项和，则 $S_6=$（　　）<br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>提示</span><span class='hidden'>题目中 $b_n$ 的形式提示我们：直接根据 $a_n$ 的递推关系研究 $b_n$，看看 $b_{n+1}$ 和 $b_n$ 有什么关系。</span>`,
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
+<p class='lesson-paragraph'>由 $a_{n+2}=a_{n+1}a_n^2$，得：</p>
+$$
+b_{n+1}=\\log_2(a_{n+1}a_{n+2})
+=\\log_2(a_{n+1}^2a_n^2)
+=2\\log_2(a_na_{n+1})
+=2b_n.
+$$
+<p class='lesson-paragraph'>又因为：</p>
+$$b_1=\\log_2(a_1a_2)=\\log_2 2=1,$$
+<p class='lesson-paragraph'>所以数列 $\\{b_n\\}$ 是首项为 $1$、公比为 $2$ 的等比数列。因此：</p>
+$$S_6=1+2+4+8+16+32=63.$$
+</div></div>`
             }
         ]
     },
