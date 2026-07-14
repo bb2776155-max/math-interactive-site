@@ -155,7 +155,7 @@ $$
 >\\frac{13}{15}+\\frac23k.
 $$
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后呢？</span><span class='hidden'>所以 $\\omega$ 的范围就是这两个区间的交集：</p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后呢？</span></p><div class='hidden'><p class='lesson-paragraph'>所以 $\\omega$ 的范围就是这两个区间的交集：</p>
 $$
 I_k=\\left[-\\frac75+2k,\\frac35+2k\\right),
 \\qquad
@@ -163,7 +163,7 @@ J_k=\\left(\\frac{13}{15}+\\frac23k,\\frac{23}{15}+\\frac23k\\right].
 $$
 <p class='lesson-paragraph'>所以接下来我们考虑它俩的交集什么时候非空即可。</p>
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>例：$(a,b)$ 和 $(c,d)$ 的交集非空等价于什么？</span><span class='hidden'>我们可以用互斥事件来看。一共只有三种情况：</p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>例：$(a,b)$ 和 $(c,d)$ 的交集非空等价于什么？</span></p><div class='hidden'><p class='lesson-paragraph'>我们可以用互斥事件来看。一共只有三种情况：</p>
 <div class='flex justify-center my-4 overflow-x-auto'><svg width='650' height='245' viewBox='0 0 650 245' role='img' aria-label='两个区间相离或相交'><g font-size='14' fill='#334155'><text x='35' y='42'>1. 完全在右边</text><text x='35' y='112'>2. 完全在左边</text><text x='35' y='182'>3. 有交集</text></g><g stroke-width='7' stroke-linecap='round'><line x1='220' y1='38' x2='350' y2='38' stroke='#3b82f6'/><line x1='420' y1='38' x2='555' y2='38' stroke='#f59e0b'/><line x1='420' y1='108' x2='555' y2='108' stroke='#3b82f6'/><line x1='220' y1='108' x2='350' y2='108' stroke='#f59e0b'/><line x1='245' y1='178' x2='430' y2='178' stroke='#3b82f6'/><line x1='355' y1='190' x2='535' y2='190' stroke='#f59e0b'/></g><g fill='#64748b' font-size='13'><text x='565' y='43'>a ≥ d</text><text x='565' y='113'>b ≤ c</text><text x='545' y='193'>a &lt; d 且 b &gt; c</text></g></svg></div>
 <p class='lesson-paragraph'>1. $(a,b)$ 完全在 $(c,d)$ 的右边，即 $a\\geq d$；2. $(a,b)$ 完全在 $(c,d)$ 的左边，即 $b\\leq c$。所以第三种情况即交集非空等价于：</p>
 $$a\\lt d\\quad\\text{且}\\quad b\\gt c.$$
@@ -209,7 +209,7 @@ $$
 \\boxed{\\omega\\in\\left(\\frac{23}{15},\\frac{11}{5}\\right]
 \\cup\\left[\\frac{13}{5},\\frac{43}{15}\\right]}.
 $$
-</span></span></div></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】本次读薄的任务是，认识到这个题的解法很自然，用的都是基础的想法。</div>`
+</div></div></div></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】本次读薄的任务是，认识到这个题的解法很自然，用的都是基础的想法。</div>`
             },
             {
                 "id": "trig-two-unknown-endpoints-exercise-01",
