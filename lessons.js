@@ -28,7 +28,7 @@ const ALL_LESSONS = [
     },
     {
         "id": "lesson-functional-equation-01",
-        "title": "保留一个变量获得一般性信息",
+        "title": "使用抽象函数",
         "difficulty_tag": "简单",
         "stage_tag": "1阶段",
         "mindset_tags": ["做能做的事情", "尝试", "抽象函数"],
@@ -75,6 +75,37 @@ $$
 \\right.
 $$
 想得到具体值，就可以把两个变量都具体化；不想一直手算、想寻找恒等式或递推关系，就提醒自己保留一个变量。选择代入什么特殊值时，再优先考虑 $0$ 和题目已经给出的 $1$。代入 $y=0$ 也比较爽，因为 $x+y$ 与 $x-y$ 会同时变成 $x$。</div>`
+            }
+        ]
+    },
+    {
+        "id": "lesson-sequence-practice-01",
+        "title": "数列练习",
+        "difficulty_tag": "简单",
+        "stage_tag": "1阶段",
+        "mindset_tags": ["数列"],
+        "steps": [
+            {
+                "id": "sequence_sum_recurrence_01",
+                "question": `记数列 $\\{a_n\\}$ 的前 $n$ 项和为 $S_n$。若 $a_{n+1}+(-1)^nS_n=2n+1$，则 $a_6=$（　　）<br><br><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>提示</span><span class='hidden'>（基本想法）：一个式子同时出现 $a_n,S_n$，要消掉一个，都是 $a_n$ 或都是 $S_n$ 才能进行处理。</span>`,
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
+<p class='lesson-paragraph'>把题目条件转化为：</p>
+$$S_{n+1}-S_n+(-1)^nS_n=2n+1.$$
+<p class='lesson-paragraph'>然后看到 $(-1)^n$，当然是分奇偶。</p>
+<p class='lesson-paragraph'>我们分奇偶情况的时候，为了方便进行叙述，把 $n$ 为奇数的情况写成 $n=2k-1$，$k=1,2,\\cdots$；把 $n$ 为偶数的情况写为 $n=2k$，$k=1,2,\\cdots$。</p>
+<p class='lesson-paragraph'>当 $n=2k-1$ 时：</p>
+$$S_{2k}-2S_{2k-1}=4k-1.\\tag{1}$$
+<p class='lesson-paragraph'>当 $n=2k$ 时：</p>
+$$S_{2k+1}=4k+1.\\tag{2}$$
+<p class='lesson-paragraph'>由（2）我们可以知道 $S_3,S_5,\\cdots$，但是不知道 $S_1$。</p>
+<p class='lesson-paragraph'>现在看我们的目标是 $a_6$，有了 $S_5$，我们只需要知道 $S_6$。</p>
+<p class='lesson-paragraph'>把 $k=2$ 代入（2）式，得：</p>
+$$S_5=9.$$
+<p class='lesson-paragraph'>把 $k=3$ 代入（1）式，得：</p>
+$$S_6-2S_5=11,$$
+<p class='lesson-paragraph'>所以 $S_6=29$。最后：</p>
+$$a_6=S_6-S_5=29-9=20.$$
+</div></div>`
             }
         ]
     },
