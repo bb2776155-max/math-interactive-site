@@ -79,6 +79,143 @@ $$
         ]
     },
     {
+        "id": "lesson-trig-unknown-endpoints-01",
+        "title": "两个端点均未知的三角函数",
+        "difficulty_tag": "较难",
+        "stage_tag": "1.5阶段",
+        "mindset_tags": ["细致分析"],
+        "steps": [
+            {
+                "id": "trig-two-unknown-endpoints-01",
+                "question": `若 $f(x)=\\cos\\left(\\omega x+\\frac{\\pi}{5}\\right)$（$\\omega>0$）在区间 $\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$ 上恰有两个零点，则 $\\omega$ 的取值范围是________。`,
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
+<p class='lesson-paragraph'>法一：令</p>
+$$t=\\omega x+\\frac{\\pi}{5}.$$
+<p class='lesson-paragraph'>因为 $\\omega>0$，当 $x\\in\\left(\\frac{\\pi}{2},\\frac{3\\pi}{2}\\right)$ 时，$t$ 遍历区间：</p>
+$$
+\\left(\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5},
+\\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}\\right).
+$$
+<p class='lesson-paragraph'>所以原题相当于考虑 $y=\\cos t$ 在这个两端都未知的开区间上恰有两个零点。我们先画出 $\\cos t$ 从 $-\\frac{3\\pi}{2}$ 到 $3\\pi$ 的图像：</p>
+
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='余弦函数从负三派二分之一到三派的图像'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#0f172a'><circle cx='35' cy='105' r='4'/><circle cx='175' cy='105' r='4'/><circle cx='315' cy='105' r='4'/><circle cx='455' cy='105' r='4'/><circle cx='595' cy='105' r='4'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
+
+<p class='lesson-paragraph'>那么，开区间内恰有两个零点有两种可能。</p>
+
+<p class='lesson-paragraph'><strong>情形一：</strong>区间内的两个零点是 $\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{3\\pi}{2}+2k\\pi$。</p>
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='650' height='150' viewBox='0 0 650 150' role='img' aria-label='第一种零点排列'><line x1='45' y1='72' x2='610' y2='72' stroke='#94a3b8' stroke-width='2'/><g stroke='#94a3b8'><line x1='95' y1='64' x2='95' y2='80'/><line x1='245' y1='64' x2='245' y2='80'/><line x1='395' y1='64' x2='395' y2='80'/><line x1='545' y1='64' x2='545' y2='80'/></g><g fill='#111827'><circle cx='245' cy='72' r='5'/><circle cx='395' cy='72' r='5'/></g><g fill='#64748b' font-size='14' text-anchor='middle'><text x='95' y='102'>-π/2+2kπ</text><text x='245' y='102'>π/2+2kπ</text><text x='395' y='102'>3π/2+2kπ</text><text x='545' y='102'>5π/2+2kπ</text></g><path d='M95 48 v-14 h150 v14' fill='none' stroke='#f59e0b' stroke-width='2' stroke-dasharray='5 4'/><path d='M395 48 v-14 h150 v14' fill='none' stroke='#10b981' stroke-width='2' stroke-dasharray='5 4'/><text x='170' y='25' fill='#f59e0b' text-anchor='middle' font-size='13'>左端点的范围</text><text x='470' y='25' fill='#10b981' text-anchor='middle' font-size='13'>右端点的范围</text></svg></div>
+
+<p class='lesson-paragraph'>此时等价于：</p>
+$$
+\\frac{\\pi}{2}+2k\\pi
+>\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
+\\geq-\\frac{\\pi}{2}+2k\\pi,
+$$
+<p class='lesson-paragraph'>且：</p>
+$$
+\\frac{5\\pi}{2}+2k\\pi
+\\geq\\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}
+>\\frac{3\\pi}{2}+2k\\pi.
+$$
+
+<p class='lesson-paragraph'><strong>情形二：</strong>区间内的两个零点是 $-\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{\\pi}{2}+2k\\pi$。</p>
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='650' height='150' viewBox='0 0 650 150' role='img' aria-label='第二种零点排列'><line x1='45' y1='72' x2='610' y2='72' stroke='#94a3b8' stroke-width='2'/><g stroke='#94a3b8'><line x1='95' y1='64' x2='95' y2='80'/><line x1='245' y1='64' x2='245' y2='80'/><line x1='395' y1='64' x2='395' y2='80'/><line x1='545' y1='64' x2='545' y2='80'/></g><g fill='#111827'><circle cx='245' cy='72' r='5'/><circle cx='395' cy='72' r='5'/></g><g fill='#64748b' font-size='14' text-anchor='middle'><text x='95' y='102'>-3π/2+2kπ</text><text x='245' y='102'>-π/2+2kπ</text><text x='395' y='102'>π/2+2kπ</text><text x='545' y='102'>3π/2+2kπ</text></g><path d='M95 48 v-14 h150 v14' fill='none' stroke='#f59e0b' stroke-width='2' stroke-dasharray='5 4'/><path d='M395 48 v-14 h150 v14' fill='none' stroke='#10b981' stroke-width='2' stroke-dasharray='5 4'/><text x='170' y='25' fill='#f59e0b' text-anchor='middle' font-size='13'>左端点的范围</text><text x='470' y='25' fill='#10b981' text-anchor='middle' font-size='13'>右端点的范围</text></svg></div>
+
+<p class='lesson-paragraph'>此时等价于：</p>
+$$
+\\frac{\\pi}{2}+2k\\pi-\\pi
+>\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
+\\geq-\\frac{\\pi}{2}+2k\\pi-\\pi,
+$$
+<p class='lesson-paragraph'>且：</p>
+$$
+\\frac{5\\pi}{2}+2k\\pi-\\pi
+\\geq\\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}
+>\\frac{3\\pi}{2}+2k\\pi-\\pi.
+$$
+
+<p class='lesson-paragraph'>从图中我们也可以看到，把情形一平移 $\\pi$ 个单位就是情形二。于是把两种情形合起来：恰有两个零点等价于存在整数 $k$，使：</p>
+$$
+\\frac{\\pi}{2}+k\\pi
+>\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
+\\geq-\\frac{\\pi}{2}+k\\pi,
+$$
+<p class='lesson-paragraph'>且：</p>
+$$
+\\frac{5\\pi}{2}+k\\pi
+\\geq\\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}
+>\\frac{3\\pi}{2}+k\\pi.
+$$
+<p class='lesson-paragraph'>化简得：</p>
+$$
+\\frac35+2k>\\omega\\geq-\\frac75+2k,
+$$
+<p class='lesson-paragraph'>且：</p>
+$$
+\\frac{23}{15}+\\frac23k\\geq\\omega
+>\\frac{13}{15}+\\frac23k.
+$$
+
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后呢？</span><span class='hidden'>所以 $\\omega$ 的范围就是下面两个区间的交集：</p>
+$$
+I_k=\\left[-\\frac75+2k,\\frac35+2k\\right),
+\\qquad
+J_k=\\left(\\frac{13}{15}+\\frac23k,\\frac{23}{15}+\\frac23k\\right].
+$$
+<p class='lesson-paragraph'>接下来，我们只需要考虑它们的交集什么时候非空。</p>
+
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>例如，$(a,b)$ 和 $(c,d)$ 的交集非空等价于什么？</span><span class='hidden'>我们可以从互斥的情况来看。一共只有三种情况：</p>
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='650' height='245' viewBox='0 0 650 245' role='img' aria-label='两个区间相离或相交'><g font-size='14' fill='#334155'><text x='35' y='42'>1. 完全在右边</text><text x='35' y='112'>2. 完全在左边</text><text x='35' y='182'>3. 有交集</text></g><g stroke-width='7' stroke-linecap='round'><line x1='220' y1='38' x2='350' y2='38' stroke='#3b82f6'/><line x1='420' y1='38' x2='555' y2='38' stroke='#f59e0b'/><line x1='420' y1='108' x2='555' y2='108' stroke='#3b82f6'/><line x1='220' y1='108' x2='350' y2='108' stroke='#f59e0b'/><line x1='245' y1='178' x2='430' y2='178' stroke='#3b82f6'/><line x1='355' y1='190' x2='535' y2='190' stroke='#f59e0b'/></g><g fill='#64748b' font-size='13'><text x='565' y='43'>a ≥ d</text><text x='565' y='113'>b ≤ c</text><text x='545' y='193'>a &lt; d 且 b &gt; c</text></g></svg></div>
+<p class='lesson-paragraph'>前两种情况分别是 $(a,b)$ 完全在 $(c,d)$ 的右边，即 $a\\geq d$；以及 $(a,b)$ 完全在 $(c,d)$ 的左边，即 $b\\leq c$。所以第三种情况，也就是交集非空，等价于：</p>
+$$a\\lt d\\quad\\text{且}\\quad b\\gt c.$$
+<p class='lesson-paragraph'>对于我们考虑的半开半闭区间 $I_k,J_k$，思路同样如此，但端点能不能取等要单独看。它们的交集非空等价于：</p>
+$$
+-\\frac75+2k\\leq\\frac{23}{15}+\\frac23k,
+$$
+<p class='lesson-paragraph'>且：</p>
+$$
+\\frac35+2k>\\frac{13}{15}+\\frac23k.
+$$
+<p class='lesson-paragraph'>第一个不等号可以取等，因为 $I_k$ 的左端与 $J_k$ 的右端都是闭端点；第二个必须严格大于，因为 $I_k$ 的右端与 $J_k$ 的左端都是开端点。</p>
+<p class='lesson-paragraph'>解得：</p>
+$$
+k\\leq\\frac{11}{5},
+\\qquad
+k>\\frac15.
+$$
+<p class='lesson-paragraph'>因为 $k$ 是整数，所以：</p>
+$$k=1\\quad\\text{或}\\quad k=2.$$
+
+<p class='lesson-paragraph'>当 $k=1$ 时：</p>
+$$
+I_1=\\left[\\frac35,\\frac{13}{5}\\right),
+\\qquad
+J_1=\\left(\\frac{23}{15},\\frac{11}{5}\\right],
+$$
+<p class='lesson-paragraph'>所以：</p>
+$$
+I_1\\cap J_1=\\left(\\frac{23}{15},\\frac{11}{5}\\right].
+$$
+<p class='lesson-paragraph'>当 $k=2$ 时：</p>
+$$
+I_2=\\left[\\frac{13}{5},\\frac{23}{5}\\right),
+\\qquad
+J_2=\\left(\\frac{11}{5},\\frac{43}{15}\\right],
+$$
+<p class='lesson-paragraph'>所以：</p>
+$$
+I_2\\cap J_2=\\left[\\frac{13}{5},\\frac{43}{15}\\right].
+$$
+<p class='lesson-paragraph'>最终：</p>
+$$
+\\boxed{\\omega\\in\\left(\\frac{23}{15},\\frac{11}{5}\\right]
+\\cup\\left[\\frac{13}{5},\\frac{43}{15}\\right]}.
+$$
+</span></span></div></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】本次读薄的任务是，认识到这个题的解法很自然，用的都是基础的想法。</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson-quantifier-order-01",
         "title": "量词顺序",
         "difficulty_tag": "较难",
