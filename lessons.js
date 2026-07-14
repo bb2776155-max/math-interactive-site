@@ -27,6 +27,58 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-functional-equation-01",
+        "title": "保留一个变量获得一般性信息",
+        "difficulty_tag": "简单",
+        "stage_tag": "1阶段",
+        "mindset_tags": ["做能做的事情", "尝试", "抽象函数"],
+        "steps": [
+            {
+                "id": "functional_equation_substitution_01",
+                "question": `若 $f(x)$ 的定义域为 $\\mathbb{R}$，且 $f(x+y)+f(x-y)=f(x)f(y)$，$f(1)=1$，则 $\\sum_{k=1}^{22}f(k)=$（　　）<br><br>你不用想这个题怎么写，我给你的任务是，你能做什么？只要你能<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>写出几句不是废话的步骤就好。</span><span class='hidden'>题目条件除了 $f(1)=1$，就只有那一个对任意 $x,y$ 都成立的式子。那我们随便代入试试，看看你能不能写出来？</span>`,
+                "answer": `<div class='thick-content no-auto-format'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>解答</span><div class='hidden'>
+<p class='lesson-paragraph'>一种想法是，直接把 $x,y$ 都代成一些简单的特殊值，比如 $x=y=0$、$x=0$、$y=1$、$x=y=1$ 等。</p>
+<p class='lesson-paragraph'>不过有同学可能会忘记：我们不必把两个变量都代成具体值。把 $x,y$ 都代成具体值，通常只能得到某几个具体的函数值；如果一直这样做，我们就要一个一个地手算下去。这样其实也可能逐渐发现函数值的重复规律，但是需要算得更多，而且只凭算出的几项说它具有周期性并不严谨。</p>
+<p class='lesson-paragraph'>如果我们不想一直手算，而是希望得到关于 $f$ 的一般性信息，那就应该提醒自己：为了保留一般性，当然要留下一个变量，不把它代成具体值。</p>
+<p class='lesson-paragraph'>题目已经告诉我们 $f(1)=1$，所以可以只把 $y$ 代成 $1$，而把 $x$ 保留下来：</p>
+$$f(x+1)+f(x-1)=f(x)f(1)=f(x).$$
+<p class='lesson-paragraph'>这样得到的就不再是某一个具体的函数值，而是一个对任意 $x$ 都成立的递推关系：</p>
+$$f(x+1)=f(x)-f(x-1).$$
+<p class='lesson-paragraph'>知道前两个值，就能知道第三个值。</p>
+<p class='lesson-paragraph'>再代入 $y=0$，得：</p>
+$$2f(x)=f(x)f(0).$$
+<p class='lesson-paragraph'>这里不能直接把 $f(x)$ 约掉，因为我们还不知道 $f(x)$ 是否为 $0$。但是我们知道 $f(1)=1$，所以在上式中取 $x=1$：</p>
+$$2f(1)=f(1)f(0),$$
+<p class='lesson-paragraph'>从而 $f(0)=2$。因此，根据递推式和 $f(0),f(1)$ 的值，我们就足以推出 $f$ 的所有整数值：</p>
+$$
+\\begin{array}{c|cccccccc}
+n&0&1&2&3&4&5&6&7\\\\ \\hline
+f(n)&2&1&-1&-2&-1&1&2&1
+\\end{array}
+$$
+<p class='lesson-paragraph'>我们发现 $f(6)=f(0)$、$f(7)=f(1)$。前两个值加上这个递推式能够唯一确定后面的所有值，所以 $f(7)$ 后面的函数值与 $f(1)$ 后面的函数值也都会相同。因此，数列 $\\{f(n)\\}$ 的周期是 $6$。</p>
+<p class='lesson-paragraph'>一个周期内：</p>
+$$f(1)+f(2)+\\cdots+f(6)=1-1-2-1+1+2=0.$$
+<p class='lesson-paragraph'>而 $22=3\\times6+4$，所以：</p>
+$$
+\\sum_{k=1}^{22}f(k)
+=3\\times0+f(19)+f(20)+f(21)+f(22)
+=1-1-2-1=-3.
+$$
+</div></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】代入方式可以按我们的目的分类：
+$$
+\\left\\{
+\\begin{array}{ll}
+\\text{两个变量都代入具体值：}&\\text{得到某些具体的函数值；}\\\\[2mm]
+\\text{只把一个变量代入具体值：}&\\text{保留另一个变量，得到关于 }f\\text{ 的一般性信息。}
+\\end{array}
+\\right.
+$$
+想得到具体值，就可以把两个变量都具体化；不想一直手算、想寻找恒等式或递推关系，就提醒自己保留一个变量。选择代入什么特殊值时，再优先考虑 $0$ 和题目已经给出的 $1$。代入 $y=0$ 也比较爽，因为 $x+y$ 与 $x-y$ 会同时变成 $x$。</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson-parity-01",
         "title": "函数方程",
         "difficulty_tag": "简单",
