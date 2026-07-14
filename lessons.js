@@ -103,7 +103,7 @@ $$
 <p class='lesson-paragraph'>那么，开区间内恰有两个零点有两种可能。</p>
 
 <p class='lesson-paragraph'><strong>情形一：</strong>区间内的两个零点是 $\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{3\\pi}{2}+2k\\pi$。</p>
-<div class='flex justify-center my-4 overflow-x-auto'><svg width='740' height='225' viewBox='0 0 740 225' role='img' aria-label='余弦图像上的第一种零点排列'><line x1='45' y1='112' x2='700' y2='112' stroke='#94a3b8' stroke-width='1.5'/><path d='M70 112 Q120 35 170 35 Q220 35 270 112 Q320 189 370 189 Q420 189 470 112 Q520 35 570 35 Q620 35 670 112' fill='none' stroke='#3b82f6' stroke-width='3'/><g fill='#111827'><circle cx='270' cy='112' r='6'/><circle cx='470' cy='112' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='70' y='137'>-π/2+2kπ</text><text x='270' y='137'>π/2+2kπ</text><text x='470' y='137'>3π/2+2kπ</text><text x='670' y='137'>5π/2+2kπ</text></g><path d='M70 84 v-18 h200 v18' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M470 84 v-18 h200 v18' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='170' y='57' fill='#f59e0b' text-anchor='middle' font-size='13'>左端点可在这里</text><text x='570' y='57' fill='#10b981' text-anchor='middle' font-size='13'>右端点可在这里</text><text x='520' y='200' fill='#3b82f6' font-size='13'>y = cos t</text></svg></div>
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='完整余弦图像上的第一种零点排列'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#111827'><circle cx='315' cy='105' r='6'/><circle cx='455' cy='105' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><path d='M175 78 v-17 h140 v17' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M455 78 v-17 h140 v17' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='245' y='53' fill='#f59e0b' text-anchor='middle' font-size='12'>左端点范围</text><text x='525' y='53' fill='#10b981' text-anchor='middle' font-size='12'>右端点范围</text><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
 
 <p class='lesson-paragraph'>此时等价于：</p>
 $$
@@ -119,7 +119,7 @@ $$
 $$
 
 <p class='lesson-paragraph'><strong>情形二：</strong>区间内的两个零点是 $-\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{\\pi}{2}+2k\\pi$。</p>
-<div class='flex justify-center my-4 overflow-x-auto'><svg width='740' height='225' viewBox='0 0 740 225' role='img' aria-label='余弦图像上的第二种零点排列'><line x1='45' y1='112' x2='700' y2='112' stroke='#94a3b8' stroke-width='1.5'/><path d='M70 112 Q120 189 170 189 Q220 189 270 112 Q320 35 370 35 Q420 35 470 112 Q520 189 570 189 Q620 189 670 112' fill='none' stroke='#3b82f6' stroke-width='3'/><g fill='#111827'><circle cx='270' cy='112' r='6'/><circle cx='470' cy='112' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='70' y='137'>-3π/2+2kπ</text><text x='270' y='137'>-π/2+2kπ</text><text x='470' y='137'>π/2+2kπ</text><text x='670' y='137'>3π/2+2kπ</text></g><path d='M70 84 v-18 h200 v18' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M470 84 v-18 h200 v18' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='170' y='57' fill='#f59e0b' text-anchor='middle' font-size='13'>左端点可在这里</text><text x='570' y='57' fill='#10b981' text-anchor='middle' font-size='13'>右端点可在这里</text><text x='520' y='200' fill='#3b82f6' font-size='13'>y = cos t</text></svg></div>
+<div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='完整余弦图像上的第二种零点排列'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#111827'><circle cx='175' cy='105' r='6'/><circle cx='315' cy='105' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><path d='M35 78 v-17 h140 v17' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M315 78 v-17 h140 v17' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='105' y='53' fill='#f59e0b' text-anchor='middle' font-size='12'>左端点范围</text><text x='385' y='53' fill='#10b981' text-anchor='middle' font-size='12'>右端点范围</text><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
 
 <p class='lesson-paragraph'>此时等价于：</p>
 $$
@@ -212,6 +212,16 @@ $$
 \\cup\\left[\\frac{13}{5},\\frac{43}{15}\\right]}.
 $$
 </span></span></div></div><div class='thin-content font-semibold text-indigo-300 mt-2'>【读薄】本次读薄的任务是，认识到这个题的解法很自然，用的都是基础的想法。</div>`
+            },
+            {
+                "id": "trig-two-unknown-endpoints-exercise-01",
+                "question": `（2025·烟台质检）已知函数 $f(x)=\\sin(\\omega x+\\varphi)$（$\\omega>0$，$|\\varphi|\\leq\\frac{\\pi}{2}$），$-\\frac{\\pi}{4}$ 为 $f(x)$ 的零点，且 $f(x)\\leq\\left|f\\left(\\frac{\\pi}{4}\\right)\\right|$ 恒成立。$f(x)$ 在区间 $\\left(-\\frac{\\pi}{12},\\frac{\\pi}{24}\\right)$ 上有最小值无最大值，则 $\\omega$ 的最大值是（　　）<br><br>A. $11$　　B. $13$　　C. $15$　　D. $17$`,
+                "answer": "<div class='thick-content'>请独立完成。</div>"
+            },
+            {
+                "id": "trig-two-unknown-endpoints-exercise-02",
+                "question": `（2025·天津模拟）已知函数 $f(x)=\\sin\\omega x+\\cos\\omega x$（$\\omega>0$）满足 $f\\left(\\frac{\\pi}{8}\\right)=f\\left(\\frac{5\\pi}{8}\\right)$。<br><br>（1）若 $f(x)$ 在 $\\left(\\frac{\\pi}{8},\\frac{5\\pi}{8}\\right)$ 上恰好有一个最小值和一个最大值，求 $\\omega$；<br><br>（2）若 $f(x)$ 在 $\\left(\\frac{\\pi}{8},\\frac{5\\pi}{8}\\right)$ 上恰好有两个零点，求 $\\omega$ 的取值范围。`,
+                "answer": "<div class='thick-content'>请独立完成。</div>"
             }
         ]
     },
