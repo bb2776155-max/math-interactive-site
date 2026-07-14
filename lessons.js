@@ -96,16 +96,15 @@ $$
 \\left(\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5},
 \\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}\\right).
 $$
-<p class='lesson-paragraph'>所以原题相当于考虑 $y=\\cos t$ 在这个两端都未知的开区间上恰有两个零点。我们先画出 $\\cos t$ 从 $-\\frac{3\\pi}{2}$ 到 $3\\pi$ 的图像：</p>
+<p class='lesson-paragraph'>相当于考虑 $\\cos t$ 在 $t\\in\\left(\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5},\\frac{3\\pi}{2}\\omega+\\frac{\\pi}{5}\\right)$ 上的情形。我们先画一个 $\\cos t$ 的图像：</p>
 
 <div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='余弦函数从负三派二分之一到三派的图像'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#0f172a'><circle cx='35' cy='105' r='4'/><circle cx='175' cy='105' r='4'/><circle cx='315' cy='105' r='4'/><circle cx='455' cy='105' r='4'/><circle cx='595' cy='105' r='4'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
 
-<p class='lesson-paragraph'>那么，开区间内恰有两个零点有两种可能。</p>
+<p class='lesson-paragraph'>那么恰有两个零点有两种可能。</p>
 
-<p class='lesson-paragraph'><strong>情形一：</strong>区间内的两个零点是 $\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{3\\pi}{2}+2k\\pi$。</p>
 <div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='完整余弦图像上的第一种零点排列'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#111827'><circle cx='315' cy='105' r='6'/><circle cx='455' cy='105' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><path d='M175 78 v-17 h140 v17' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M455 78 v-17 h140 v17' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='245' y='53' fill='#f59e0b' text-anchor='middle' font-size='12'>左端点范围</text><text x='525' y='53' fill='#10b981' text-anchor='middle' font-size='12'>右端点范围</text><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
 
-<p class='lesson-paragraph'>此时等价于：</p>
+<p class='lesson-paragraph'>此时的情形等价于：</p>
 $$
 \\frac{\\pi}{2}+2k\\pi
 >\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
@@ -118,10 +117,9 @@ $$
 >\\frac{3\\pi}{2}+2k\\pi.
 $$
 
-<p class='lesson-paragraph'><strong>情形二：</strong>区间内的两个零点是 $-\\frac{\\pi}{2}+2k\\pi$ 和 $\\frac{\\pi}{2}+2k\\pi$。</p>
 <div class='flex justify-center my-4 overflow-x-auto'><svg width='700' height='220' viewBox='0 0 700 220' role='img' aria-label='完整余弦图像上的第二种零点排列'><line x1='35' y1='105' x2='665' y2='105' stroke='#94a3b8' stroke-width='1.5'/><line x1='245' y1='22' x2='245' y2='188' stroke='#94a3b8' stroke-width='1.5'/><path d='M35 105 Q70 161 105 161 Q140 161 175 105 Q210 49 245 49 Q280 49 315 105 Q350 161 385 161 Q420 161 455 105 Q490 49 525 49 Q560 49 595 105 Q630 161 665 161' fill='none' stroke='#3b82f6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><g fill='#111827'><circle cx='175' cy='105' r='6'/><circle cx='315' cy='105' r='6'/></g><g fill='#64748b' font-size='13' text-anchor='middle'><text x='35' y='130'>-3π/2</text><text x='105' y='130'>-π</text><text x='175' y='130'>-π/2</text><text x='245' y='130'>0</text><text x='315' y='130'>π/2</text><text x='385' y='130'>π</text><text x='455' y='130'>3π/2</text><text x='525' y='130'>2π</text><text x='595' y='130'>5π/2</text><text x='665' y='130'>3π</text></g><path d='M35 78 v-17 h140 v17' fill='none' stroke='#f59e0b' stroke-width='2.5' stroke-dasharray='6 4'/><path d='M315 78 v-17 h140 v17' fill='none' stroke='#10b981' stroke-width='2.5' stroke-dasharray='6 4'/><text x='105' y='53' fill='#f59e0b' text-anchor='middle' font-size='12'>左端点范围</text><text x='385' y='53' fill='#10b981' text-anchor='middle' font-size='12'>右端点范围</text><text x='570' y='34' fill='#3b82f6' font-size='14'>y = cos t</text></svg></div>
 
-<p class='lesson-paragraph'>此时等价于：</p>
+<p class='lesson-paragraph'>此时的情形等价于：</p>
 $$
 \\frac{\\pi}{2}+2k\\pi-\\pi
 >\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
@@ -134,7 +132,8 @@ $$
 >\\frac{3\\pi}{2}+2k\\pi-\\pi.
 $$
 
-<p class='lesson-paragraph'>从图中我们也可以看到，把情形一平移 $\\pi$ 个单位就是情形二。于是把两种情形合起来：恰有两个零点等价于存在整数 $k$，使：</p>
+<p class='lesson-paragraph'>从图中我们也可以看到，把图一的情形平移 $\\pi$ 个单位就是图二的情形，从而把这两种情形合起来：</p>
+<p class='lesson-paragraph'>恰有两个零点等价于：</p>
 $$
 \\frac{\\pi}{2}+k\\pi
 >\\frac{\\pi}{2}\\omega+\\frac{\\pi}{5}
@@ -156,19 +155,19 @@ $$
 >\\frac{13}{15}+\\frac23k.
 $$
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后呢？</span><span class='hidden'>所以 $\\omega$ 的范围就是下面两个区间的交集：</p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>然后呢？</span><span class='hidden'>所以 $\\omega$ 的范围就是这两个区间的交集：</p>
 $$
 I_k=\\left[-\\frac75+2k,\\frac35+2k\\right),
 \\qquad
 J_k=\\left(\\frac{13}{15}+\\frac23k,\\frac{23}{15}+\\frac23k\\right].
 $$
-<p class='lesson-paragraph'>接下来，我们只需要考虑它们的交集什么时候非空。</p>
+<p class='lesson-paragraph'>所以接下来我们考虑它俩的交集什么时候非空即可。</p>
 
-<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>例如，$(a,b)$ 和 $(c,d)$ 的交集非空等价于什么？</span><span class='hidden'>我们可以从互斥的情况来看。一共只有三种情况：</p>
+<p class='lesson-paragraph'><span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>例：$(a,b)$ 和 $(c,d)$ 的交集非空等价于什么？</span><span class='hidden'>我们可以用互斥事件来看。一共只有三种情况：</p>
 <div class='flex justify-center my-4 overflow-x-auto'><svg width='650' height='245' viewBox='0 0 650 245' role='img' aria-label='两个区间相离或相交'><g font-size='14' fill='#334155'><text x='35' y='42'>1. 完全在右边</text><text x='35' y='112'>2. 完全在左边</text><text x='35' y='182'>3. 有交集</text></g><g stroke-width='7' stroke-linecap='round'><line x1='220' y1='38' x2='350' y2='38' stroke='#3b82f6'/><line x1='420' y1='38' x2='555' y2='38' stroke='#f59e0b'/><line x1='420' y1='108' x2='555' y2='108' stroke='#3b82f6'/><line x1='220' y1='108' x2='350' y2='108' stroke='#f59e0b'/><line x1='245' y1='178' x2='430' y2='178' stroke='#3b82f6'/><line x1='355' y1='190' x2='535' y2='190' stroke='#f59e0b'/></g><g fill='#64748b' font-size='13'><text x='565' y='43'>a ≥ d</text><text x='565' y='113'>b ≤ c</text><text x='545' y='193'>a &lt; d 且 b &gt; c</text></g></svg></div>
-<p class='lesson-paragraph'>前两种情况分别是 $(a,b)$ 完全在 $(c,d)$ 的右边，即 $a\\geq d$；以及 $(a,b)$ 完全在 $(c,d)$ 的左边，即 $b\\leq c$。所以第三种情况，也就是交集非空，等价于：</p>
+<p class='lesson-paragraph'>1. $(a,b)$ 完全在 $(c,d)$ 的右边，即 $a\\geq d$；2. $(a,b)$ 完全在 $(c,d)$ 的左边，即 $b\\leq c$。所以第三种情况即交集非空等价于：</p>
 $$a\\lt d\\quad\\text{且}\\quad b\\gt c.$$
-<p class='lesson-paragraph'>对于我们考虑的半开半闭区间 $I_k,J_k$，思路同样如此，但端点能不能取等要单独看。它们的交集非空等价于：</p>
+<p class='lesson-paragraph'>对于我们考虑的半开半闭区间 $I_k,J_k$ 也是同理。所以交集非空等价于：</p>
 $$
 -\\frac75+2k\\leq\\frac{23}{15}+\\frac23k,
 $$
@@ -183,8 +182,7 @@ k\\leq\\frac{11}{5},
 \\qquad
 k>\\frac15.
 $$
-<p class='lesson-paragraph'>因为 $k$ 是整数，所以：</p>
-$$k=1\\quad\\text{或}\\quad k=2.$$
+<p class='lesson-paragraph'>所以 $k=1$ 或 $2$。</p>
 
 <p class='lesson-paragraph'>当 $k=1$ 时：</p>
 $$
