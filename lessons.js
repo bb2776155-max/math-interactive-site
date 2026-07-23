@@ -706,7 +706,9 @@ $$[-1,+\\infty).$$
 $$(x-1)^{9999}\\leq (2x)^{9999}+x+1.$$
 <p class='lesson-paragraph'>根据同构专题里的讲解，我们预想把两边写成 $f(x-1)$ 与 $f(2x)$。那么按照题目的设计，剩余项应该能用两个输入的差表示出来，所以直接计算</p>
 $$(x-1)-2x=-x-1.$$
-<p class='lesson-paragraph'>这恰好是原不等式移项后剩余的小项。因此可以把它分别还给两个输入：</p>
+<p class='lesson-paragraph'>所以原式等价于</p>
+$$(x-1)^{9999}\\leq (2x)^{9999}-[(x-1)-2x],$$
+<p class='lesson-paragraph'>即</p>
 $$(x-1)^{9999}+(x-1)\\leq (2x)^{9999}+2x.$$
 <p class='lesson-paragraph'>令</p>
 $$f(t)=t^{9999}+t.$$
