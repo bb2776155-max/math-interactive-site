@@ -663,4 +663,57 @@ $$\\sin C=\\frac{1}{2}$$</span></span></span></span></span></span></span></p>
             }
         ]
     },
+    {
+        "id": "lesson-function-inequality-01",
+        "title": "函数不等式解集",
+        "difficulty_tag": "中档",
+        "stage_tag": "1.5阶段",
+        "mindset_tags": ["观察法"],
+        "steps": [
+            {
+                "question": "不等式 $(x-1)^{9999}-2^{9999}x^{9999}\\leq x+1$ 的解集为（\u3000\u3000）",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'><strong>法一：因式分解。</strong></p>
+<p class='lesson-paragraph'>注意到这是两个奇次幂相减。例如：</p>
+$$a^3-b^3=(a-b)(a^2+ab+b^2).$$
+<p class='lesson-paragraph'>为避免把很长的式子反复写出来，记</p>
+$$a=x-1,\qquad b=2x,$$
+<p class='lesson-paragraph'>并记</p>
+$$Q=a^{9998}+a^{9997}b+\cdots+ab^{9997}+b^{9998}.$$
+<p class='lesson-paragraph'>于是</p>
+$$a^{9999}-b^{9999}=(a-b)Q.$$
+<p class='lesson-paragraph'>而</p>
+$$a-b=(x-1)-2x=-(x+1),$$
+<p class='lesson-paragraph'>所以原不等式等价于</p>
+$$-(x+1)Q\leq x+1,$$
+<p class='lesson-paragraph'>即</p>
+$$(x+1)(1+Q)\geq 0.$$
+<p class='lesson-paragraph'>然后我们注意到，在</p>
+$$a^3-b^3=(a-b)(a^2+ab+b^2)$$
+<p class='lesson-paragraph'>中，除 $a=b=0$ 外，$a^2+ab+b^2$ 恒大于 $0$。比如把它看成关于 $a$ 的二次式，它的判别式</p>
+$$\Delta=b^2-4b^2=-3b^2\leq 0,$$
+<p class='lesson-paragraph'>并结合 $a=b=0$ 的特殊情况即可判断它的符号。那么我们也希望这里的 $Q$ 大于 $0$，<span class='math-inline-trigger' onclick='toggleInlinePPT(this)'>如何证明？</span><span class='hidden'>因为函数 $f(t)=t^{9999}$ 在 $\mathbb R$ 上严格单调递增，所以 $a-b$ 和 $a^{9999}-b^{9999}$ 同号。当 $a\ne b$ 时，
+$$Q=\frac{a^{9999}-b^{9999}}{a-b}>0.$$
+当 $a=b$ 时，$Q=9999a^{9998}$。在本题中，$a=b$ 时 $x=-1$，此时 $a=b=-2$，所以仍有 $Q>0$。</span></p>
+<p class='lesson-paragraph'>因此 $1+Q>0$，原不等式等价于</p>
+$$x+1\geq 0.$$
+<p class='lesson-paragraph'>所以解集为</p>
+$$[-1,+\infty).$$
+<p class='lesson-paragraph'><strong>法二：同构。</strong></p>
+<p class='lesson-paragraph'>题目中有两个同构的主项：$(x-1)^{9999}$ 与 $(2x)^{9999}$。先把它们分别放到不等式两边：</p>
+$$(x-1)^{9999}\leq (2x)^{9999}+x+1.$$
+<p class='lesson-paragraph'>然后比较两个主项的底数。注意到</p>
+$$x+1=2x-(x-1),$$
+<p class='lesson-paragraph'>所以可以把剩余的小项分别还给两个底数：</p>
+$$(x-1)^{9999}+(x-1)\leq (2x)^{9999}+2x.$$
+<p class='lesson-paragraph'>令</p>
+$$f(t)=t^{9999}+t.$$
+<p class='lesson-paragraph'>因为 $f(t)$ 在 $\mathbb R$ 上严格单调递增，所以</p>
+$$f(x-1)\leq f(2x)\iff x-1\leq 2x\iff x\geq -1.$$
+<p class='lesson-paragraph'>因此原不等式的解集为</p>
+$$[-1,+\infty).$$
+</div>`
+            }
+        ]
+    },
 ];
