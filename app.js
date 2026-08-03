@@ -2,6 +2,18 @@ let activeLessonId = ALL_LESSONS[0].id;
 let selectedTagFilter = null;
 let reviewMode = 'full';
 let activeAnnotationSelection = null;
+let mobileLessonListOpen = false;
+
+function toggleMobileLessonList(forceOpen = null) {
+    mobileLessonListOpen = forceOpen === null ? !mobileLessonListOpen : forceOpen;
+    const sidebar = document.querySelector('.app-sidebar');
+    const toggle = document.getElementById('mobile-lesson-toggle');
+    const label = document.getElementById('mobile-lesson-toggle-label');
+    if (!sidebar || !toggle || !label) return;
+    sidebar.classList.toggle('mobile-list-open', mobileLessonListOpen);
+    toggle.setAttribute('aria-expanded', String(mobileLessonListOpen));
+    label.textContent = mobileLessonListOpen ? '收起题目列表' : '展开题目列表';
+}
 
 const REVIEW_MODES = [
     { key: 'full', label: '正常阅读', dotClass: 'bg-slate-600' },
@@ -464,11 +476,16 @@ function switchLesson(id, resetScroll = true) {
         document.querySelector('main').scrollTop = 0;
     }
 
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        toggleMobileLessonList(false);
+    }
+
     checkHistoryProgress();
     loadComments(id);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+    toggleMobileLessonList(false);
     renderAnnotationToolbar();
     document.addEventListener('mouseup', () => setTimeout(handleAnnotationSelection, 0));
     document.addEventListener('touchend', () => setTimeout(handleAnnotationSelection, 80));
