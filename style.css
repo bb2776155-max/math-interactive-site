@@ -98,3 +98,103 @@ summary { list-style: none; }
     color: white;
     background: rgba(79, 70, 229, 0.4);
 }
+
+/* Keep the reading surface usable when the viewport is too narrow for the desktop split view. */
+.app-shell {
+    min-height: 100dvh;
+}
+.app-main {
+    min-height: 0;
+}
+.lesson-answer mjx-container[display="true"] {
+    max-width: 100%;
+}
+.lesson-answer svg {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 767px) {
+    body {
+        overflow: hidden;
+    }
+    .app-shell {
+        height: 100dvh;
+        min-height: 0;
+        flex-direction: column;
+    }
+    .app-sidebar {
+        width: 100%;
+        height: auto;
+        max-height: 40dvh;
+        border-right: 0;
+        border-bottom: 1px solid rgb(15 23 42);
+    }
+    .app-sidebar > div:first-child {
+        padding: 0.75rem 1rem;
+        gap: 0.65rem;
+    }
+    .app-sidebar nav {
+        min-height: 5rem;
+        padding: 0.5rem 0.75rem 0.75rem;
+    }
+    .app-sidebar nav button {
+        padding: 0.65rem 0.75rem;
+    }
+    .app-main {
+        width: 100%;
+        padding: 1.25rem 1rem 2.5rem;
+    }
+    .app-main > div {
+        width: 100%;
+    }
+    #announcement-banner {
+        padding: 0.9rem 1rem;
+        border-radius: 0.75rem;
+    }
+    #history-resume-banner {
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+    }
+    #lesson-title {
+        font-size: 1.35rem;
+    }
+    #tag-container {
+        gap: 0.4rem;
+    }
+    #tag-container button {
+        min-height: 2rem;
+    }
+    .lesson-answer {
+        padding: 1rem;
+        font-size: 0.9375rem;
+        line-height: 1.85;
+    }
+    .lesson-answer mjx-container[display="true"] {
+        margin: 0.8rem -0.25rem !important;
+        padding: 0.65rem 0.5rem;
+        font-size: 0.9em;
+        border-radius: 0.6rem;
+    }
+    .lesson-answer .thin-content {
+        padding: 0.75rem;
+    }
+    .lesson-answer svg {
+        max-height: 45vh;
+        object-fit: contain;
+    }
+    .comment-composer {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .comment-composer > button {
+        width: 100%;
+    }
+    .comment-composer > div {
+        width: 100%;
+    }
+    .math-inline-trigger {
+        padding: 0.12rem 0.08rem;
+    }
+}
