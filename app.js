@@ -3,16 +3,23 @@ let selectedTagFilter = null;
 let reviewMode = 'full';
 let activeAnnotationSelection = null;
 let mobileLessonListOpen = false;
+let mobileLessonToggleRevealed = false;
 
-function toggleMobileLessonList(forceOpen = null) {
+function revealMobileLessonToggle() {
+    mobileLessonToggleRevealed = true;
+    const toggle = document.getElementById('mobile-lesson-toggle');
+    if (toggle) toggle.classList.add('mobile-toggle-revealed');
+}
+
+function toggleMobileLessonList(event = null, forceOpen = null) {
+    if (event) event.stopPropagation();
     mobileLessonListOpen = forceOpen === null ? !mobileLessonListOpen : forceOpen;
     const sidebar = document.querySelector('.app-sidebar');
     const toggle = document.getElementById('mobile-lesson-toggle');
-    const label = document.getElementById('mobile-lesson-toggle-label');
-    if (!sidebar || !toggle || !label) return;
+    if (!sidebar || !toggle) return;
     sidebar.classList.toggle('mobile-list-open', mobileLessonListOpen);
     toggle.setAttribute('aria-expanded', String(mobileLessonListOpen));
-    label.textContent = mobileLessonListOpen ? '收起题目列表' : '展开题目列表';
+    toggle.classList.toggle('mobile-toggle-revealed', mobileLessonListOpen || mobileLessonToggleRevealed);
 }
 
 const REVIEW_MODES = [
@@ -477,7 +484,10 @@ function switchLesson(id, resetScroll = true) {
     }
 
     if (window.matchMedia('(max-width: 767px)').matches) {
-        toggleMobileLessonList(false);
+        mobileLessonToggleRevealed = false;
+        toggleMobileLessonList(null, false);
+        const toggle = document.getElementById('mobile-lesson-toggle');
+        if (toggle) toggle.classList.remove('mobile-toggle-revealed');
     }
 
     checkHistoryProgress();
@@ -485,7 +495,7 @@ function switchLesson(id, resetScroll = true) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    toggleMobileLessonList(false);
+    toggleMobileLessonList(null, false);
     renderAnnotationToolbar();
     document.addEventListener('mouseup', () => setTimeout(handleAnnotationSelection, 0));
     document.addEventListener('touchend', () => setTimeout(handleAnnotationSelection, 80));

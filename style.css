@@ -106,6 +106,7 @@ summary { list-style: none; }
 .app-main {
     min-height: 0;
 }
+.mobile-lesson-reveal-zone,
 .mobile-lesson-toggle {
     display: none;
 }
@@ -127,6 +128,7 @@ summary { list-style: none; }
         flex-direction: column;
     }
     .app-sidebar {
+        display: none;
         width: 100%;
         height: auto;
         max-height: none;
@@ -135,29 +137,42 @@ summary { list-style: none; }
         overflow: hidden;
     }
     .app-sidebar.mobile-list-open {
+        display: flex;
         max-height: 42dvh;
+    }
+    .mobile-lesson-reveal-zone {
+        display: block;
+        position: fixed;
+        z-index: 30;
+        top: 0;
+        left: 0;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    .mobile-lesson-toggle {
+        display: none;
+        position: fixed;
+        z-index: 40;
+        top: 0.55rem;
+        left: 0.55rem;
+        width: 1.8rem;
+        height: 1.8rem;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid rgba(71, 85, 105, 0.8);
+        border-radius: 0.5rem;
+        color: rgb(148, 163, 184);
+        background: rgba(15, 23, 42, 0.88);
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+    .mobile-lesson-toggle.mobile-toggle-revealed {
+        display: flex;
     }
     .app-sidebar > div:first-child {
         padding: 0.75rem 1rem;
         gap: 0.65rem;
-    }
-    .mobile-lesson-toggle {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 2.25rem;
-        padding: 0.55rem 0.75rem;
-        border: 1px solid rgba(51, 65, 85, 0.8);
-        border-radius: 0.65rem;
-        color: rgb(148, 163, 184);
-        background: rgba(15, 23, 42, 0.65);
-        font-size: 0.75rem;
-        font-weight: 700;
-        cursor: pointer;
-    }
-    .mobile-lesson-toggle:active {
-        background: rgba(79, 70, 229, 0.2);
     }
     .app-sidebar nav {
         display: none;
