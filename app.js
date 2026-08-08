@@ -42,8 +42,8 @@ function escapeHtml(value) {
     return div.innerHTML;
 }
 
-function escapeRegExp(value) {
-    return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function normalizeAnnotationText(value) {
+    return (value || '').replace(/\s+/g, ' ').trim();
 }
 
 function applyAnnotationHighlights(root, annotations) {
@@ -60,32 +60,66 @@ function applyAnnotationHighlights(root, annotations) {
     });
 
     const textNodes = [];
-    while (walker.nextNode()) textNodes.push(walker.currentNode);
+    let fullText = '';
+    while (walker.nextNode()) {
+        const node = walker.currentNode;
+        textNodes.push({ node, start: fullText.length, end: fullText.length + node.nodeValue.length });
+        fullText += node.nodeValue;
+    }
 
+    const normalizedChars = [];
+    const normalizedToOriginal = [];
+    let previousWasSpace = false;
+    for (let index = 0; index < fullText.length; index += 1) {
+        const isSpace = /\s/.test(fullText[index]);
+        if (isSpace && previousWasSpace) continue;
+        normalizedChars.push(isSpace ? ' ' : fullText[index]);
+        normalizedToOriginal.push(index);
+        previousWasSpace = isSpace;
+    }
+    const normalizedFullText = normalizedChars.join('');
+
+    const nodeSegments = new Map();
     annotations.forEach(annotation => {
-        const selectedText = annotation.text;
+        const selectedText = normalizeAnnotationText(annotation.text);
         if (!selectedText || selectedText.length < 2) return;
 
-        const pattern = new RegExp(escapeRegExp(selectedText), 'g');
-        textNodes.forEach(node => {
-            if (!node.parentNode || !node.nodeValue.includes(selectedText)) return;
-
-            const fragment = document.createDocumentFragment();
-            let lastIndex = 0;
-            node.nodeValue.replace(pattern, (match, index) => {
-                if (index > lastIndex) {
-                    fragment.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex, index)));
-                }
-                const mark = document.createElement('span');
-                mark.className = `student-highlight student-highlight-${annotation.color || 'blue'}`;
-                mark.textContent = match;
-                fragment.appendChild(mark);
-                lastIndex = index + match.length;
+        let matchStart = normalizedFullText.indexOf(selectedText);
+        while (matchStart !== -1) {
+            const originalStart = normalizedToOriginal[matchStart];
+            const originalEnd = normalizedToOriginal[matchStart + selectedText.length - 1] + 1;
+            textNodes.forEach(({ node, start, end }) => {
+                const segmentStart = Math.max(originalStart, start);
+                const segmentEnd = Math.min(originalEnd, end);
+                if (segmentStart >= segmentEnd) return;
+                if (!nodeSegments.has(node)) nodeSegments.set(node, []);
+                nodeSegments.get(node).push({
+                    start: segmentStart - start,
+                    end: segmentEnd - start,
+                    color: annotation.color || 'blue'
+                });
             });
-            if (lastIndex < node.nodeValue.length) {
-                fragment.appendChild(document.createTextNode(node.nodeValue.slice(lastIndex)));
+            matchStart = normalizedFullText.indexOf(selectedText, matchStart + selectedText.length);
+        }
+    });
+
+    nodeSegments.forEach((segments, node) => {
+        const accepted = [];
+        segments.slice().reverse().forEach(segment => {
+            if (!accepted.some(item => segment.start < item.end && segment.end > item.start)) {
+                accepted.push(segment);
             }
-            node.parentNode.replaceChild(fragment, node);
+        });
+
+        accepted.sort((a, b) => b.start - a.start).forEach(segment => {
+            if (!node.parentNode) return;
+            const after = node.splitText(segment.end);
+            const selected = node.splitText(segment.start);
+            const mark = document.createElement('span');
+            mark.className = `student-highlight student-highlight-${segment.color}`;
+            selected.parentNode.insertBefore(mark, selected);
+            mark.appendChild(selected);
+            void after;
         });
     });
 }
