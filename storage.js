@@ -104,6 +104,11 @@ function addStepAnnotation(lessonId, stepId, annotation) {
     setStepAnnotations(lessonId, stepId, annotations);
 }
 
+function removeStepAnnotation(lessonId, stepId, createdAt) {
+    const annotations = getStepAnnotations(lessonId, stepId);
+    setStepAnnotations(lessonId, stepId, annotations.filter(annotation => String(annotation.createdAt) !== String(createdAt)));
+}
+
 function clearStepAnnotations(lessonId, stepId) {
     localStorage.removeItem(getAnnotationKey(lessonId, stepId));
 }

@@ -60,6 +60,7 @@ summary { list-style: none; }
 .student-highlight {
     border-radius: 0.2rem;
     padding: 0 0.08rem;
+    cursor: pointer;
 }
 .student-highlight-blue {
     background: rgba(59, 130, 246, 0.2);

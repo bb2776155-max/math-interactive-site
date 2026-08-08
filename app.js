@@ -96,7 +96,8 @@ function applyAnnotationHighlights(root, annotations) {
                 nodeSegments.get(node).push({
                     start: segmentStart - start,
                     end: segmentEnd - start,
-                    color: annotation.color || 'blue'
+                    color: annotation.color || 'blue',
+                    createdAt: annotation.createdAt
                 });
             });
             matchStart = normalizedFullText.indexOf(selectedText, matchStart + selectedText.length);
@@ -117,6 +118,7 @@ function applyAnnotationHighlights(root, annotations) {
             const selected = node.splitText(segment.start);
             const mark = document.createElement('span');
             mark.className = `student-highlight student-highlight-${segment.color}`;
+            mark.dataset.annotationCreatedAt = segment.createdAt;
             selected.parentNode.insertBefore(mark, selected);
             mark.appendChild(selected);
             void after;
@@ -132,13 +134,29 @@ function renderAnnotationToolbar() {
     toolbar.id = 'annotation-toolbar';
     toolbar.className = 'annotation-toolbar hidden';
     toolbar.innerHTML = `
-        <button onclick="saveCurrentAnnotation('blue')">蓝笔</button>
-        <button onclick="saveCurrentAnnotation('yellow')">黄笔</button>
-        <button onclick="markCurrentSelectionForReview()">需回看</button>
-        <button onclick="clearCurrentStepAnnotations()">清空本题</button>
+        <button data-annotation-action="create" onclick="saveCurrentAnnotation('blue')">蓝笔</button>
+        <button data-annotation-action="create" onclick="saveCurrentAnnotation('yellow')">黄笔</button>
+        <button data-annotation-action="create" onclick="markCurrentSelectionForReview()">需回看</button>
+        <button data-annotation-action="create" onclick="clearCurrentStepAnnotations()">清空本题</button>
+        <button data-annotation-action="delete" class="hidden" onclick="deleteCurrentAnnotation()">删除此划线</button>
     `;
     document.body.appendChild(toolbar);
     return toolbar;
+}
+
+function setAnnotationToolbarMode(mode) {
+    const toolbar = renderAnnotationToolbar();
+    toolbar.querySelectorAll('[data-annotation-action="create"]').forEach(button => {
+        button.classList.toggle('hidden', mode !== 'create');
+    });
+    toolbar.querySelector('[data-annotation-action="delete"]')?.classList.toggle('hidden', mode !== 'delete');
+}
+
+function positionAnnotationToolbar(rect) {
+    const toolbar = renderAnnotationToolbar();
+    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + window.scrollX))}px`;
+    toolbar.style.top = `${Math.max(12, rect.top + window.scrollY - 44)}px`;
+    toolbar.classList.remove('hidden');
 }
 
 function hideAnnotationToolbar() {
@@ -176,9 +194,29 @@ function handleAnnotationSelection() {
     };
 
     const rect = range.getBoundingClientRect();
-    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + window.scrollX))}px`;
-    toolbar.style.top = `${Math.max(12, rect.top + window.scrollY - 44)}px`;
-    toolbar.classList.remove('hidden');
+    setAnnotationToolbarMode('create');
+    positionAnnotationToolbar(rect);
+}
+
+function openAnnotationDeleteToolbar(mark) {
+    const details = mark.closest('details');
+    if (!details?.id || !mark.dataset.annotationCreatedAt) return;
+    activeAnnotationSelection = {
+        lessonId: activeLessonId,
+        stepId: details.id,
+        createdAt: mark.dataset.annotationCreatedAt
+    };
+    setAnnotationToolbarMode('delete');
+    positionAnnotationToolbar(mark.getBoundingClientRect());
+}
+
+function deleteCurrentAnnotation() {
+    if (!activeAnnotationSelection?.createdAt) return;
+    const { lessonId, stepId, createdAt } = activeAnnotationSelection;
+    removeStepAnnotation(lessonId, stepId, createdAt);
+    hideAnnotationToolbar();
+    activeAnnotationSelection = null;
+    refreshStepAnnotations(lessonId, stepId);
 }
 
 function refreshStepAnnotations(lessonId, stepId) {
@@ -532,7 +570,16 @@ window.addEventListener('DOMContentLoaded', () => {
     toggleMobileLessonList(null, false);
     renderAnnotationToolbar();
     document.addEventListener('mouseup', () => setTimeout(handleAnnotationSelection, 0));
-    document.addEventListener('touchend', () => setTimeout(handleAnnotationSelection, 80));
+    document.addEventListener('touchend', (event) => {
+        if (event.target.closest('.student-highlight')) return;
+        setTimeout(handleAnnotationSelection, 80);
+    });
+    document.addEventListener('click', (event) => {
+        const mark = event.target.closest('.student-highlight');
+        if (!mark) return;
+        event.stopPropagation();
+        openAnnotationDeleteToolbar(mark);
+    });
     document.addEventListener('mousedown', (event) => {
         if (!event.target.closest('#annotation-toolbar')) {
             hideAnnotationToolbar();
