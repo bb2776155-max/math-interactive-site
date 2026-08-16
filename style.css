@@ -86,13 +86,15 @@ summary { list-style: none; }
 @media (max-width: 767px) {
     .annotation-toolbar {
         position: fixed;
-        left: 0;
-        top: 0;
+        left: 50%;
+        top: auto;
+        bottom: calc(1rem + env(safe-area-inset-bottom));
         max-width: calc(100vw - 1rem);
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         padding: 0.45rem;
         border-radius: 0.85rem;
+        transform: translateX(-50%);
     }
 
     .annotation-toolbar button {

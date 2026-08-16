@@ -158,8 +158,17 @@ function positionAnnotationToolbar(rect) {
     const isMobile = window.matchMedia('(max-width: 767px)').matches;
     const scrollX = isMobile ? 0 : window.scrollX;
     const scrollY = isMobile ? 0 : window.scrollY;
-    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + scrollX))}px`;
-    toolbar.style.top = `${Math.max(12, rect.top + scrollY - 52)}px`;
+    if (isMobile) {
+        toolbar.style.left = '50%';
+        toolbar.style.top = 'auto';
+        toolbar.style.bottom = 'calc(1rem + env(safe-area-inset-bottom))';
+        toolbar.style.transform = 'translateX(-50%)';
+    } else {
+        toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + scrollX))}px`;
+        toolbar.style.top = `${Math.max(12, rect.top + scrollY - 52)}px`;
+        toolbar.style.bottom = 'auto';
+        toolbar.style.transform = 'none';
+    }
     toolbar.classList.remove('hidden');
 }
 
