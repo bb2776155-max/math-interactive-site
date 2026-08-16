@@ -4,6 +4,7 @@ let reviewMode = 'full';
 let activeAnnotationSelection = null;
 let mobileLessonListOpen = false;
 let mobileLessonToggleRevealed = false;
+let annotationSelectionTimer = null;
 
 function revealMobileLessonToggle() {
     mobileLessonToggleRevealed = true;
@@ -154,8 +155,11 @@ function setAnnotationToolbarMode(mode) {
 
 function positionAnnotationToolbar(rect) {
     const toolbar = renderAnnotationToolbar();
-    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + window.scrollX))}px`;
-    toolbar.style.top = `${Math.max(12, rect.top + window.scrollY - 44)}px`;
+    const isMobile = window.matchMedia('(max-width: 767px)').matches;
+    const scrollX = isMobile ? 0 : window.scrollX;
+    const scrollY = isMobile ? 0 : window.scrollY;
+    toolbar.style.left = `${Math.min(window.innerWidth - 250, Math.max(12, rect.left + scrollX))}px`;
+    toolbar.style.top = `${Math.max(12, rect.top + scrollY - 52)}px`;
     toolbar.classList.remove('hidden');
 }
 
@@ -196,6 +200,13 @@ function handleAnnotationSelection() {
     const rect = range.getBoundingClientRect();
     setAnnotationToolbarMode('create');
     positionAnnotationToolbar(rect);
+}
+
+function scheduleAnnotationSelection(delay = 120) {
+    window.clearTimeout(annotationSelectionTimer);
+    annotationSelectionTimer = window.setTimeout(() => {
+        if (window.getSelection()?.rangeCount) handleAnnotationSelection();
+    }, delay);
 }
 
 function openAnnotationDeleteToolbar(mark) {
@@ -569,10 +580,13 @@ function switchLesson(id, resetScroll = true) {
 window.addEventListener('DOMContentLoaded', () => {
     toggleMobileLessonList(null, false);
     renderAnnotationToolbar();
-    document.addEventListener('mouseup', () => setTimeout(handleAnnotationSelection, 0));
+    document.addEventListener('mouseup', () => scheduleAnnotationSelection(40));
+    document.addEventListener('selectionchange', () => scheduleAnnotationSelection(180));
     document.addEventListener('touchend', (event) => {
         if (event.target.closest('.student-highlight')) return;
-        setTimeout(handleAnnotationSelection, 80);
+        // Android browsers create/update the native text selection after touchend.
+        // Wait for that selection, then place our toolbar without disabling copy.
+        scheduleAnnotationSelection(260);
     });
     document.addEventListener('click', (event) => {
         const mark = event.target.closest('.student-highlight');
