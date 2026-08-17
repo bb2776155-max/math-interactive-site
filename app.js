@@ -454,6 +454,7 @@ function renderSidebar() {
         const matchReason = getSearchMatchReason(lesson, searchQuery);
 
         const btn = document.createElement('button');
+        if (isActive) btn.setAttribute('aria-current', 'page');
         btn.className = `w-full text-left px-4 py-3 rounded-xl flex flex-col gap-1 transition-all cursor-pointer text-sm ${
             isActive ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/10' : 'hover:bg-slate-900/60 text-slate-400 hover:text-slate-200'
         }`;
@@ -482,6 +483,7 @@ function switchLesson(id, resetScroll = true) {
     if (!lesson) return;
 
     if (reachedSavedLesson) clearHistoryResume(id);
+    renderSidebar();
 
     document.getElementById('lesson-title').innerText = lesson.title;
 
