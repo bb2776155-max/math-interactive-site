@@ -125,6 +125,34 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-answer-is-a-game-record",
+        "title": "答案就是棋谱：如何真正看答案",
+        "difficulty_tag": "知识",
+        "stage_tag": "学习观",
+        "mindset_tags": ["学习方法", "看答案", "复推思路"],
+        "steps": [
+            {
+                "question": "答案就是棋谱：如何真正看答案",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>答案就是棋谱。</p>
+<p class='lesson-paragraph'>你做不出一道题以后，答案不是用来替你宣布结果的，也不是用来让你从头到尾验证“它的每一步都是对的”。答案真正有价值的地方，是让你研究别人是怎样下出这一步的。</p>
+<p class='lesson-paragraph'>很多同学看答案时，只是在确认：第一步对，第二步对，第三步也对。确认完以后，觉得自己看懂了，然后把答案合上。这种“看懂”通常没有多少意义，因为答案本来就应该是对的。你真正要问的是：</p>
+<p class='lesson-paragraph'>答案是怎么想到的？</p>
+<p class='lesson-paragraph'>我为什么没有想到？</p>
+<p class='lesson-paragraph'>我具体是在哪一个点没有想到？</p>
+<p class='lesson-paragraph'>答案中的这一步，解决了前面的什么困难？</p>
+<p class='lesson-paragraph'>如果只直接看答案，你往往无法理解答案究竟在干什么，也记不住答案究竟在干什么。眼睛处理了好几行似懂非懂的文字，却没有抓住其中真正的重点，也没有抓住答案里的思考和创造。</p>
+<p class='lesson-paragraph'>所以看答案时，要把答案当成一盘已经下完的棋。不要只看棋子最后停在哪里，要回头研究每一步为什么下在这里：前面出现了什么局面？这一步想解决什么问题？它为后面准备了什么？</p>
+<p class='lesson-paragraph'>一道题不会做很正常，但“我不会”还不是足够具体的结论。你要把它继续拆开：是没有观察到某个结构？没有想到尝试基本工具？不知道这个工具可以这样用？还是知道了方向，却不会完成其中的变形？</p>
+<p class='lesson-paragraph'>只有找到这个具体的点，你才知道自己需要补什么。这道不会做的题才真正给你留下了收获。</p>
+<p class='lesson-paragraph'>看答案时还要保持主动性。答案写了几行以后，不要机械地继续往下看；如果你感觉自己已经有了思路，就把答案放到一边，自己接着写。或者你突然想到了一条可以记下的感想，也应该立刻写在旁边。</p>
+<p class='lesson-paragraph'>答案不是拿来抄的，而是拿来复推的。你要尝试猜出：作者在写出下一步以前，观察到了什么，想解决什么，为什么想到使用这个工具。</p>
+<p class='lesson-paragraph'>答案就是棋谱。优化来源于重复，但在重复中一定要寻求优化；不然的话，就是无意义的重复。每次看答案，都应该比上次多看出一点它是怎样产生的。</p>
+</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson-functional-equation-01",
         "title": "使用抽象函数",
         "difficulty_tag": "简单",
