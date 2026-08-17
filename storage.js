@@ -1,7 +1,104 @@
+const CLOUD_SYNC_PREFIXES = ['status_stage_', 'status_thin_completed_at_', 'step_status_', 'annotations_'];
+const CLOUD_SYNC_EXACT_KEYS = ['last_read_lesson'];
+let cloudLearningDataReady = false;
+let cloudLearningSyncTimer = null;
+
+function shouldSyncLearningKey(key) {
+    return CLOUD_SYNC_EXACT_KEYS.includes(key)
+        || key.startsWith('last_read_step_')
+        || CLOUD_SYNC_PREFIXES.some(prefix => key.startsWith(prefix));
+}
+
+function getLocalLearningUpdatedKey(key) {
+    return `cloud_updated_at_${key}`;
+}
+
+function markLearningDataChanged(key) {
+    if (!shouldSyncLearningKey(key)) return;
+    localStorage.setItem(getLocalLearningUpdatedKey(key), new Date().toISOString());
+    scheduleLearningDataSync();
+}
+
+function setLearningLocalValue(key, value) {
+    if (value === null || value === undefined) {
+        localStorage.removeItem(key);
+        localStorage.removeItem(getLocalLearningUpdatedKey(key));
+        if (cloudLearningDataReady) deleteLearningDataFromCloud(key);
+        return;
+    }
+    localStorage.setItem(key, value);
+    markLearningDataChanged(key);
+}
+
+async function deleteLearningDataFromCloud(key) {
+    const { error } = await supabaseClient
+        .from('learning_data')
+        .delete()
+        .eq('data_key', key)
+        .eq('user_hash', getCurrentUserHash());
+    if (error) console.warn('云端学习数据删除失败:', error.message);
+}
+
+function scheduleLearningDataSync() {
+    if (!cloudLearningDataReady || typeof supabaseClient === 'undefined') return;
+    clearTimeout(cloudLearningSyncTimer);
+    cloudLearningSyncTimer = setTimeout(syncLearningDataToCloud, 500);
+}
+
+function collectLocalLearningData() {
+    const rows = [];
+    for (let index = 0; index < localStorage.length; index += 1) {
+        const key = localStorage.key(index);
+        if (!shouldSyncLearningKey(key)) continue;
+        const raw = localStorage.getItem(key);
+        rows.push({
+            user_hash: getCurrentUserHash(),
+            data_key: key,
+            value: { raw },
+            updated_at: localStorage.getItem(getLocalLearningUpdatedKey(key)) || new Date(0).toISOString()
+        });
+    }
+    return rows;
+}
+
+async function initializeLearningDataSync() {
+    if (typeof supabaseClient === 'undefined' || getCurrentUserHash() === 'anonymous_user') return;
+    const { data, error } = await supabaseClient.from('learning_data').select('data_key,value,updated_at');
+    if (error) {
+        console.warn('学习数据云同步尚未启用:', error.message);
+        return;
+    }
+
+    (data || []).forEach(row => {
+        const localUpdated = Date.parse(localStorage.getItem(getLocalLearningUpdatedKey(row.data_key)) || 0);
+        const cloudUpdated = Date.parse(row.updated_at || 0);
+        if (cloudUpdated >= localUpdated) {
+            const raw = row.value && Object.prototype.hasOwnProperty.call(row.value, 'raw') ? row.value.raw : null;
+            if (raw === null) localStorage.removeItem(row.data_key);
+            else localStorage.setItem(row.data_key, raw);
+            localStorage.setItem(getLocalLearningUpdatedKey(row.data_key), row.updated_at);
+        }
+    });
+
+    cloudLearningDataReady = true;
+    await syncLearningDataToCloud();
+    renderSidebar();
+    updateStatusButton(activeLessonId);
+    checkHistoryProgress();
+}
+
+async function syncLearningDataToCloud() {
+    if (!cloudLearningDataReady) return;
+    const rows = collectLocalLearningData();
+    if (!rows.length) return;
+    const { error } = await supabaseClient.from('learning_data').upsert(rows, { onConflict: 'user_hash,data_key' });
+    if (error) console.warn('学习数据同步失败:', error.message);
+}
+
 function saveStepProgress(stepId) {
     if (activeLessonId === "lesson_000") return; // 学习观不保存进度
-    localStorage.setItem(`last_read_lesson`, activeLessonId);
-    localStorage.setItem(`last_read_step_${activeLessonId}`, stepId);
+    setLearningLocalValue('last_read_lesson', activeLessonId);
+    setLearningLocalValue(`last_read_step_${activeLessonId}`, stepId);
     checkHistoryProgress();
 }
 
@@ -23,8 +120,8 @@ function checkHistoryProgress() {
 }
 
 function clearHistoryResume(lessonId = localStorage.getItem('last_read_lesson')) {
-    if (lessonId) localStorage.removeItem(`last_read_step_${lessonId}`);
-    localStorage.removeItem('last_read_lesson');
+    if (lessonId) setLearningLocalValue(`last_read_step_${lessonId}`, null);
+    setLearningLocalValue('last_read_lesson', null);
     const banner = document.getElementById('history-resume-banner');
     if (banner) {
         banner.classList.remove('flex');
@@ -68,7 +165,7 @@ function migrateLessonStatus(id) {
     const storageKey = getLessonStatusKey(id);
     const current = localStorage.getItem(storageKey) || 'none';
     if (current === 'understood' || current === 'explainable') {
-        localStorage.setItem(storageKey, 'thick_complete');
+        setLearningLocalValue(storageKey, 'thick_complete');
         return 'thick_complete';
     }
     return current;
@@ -80,7 +177,7 @@ function getLessonStatus(id) {
 
     const completedAt = Number(localStorage.getItem(getLessonThinCompletedKey(id)) || 0);
     if (!completedAt) {
-        localStorage.setItem(getLessonThinCompletedKey(id), String(Date.now()));
+        setLearningLocalValue(getLessonThinCompletedKey(id), String(Date.now()));
         return 'thin_complete';
     }
 
@@ -154,14 +251,14 @@ function closeLessonStatusMenu() {
 function setLessonStatus(statusKey) {
     const storageKey = getLessonStatusKey(activeLessonId);
     if (statusKey === 'none') {
-        localStorage.removeItem(storageKey);
-        localStorage.removeItem(getLessonThinCompletedKey(activeLessonId));
+        setLearningLocalValue(storageKey, null);
+        setLearningLocalValue(getLessonThinCompletedKey(activeLessonId), null);
     } else {
-        localStorage.setItem(storageKey, statusKey);
+        setLearningLocalValue(storageKey, statusKey);
         if (statusKey === 'thin_complete') {
-            localStorage.setItem(getLessonThinCompletedKey(activeLessonId), String(Date.now()));
+            setLearningLocalValue(getLessonThinCompletedKey(activeLessonId), String(Date.now()));
         } else if (statusKey !== 'cold_review') {
-            localStorage.removeItem(getLessonThinCompletedKey(activeLessonId));
+            setLearningLocalValue(getLessonThinCompletedKey(activeLessonId), null);
         }
     }
 
@@ -183,9 +280,9 @@ function getStepStatus(lessonId, stepId) {
 function setStepStatus(lessonId, stepId, statusKey) {
     const storageKey = getStepStatusKey(lessonId, stepId);
     if (statusKey === 'none') {
-        localStorage.removeItem(storageKey);
+        setLearningLocalValue(storageKey, null);
     } else {
-        localStorage.setItem(storageKey, statusKey);
+        setLearningLocalValue(storageKey, statusKey);
     }
 }
 
@@ -202,7 +299,7 @@ function getStepAnnotations(lessonId, stepId) {
 }
 
 function setStepAnnotations(lessonId, stepId, annotations) {
-    localStorage.setItem(getAnnotationKey(lessonId, stepId), JSON.stringify(annotations));
+    setLearningLocalValue(getAnnotationKey(lessonId, stepId), JSON.stringify(annotations));
 }
 
 function addStepAnnotation(lessonId, stepId, annotation) {
@@ -217,5 +314,5 @@ function removeStepAnnotation(lessonId, stepId, createdAt) {
 }
 
 function clearStepAnnotations(lessonId, stepId) {
-    localStorage.removeItem(getAnnotationKey(lessonId, stepId));
+    setLearningLocalValue(getAnnotationKey(lessonId, stepId), null);
 }

@@ -41,4 +41,5 @@ function unlockSite() {
     mainContent.classList.remove('opacity-0', 'pointer-events-none');
     mainContent.classList.add('opacity-100');
     showModuleHome();
+    if (typeof initializeLearningDataSync === 'function') initializeLearningDataSync();
 }

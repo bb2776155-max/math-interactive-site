@@ -4,8 +4,8 @@
 
 1. Open Supabase Dashboard -> SQL Editor.
 2. Run `supabase-setup.sql`.
-3. Open Storage and confirm the bucket `comment-images` exists.
-4. Open Table Editor and confirm `comments.image_urls` exists.
+3. Open Storage and confirm the buckets `comment-images` and `private-note-images` exist. The latter must be private.
+4. Open Table Editor and confirm `comments`, `learning_data`, and `private_notes` exist.
 5. Open Authentication -> URL Configuration if Supabase Auth is enabled later:
    - Site URL: `https://bashuduhou.top`
    - Redirect URLs: `https://bashuduhou.top/**`
@@ -21,6 +21,8 @@ Test these on `https://bashuduhou.top` after deployment:
 5. Review mode cycles through normal, thin, self-test, and needs-review.
 6. Comments load, submit, reply, and delete only for the current user.
 7. Comment image upload works and thumbnails open in a new tab.
+8. Private notes are visible only under the same invite code, including on another device.
+9. Lesson status, step status, highlights, and last-read position survive switching devices with the same invite code.
 
 ## Current Security Model
 

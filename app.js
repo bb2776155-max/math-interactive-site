@@ -617,6 +617,7 @@ function switchLesson(id, resetScroll = true) {
 
     checkHistoryProgress();
     loadComments(id);
+    if (typeof loadPrivateNotes === 'function') loadPrivateNotes(id);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
