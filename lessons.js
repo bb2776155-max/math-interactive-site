@@ -41,10 +41,10 @@ const ALL_LESSONS = [
 <p class='lesson-paragraph'>所以同一道难题，第一遍可以在题干和答案旁边写下笔记、想法；第二遍重新写，并加入更多感想，或者修改原来的感想；第三遍还可以用后来学到的新知识，重新刻画、重新描述题中的思路。每一遍都不只是重复，而是在继续加工它。</p>
 <p class='lesson-paragraph'>复推思路也是复习的重要方式。我这个网站上的很多讲解，本身就是复推思路的范例。</p>
 <p class='lesson-paragraph'>比如看这个同构题：</p>
-<p class='lesson-paragraph'>$$\log_2 x-k\cdot 2^{kx}\geqslant 0.$$</p>
+<p class='lesson-paragraph'>$$\\log_2 x-k\\cdot 2^{kx}\\geqslant 0.$$</p>
 <p class='lesson-paragraph'>答案里两边同乘 $x$，得到：</p>
-<p class='lesson-paragraph'>$$x\log_2 x-kx\cdot 2^{kx}\geqslant 0.$$</p>
-<p class='lesson-paragraph'>复习时不要只记住“这里要同乘 $x$”。你要问：为什么要同乘 $x$？仔细观察同乘 $x$ 带来了什么变化，就会发现，简单地说，同乘 $x$ 让这个式子变得更“好看”了：原来左边是一个单独的 $\log_2x$，右边是两个数相乘；同乘 $x$ 后，左边变成 $x\log_2x$，两边才出现了适合放进同一个函数的结构。</p>
+<p class='lesson-paragraph'>$$x\\log_2 x-kx\\cdot 2^{kx}\\geqslant 0.$$</p>
+<p class='lesson-paragraph'>复习时不要只记住“这里要同乘 $x$”。你要问：为什么要同乘 $x$？仔细观察同乘 $x$ 带来了什么变化，就会发现，简单地说，同乘 $x$ 让这个式子变得更“好看”了：原来左边是一个单独的 $\\log_2x$，右边是两个数相乘；同乘 $x$ 后，左边变成 $x\\log_2x$，两边才出现了适合放进同一个函数的结构。</p>
 <p class='lesson-paragraph'>然后再进一步想：我应该怎样才能想到这一步？当然是观察这个式子离“变好看”还缺了什么。进行“找不同”或者“找缺点”的观察，就很可能发现以后怎样想到这一步。</p>
 <p class='lesson-paragraph'>这就体现出理解并熟悉这个网站上的各种“小逻辑”的重要性。</p>
 <p class='lesson-paragraph'>再比如某个三角形的题，答案用了余弦定理，而你没有想到。复习时就问：为什么会用余弦定理？因为这是你的常用工具。你在写不出来的时候，怎么能想不到用常用工具试试呢？为什么不用正弦定理？你都试试，发现正弦定理不太行，就换条路试余弦定理。</p>
@@ -415,7 +415,7 @@ $$
 $$
 <p class='lesson-paragraph'>先考虑后面的 $\\forall a>0$。它要求不等式对任意 $a>0$ 都成立，所以要看：</p>
 $$
-b\\leq\\inf_{a>0}\left[x\\ln x+(2-x)a\right].
+b\\leq\\inf_{a>0}\\left[x\\ln x+(2-x)a\\right].
 $$
 <p class='lesson-paragraph'>当 $0\\lt x\\lt2$ 时，下确界为 $x\\ln x$；当 $x=2$ 时，函数值恒为 $2\\ln2$；当 $x\\gt2$ 时，下确界为 $-\\infty$，不可能得到有限的 $b$。</p>
 <p class='lesson-paragraph'>所以只需在 $0\\lt x\\leq2$ 中寻找一个 $x$，使：</p>
