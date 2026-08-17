@@ -1,8 +1,10 @@
 const STATUS_STAGES = [
-    { key: 'none', label: '尚未标记 ⏳', icon: '⏳', bgClass: 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-800' },
-    { key: 'understood', label: '理解 📖', icon: '📖', bgClass: 'bg-blue-500/10 text-blue-400 border-blue-500/20 hover:bg-blue-500/20' },
-    { key: 'explainable', label: '可以自己讲出来 🗣️', icon: '🗣️', bgClass: 'bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/20' },
-    { key: 'mastered', label: '熟练 ⚡', icon: '⚡', bgClass: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20' }
+    { key: 'none', label: '尚未标记', icon: '○', bgClass: 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-800' },
+    { key: 'initial_read', label: '初读完成', icon: '1', bgClass: 'bg-blue-500/10 text-blue-300 border-blue-500/20 hover:bg-blue-500/20' },
+    { key: 'thick_complete', label: '读厚完成', icon: '厚', bgClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20 hover:bg-cyan-500/20' },
+    { key: 'thin_complete', label: '读薄完成', icon: '薄', bgClass: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20 hover:bg-indigo-500/20' },
+    { key: 'cold_review', label: '待冷复现', icon: '复', bgClass: 'bg-amber-500/10 text-amber-300 border-amber-500/20 hover:bg-amber-500/20' },
+    { key: 'mastered', label: '熟练', icon: '✓', bgClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20 hover:bg-emerald-500/20' }
 ];
 
 const ALL_LESSONS = [

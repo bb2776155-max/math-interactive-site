@@ -475,7 +475,7 @@ function renderSidebar() {
     }
 
     filtered.forEach(lesson => {
-        const currentStageKey = localStorage.getItem(`status_stage_${lesson.id}`) || 'none';
+        const currentStageKey = getLessonStatus(lesson.id);
         const currentStage = STATUS_STAGES.find(s => s.key === currentStageKey) || STATUS_STAGES[0];
         const isActive = lesson.id === activeLessonId;
         const matchReason = getSearchMatchReason(lesson, searchQuery);

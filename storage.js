@@ -54,31 +54,123 @@ function resumeLastRead() {
     }
 }
 
-function updateStatusButton(id) {
-    const btn = document.getElementById('status-toggle-btn');
-    const currentStageKey = localStorage.getItem(`status_stage_${id}`) || 'none';
-    const currentStage = STATUS_STAGES.find(s => s.key === currentStageKey) || STATUS_STAGES[0];
+const COLD_REVIEW_DELAY_DAYS = 15;
 
-    btn.className = `cursor-pointer text-xs font-bold px-4 py-2 rounded-xl border flex items-center space-x-2 transition-all ${currentStage.bgClass}`;
-    btn.innerHTML = `<span>${currentStage.label}</span>`;
+function getLessonStatusKey(id) {
+    return `status_stage_${id}`;
 }
 
-function toggleLessonStatus() {
-    const currentStageKey = localStorage.getItem(`status_stage_${activeLessonId}`) || 'none';
-    const currentIndex = STATUS_STAGES.findIndex(s => s.key === currentStageKey);
+function getLessonThinCompletedKey(id) {
+    return `status_thin_completed_at_${id}`;
+}
 
-    const nextIndex = (currentIndex + 1) % STATUS_STAGES.length;
-    const nextStage = STATUS_STAGES[nextIndex];
+function migrateLessonStatus(id) {
+    const storageKey = getLessonStatusKey(id);
+    const current = localStorage.getItem(storageKey) || 'none';
+    if (current === 'understood' || current === 'explainable') {
+        localStorage.setItem(storageKey, 'thick_complete');
+        return 'thick_complete';
+    }
+    return current;
+}
 
-    if (nextStage.key === 'none') {
-        localStorage.removeItem(`status_stage_${activeLessonId}`);
-    } else {
-        localStorage.setItem(`status_stage_${activeLessonId}`, nextStage.key);
+function getLessonStatus(id) {
+    const stored = migrateLessonStatus(id);
+    if (stored !== 'thin_complete') return stored;
+
+    const completedAt = Number(localStorage.getItem(getLessonThinCompletedKey(id)) || 0);
+    if (!completedAt) {
+        localStorage.setItem(getLessonThinCompletedKey(id), String(Date.now()));
+        return 'thin_complete';
     }
 
+    const elapsedDays = (Date.now() - completedAt) / 86400000;
+    return elapsedDays >= COLD_REVIEW_DELAY_DAYS ? 'cold_review' : 'thin_complete';
+}
+
+function getColdReviewDaysRemaining(id) {
+    const completedAt = Number(localStorage.getItem(getLessonThinCompletedKey(id)) || 0);
+    if (!completedAt) return COLD_REVIEW_DELAY_DAYS;
+    return Math.max(0, Math.ceil(COLD_REVIEW_DELAY_DAYS - (Date.now() - completedAt) / 86400000));
+}
+
+function updateStatusButton(id) {
+    const btn = document.getElementById('status-toggle-btn');
+    if (!btn) return;
+    const currentStageKey = getLessonStatus(id);
+    const currentStage = STATUS_STAGES.find(s => s.key === currentStageKey) || STATUS_STAGES[0];
+    const waitingText = currentStageKey === 'thin_complete'
+        ? ` · ${getColdReviewDaysRemaining(id)}天后复现`
+        : '';
+
+    btn.className = `cursor-pointer text-xs font-bold px-4 py-2 rounded-xl border flex items-center space-x-2 transition-all ${currentStage.bgClass}`;
+    btn.innerHTML = `<span>${currentStage.icon}</span><span>${currentStage.label}${waitingText}</span><span class="opacity-50">▾</span>`;
+    renderLessonStatusMenu(id);
+}
+
+function renderLessonStatusMenu(id) {
+    const menu = document.getElementById('lesson-status-menu');
+    if (!menu) return;
+    const current = getLessonStatus(id);
+    const ordinaryStages = STATUS_STAGES.filter(stage => stage.key !== 'cold_review' && stage.key !== 'mastered');
+    const actions = ordinaryStages.map(stage => ({
+        key: stage.key,
+        label: stage.label,
+        icon: stage.icon,
+        active: current === stage.key
+    }));
+
+    if (current === 'cold_review') {
+        actions.push(
+            { key: 'mastered', label: '冷复现成功，标为熟练', icon: '✓' },
+            { key: 'thick_complete', label: '未能独立做出，回到读厚', icon: '↩' }
+        );
+    } else if (current === 'mastered') {
+        actions.push({ key: 'mastered', label: '熟练', icon: '✓', active: true });
+    }
+
+    menu.innerHTML = actions.map(action => `
+        <button type="button" role="menuitem" onclick="setLessonStatus('${action.key}')" class="lesson-status-option ${action.active ? 'is-active' : ''}">
+            <span>${action.icon}</span><span>${action.label}</span>
+        </button>
+    `).join('');
+}
+
+function toggleLessonStatusMenu(event) {
+    event?.stopPropagation();
+    const menu = document.getElementById('lesson-status-menu');
+    const btn = document.getElementById('status-toggle-btn');
+    if (!menu || !btn) return;
+    const willOpen = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', !willOpen);
+    btn.setAttribute('aria-expanded', String(willOpen));
+}
+
+function closeLessonStatusMenu() {
+    document.getElementById('lesson-status-menu')?.classList.add('hidden');
+    document.getElementById('status-toggle-btn')?.setAttribute('aria-expanded', 'false');
+}
+
+function setLessonStatus(statusKey) {
+    const storageKey = getLessonStatusKey(activeLessonId);
+    if (statusKey === 'none') {
+        localStorage.removeItem(storageKey);
+        localStorage.removeItem(getLessonThinCompletedKey(activeLessonId));
+    } else {
+        localStorage.setItem(storageKey, statusKey);
+        if (statusKey === 'thin_complete') {
+            localStorage.setItem(getLessonThinCompletedKey(activeLessonId), String(Date.now()));
+        } else if (statusKey !== 'cold_review') {
+            localStorage.removeItem(getLessonThinCompletedKey(activeLessonId));
+        }
+    }
+
+    closeLessonStatusMenu();
     updateStatusButton(activeLessonId);
     renderSidebar();
 }
+
+document.addEventListener('click', closeLessonStatusMenu);
 
 function getStepStatusKey(lessonId, stepId) {
     return `step_status_${lessonId}_${stepId}`;
