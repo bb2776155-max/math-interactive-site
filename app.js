@@ -16,6 +16,85 @@ function showModuleHome() {
     if (searchInput) searchInput.value = '';
     clearTagFilter();
     toggleMobileLessonList(null, false);
+    updateLearningDashboardSummary();
+}
+
+function getLessonsByLearningStatus() {
+    const groups = {
+        initial_read: [],
+        thick_complete: [],
+        thin_complete: [],
+        cold_review: [],
+        mastered: [],
+        none: []
+    };
+    ALL_LESSONS.forEach(lesson => {
+        const status = getLessonStatus(lesson.id);
+        (groups[status] || groups.none).push(lesson);
+    });
+    return groups;
+}
+
+function updateLearningDashboardSummary() {
+    const summary = document.getElementById('learning-dashboard-summary');
+    if (!summary || typeof getLessonStatus !== 'function') return;
+    const groups = getLessonsByLearningStatus();
+    summary.innerText = groups.cold_review.length
+        ? `${groups.cold_review.length} 篇等待冷复现`
+        : `${groups.thick_complete.length + groups.thin_complete.length} 篇正在学习`;
+}
+
+function openLearningDashboard() {
+    const panel = document.getElementById('learning-dashboard');
+    const content = document.getElementById('learning-dashboard-content');
+    if (!panel || !content) return;
+    const groups = getLessonsByLearningStatus();
+    const sections = [
+        ['cold_review', '待冷复现', '到期后不看讲解，重新独立完成'],
+        ['thick_complete', '读厚中', '继续拆解、复现并吸收小逻辑'],
+        ['thin_complete', '巩固中', '已完成读薄，等待冷复现'],
+        ['initial_read', '初读完成', '下一步进入巩固读厚'],
+        ['mastered', '熟练', '已经通过冷复现']
+    ];
+    content.innerHTML = sections.map(([key, title, description]) => {
+        const lessons = groups[key];
+        const items = lessons.length ? lessons.map(lesson => {
+            const countdown = key === 'thin_complete' ? `<span>${getColdReviewDaysRemaining(lesson.id)}天后复现</span>` : '';
+            return `<button type="button" onclick="openLessonFromDashboard('${lesson.id}')"><strong>${escapeHtml(lesson.title)}</strong>${countdown}</button>`;
+        }).join('') : '<p>暂无</p>';
+        return `<section class="learning-dashboard-group"><header><div><strong>${title}</strong><span>${description}</span></div><b>${lessons.length}</b></header><div>${items}</div></section>`;
+    }).join('');
+    panel.classList.remove('hidden');
+}
+
+function closeLearningDashboard() {
+    document.getElementById('learning-dashboard')?.classList.add('hidden');
+}
+
+function openLessonFromDashboard(lessonId) {
+    closeLearningDashboard();
+    const lesson = ALL_LESSONS.find(item => item.id === lessonId);
+    activeStageModule = lesson?.stage_tag || null;
+    document.getElementById('main-content')?.classList.remove('module-home-active');
+    switchLesson(lessonId);
+}
+
+function updateLessonNextAction(lessonId) {
+    const box = document.getElementById('lesson-next-action');
+    if (!box || typeof getLessonStatus !== 'function') return;
+    const status = getLessonStatus(lessonId);
+    const guidance = {
+        none: ['现在只做一件事', '先独立尝试至少2分钟、最多4分钟；没有有效进展再看讲解。'],
+        initial_read: ['下一步：巩固读厚', '重新学习讲解，把其中的小逻辑单独挑出来吸收。一次吃不完就下次继续。'],
+        thick_complete: ['当前任务：继续读厚', '不要只看公式。每读完一段，想想它除了完成计算，还在传达什么。可以出声讲，并用“三个小板凳”把同一道题越讲越好。'],
+        thin_complete: ['当前状态：巩固中', `已经完成读薄。${getColdReviewDaysRemaining(lessonId)}天后，不看讲解进行冷复现。`],
+        cold_review: ['现在进行冷复现', '不要看提示和讲解，重新独立完成。能独立写出且不是复刻残留答案步骤，才标记为熟练。'],
+        mastered: ['已经熟练', '这篇 lesson 已通过冷复现。']
+    };
+    const [title, text] = guidance[status] || guidance.none;
+    box.innerHTML = `<strong>${title}</strong><span>${text}</span>`;
+    box.classList.remove('hidden');
+    box.classList.toggle('is-mastered', status === 'mastered');
 }
 
 function openStageModule(stageTag) {
@@ -29,6 +108,7 @@ function openStageModule(stageTag) {
     filterBox?.classList.remove('flex');
     filterBox?.classList.add('hidden');
     document.getElementById('main-content')?.classList.remove('module-home-active');
+    closeLearningDashboard();
     switchLesson(lessons[0].id);
 }
 
@@ -527,6 +607,7 @@ function switchLesson(id, resetScroll = true) {
     });
 
     updateStatusButton(id);
+    updateLessonNextAction(id);
 
     const container = document.getElementById('steps-container');
     container.innerHTML = '';

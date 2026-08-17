@@ -1,13 +1,48 @@
 const STATUS_STAGES = [
     { key: 'none', label: '尚未标记', icon: '○', bgClass: 'bg-slate-900 hover:bg-slate-800 text-slate-400 border-slate-800' },
     { key: 'initial_read', label: '初读完成', icon: '1', bgClass: 'bg-blue-500/10 text-blue-300 border-blue-500/20 hover:bg-blue-500/20' },
-    { key: 'thick_complete', label: '读厚完成', icon: '厚', bgClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20 hover:bg-cyan-500/20' },
-    { key: 'thin_complete', label: '读薄完成', icon: '薄', bgClass: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20 hover:bg-indigo-500/20' },
+    { key: 'thick_complete', label: '读厚中', icon: '厚', bgClass: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/20 hover:bg-cyan-500/20' },
+    { key: 'thin_complete', label: '巩固中', icon: '薄', bgClass: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/20 hover:bg-indigo-500/20' },
     { key: 'cold_review', label: '待冷复现', icon: '复', bgClass: 'bg-amber-500/10 text-amber-300 border-amber-500/20 hover:bg-amber-500/20' },
     { key: 'mastered', label: '熟练', icon: '✓', bgClass: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/20 hover:bg-emerald-500/20' }
 ];
 
 const ALL_LESSONS = [
+    {
+        "id": "lesson-how-to-use-site",
+        "title": "怎样使用这个网站",
+        "difficulty_tag": "知识",
+        "stage_tag": "学习观",
+        "mindset_tags": ["使用说明", "学习方法", "实操"],
+        "steps": [
+            {
+                "question": "怎样使用这个网站",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>一次只学一个 lesson。不要追求今天看了多少，追求把这一篇真正变成自己的东西。</p>
+<h3 class='lesson-subheading'>一、初读：先自己做，再看讲解</h3>
+<p class='lesson-paragraph'>先只看题目，独立尝试。至少认真想两分钟；最多四分钟。四分钟仍然没有有前景的思路或有效进展，就不要继续发呆，开始看讲解。</p>
+<p class='lesson-paragraph'>讲解中的隐藏内容，是让你的阅读节奏停下来的地方。每次准备展开时，先看看自己能不能接着写；想不出来再展开。</p>
+<p class='lesson-paragraph'>看完讲解以后，不要立刻进入下一个 lesson。把讲解放到一边，假装自己已经忘记答案的步骤，从观察题目、使用条件、尝试基本工具等最基础的地方起手，模仿讲解，重新经历“发现关键步骤”的过程，再独立把题写出来。</p>
+<p class='lesson-paragraph'>完成后，标记为“初读完成”。</p>
+<h3 class='lesson-subheading'>二、巩固读厚：把讲解庖丁解牛</h3>
+<p class='lesson-paragraph'>再次学习时，把讲解里的小逻辑单独挑出来，写在演草纸上，庖丁解牛一样把这篇讲解清楚地展现出来。该抄写的抄写，该划线的划线，该写私人笔记或评论的就写下来。</p>
+<p class='lesson-paragraph'>不要只记住答案做了什么。要吸收它如何观察，如何尝试，为什么这样变形，走不通时如何换路。讲解里的小逻辑最终都应该掌握；一次吃不完，可以分几次继续读厚，不要假装完成。</p>
+<p class='lesson-paragraph'>你还可以使用费曼学习法的“三个小板凳”：把同一道题给自己讲三遍，每一遍都尝试比上一遍更好一点。出声讲能让你抓住自己的思路，也能暴露哪里只是觉得自己懂了、实际却讲不下去。</p>
+<h3 class='lesson-subheading'>三、读薄：把厚讲解压缩下来</h3>
+<p class='lesson-paragraph'>读薄，就是把厚厚的讲解读薄，留下这道题真正值得长期保留的关键步骤、观察和思维，使自己以后能够迅速重新建立这道题。</p>
+<p class='lesson-paragraph'>可以先认真吸收网站提供的【读薄】，再补充自己的理解。追求读薄的目标即可，不必拘泥于固定写法。</p>
+<p class='lesson-paragraph'>完成读薄后，进入巩固阶段，等待至少十五天后的冷复现。</p>
+<h3 class='lesson-subheading'>四、冷复现：只用这一条判断是否熟练</h3>
+<p class='lesson-paragraph'>至少间隔十五天，不看提示和讲解，重新独立做题。</p>
+<p class='lesson-paragraph'>标准只有一个：你独立把题写出来，而且不是照着脑中残留的答案步骤复刻。达到这个标准，就标记为“熟练”。这代表这道题已经完全掌握。</p>
+<p class='lesson-paragraph'>如果仍然做不出来，重新看讲解。可能是基本功有问题，也可能是以前没有吸收好。解决这个问题，重新读厚，等待下一次冷复现。</p>
+<h3 class='lesson-subheading'>基本要求</h3>
+<p class='lesson-paragraph'>无论学得多慢，至少做到三件事：看讲解前先独立尝试；看完后重新经历发现关键步骤的过程；没有达到熟练的 lesson，必须找时间重新学习，并在至少间隔十五天后冷复现。</p>
+<p class='lesson-paragraph'>划线、笔记、评论和出声讲都是帮助你吸收的工具，不是掌握的证明。最终只认冷复现。</p>
+</div>`
+            }
+        ]
+    },
     {
         "id": "lesson_000",
         "title": "什么是先读厚再读薄",

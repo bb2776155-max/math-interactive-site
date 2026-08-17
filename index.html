@@ -21,7 +21,7 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="stylesheet" href="style.css?v=20260817-2">
+    <link rel="stylesheet" href="style.css?v=20260818-1">
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
 
@@ -46,6 +46,10 @@
     <div id="main-content" class="app-shell flex-grow flex opacity-0 h-screen overflow-hidden transition-opacity duration-500 pointer-events-none">
         <section id="module-home" class="module-home" aria-label="选择学习模块">
             <div class="module-home-brand">把书读厚</div>
+            <button type="button" class="learning-dashboard-entry" onclick="openLearningDashboard()">
+                <strong>我的学习</strong>
+                <span id="learning-dashboard-summary">查看学习进度与待复现内容</span>
+            </button>
             <button type="button" class="module-door" onclick="openStageModule('2阶段')" aria-label="进入2阶段">
                 <span class="module-door-shape" aria-hidden="true"><span></span></span>
                 <span>2阶段</span>
@@ -67,6 +71,13 @@
                     <span>综合观察与思路连接</span>
                 </button>
             </div>
+            <section id="learning-dashboard" class="learning-dashboard hidden" aria-label="我的学习">
+                <div class="learning-dashboard-header">
+                    <div><strong>我的学习</strong><span>继续学习，不让 lesson 只停在“看懂”</span></div>
+                    <button type="button" onclick="closeLearningDashboard()" aria-label="关闭">×</button>
+                </div>
+                <div id="learning-dashboard-content" class="learning-dashboard-content"></div>
+            </section>
         </section>
         <div id="mobile-lesson-reveal-zone" class="mobile-lesson-reveal-zone" onclick="revealMobileLessonToggle()" aria-hidden="true"></div>
         <button id="mobile-lesson-toggle" type="button" onclick="toggleMobileLessonList(event)" class="mobile-lesson-toggle" aria-expanded="false" aria-label="显示题目列表">
@@ -142,6 +153,8 @@
                     </div>
                 </header>
 
+                <div id="lesson-next-action" class="lesson-next-action hidden"></div>
+
                 <section id="steps-container" class="space-y-4 desert-flow tex2jax_process"></section>
 
                 <section class="private-notes-section border-t border-slate-900 pt-8 space-y-4">
@@ -194,11 +207,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
-    <script src="lessons.js?v=20260817-2"></script>
+    <script src="lessons.js?v=20260818-1"></script>
     <script src="auth.js?v=20260817-2"></script>
-    <script src="storage.js?v=20260817-3"></script>
+    <script src="storage.js?v=20260818-1"></script>
     <script src="comments.js"></script>
     <script src="notes.js?v=20260817-1"></script>
-    <script src="app.js?v=20260817-4"></script>
+    <script src="app.js?v=20260818-1"></script>
 </body>
 </html>

@@ -85,6 +85,7 @@ async function initializeLearningDataSync() {
     renderSidebar();
     updateStatusButton(activeLessonId);
     checkHistoryProgress();
+    if (typeof updateLearningDashboardSummary === 'function') updateLearningDashboardSummary();
 }
 
 async function syncLearningDataToCloud() {
@@ -210,9 +211,14 @@ function renderLessonStatusMenu(id) {
     if (!menu) return;
     const current = getLessonStatus(id);
     const ordinaryStages = STATUS_STAGES.filter(stage => stage.key !== 'cold_review' && stage.key !== 'mastered');
+    const actionLabels = {
+        initial_read: '完成初读',
+        thick_complete: '进入读厚',
+        thin_complete: '完成读薄，进入巩固'
+    };
     const actions = ordinaryStages.map(stage => ({
         key: stage.key,
-        label: stage.label,
+        label: actionLabels[stage.key] || stage.label,
         icon: stage.icon,
         active: current === stage.key
     }));
@@ -264,7 +270,9 @@ function setLessonStatus(statusKey) {
 
     closeLessonStatusMenu();
     updateStatusButton(activeLessonId);
+    if (typeof updateLessonNextAction === 'function') updateLessonNextAction(activeLessonId);
     renderSidebar();
+    if (typeof updateLearningDashboardSummary === 'function') updateLearningDashboardSummary();
 }
 
 document.addEventListener('click', closeLessonStatusMenu);
