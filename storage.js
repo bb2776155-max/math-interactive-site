@@ -210,30 +210,33 @@ function renderLessonStatusMenu(id) {
     const menu = document.getElementById('lesson-status-menu');
     if (!menu) return;
     const current = getLessonStatus(id);
-    const ordinaryStages = STATUS_STAGES.filter(stage => stage.key !== 'cold_review' && stage.key !== 'mastered');
     const actionLabels = {
         initial_read: '完成初读',
         thick_complete: '进入读厚',
-        thin_complete: '完成读薄，进入巩固'
+        thin_complete: '完成读薄，进入巩固',
+        cold_review: '待冷复现',
+        mastered: '熟练'
     };
-    const actions = ordinaryStages.map(stage => ({
+    const daysRemaining = getColdReviewDaysRemaining(id);
+    const coldReviewAvailable = current === 'cold_review' || current === 'mastered';
+    const actions = STATUS_STAGES.map(stage => ({
         key: stage.key,
-        label: actionLabels[stage.key] || stage.label,
+        label: stage.key === 'cold_review' && !coldReviewAvailable
+            ? `待冷复现（${daysRemaining}天后开放）`
+            : actionLabels[stage.key] || stage.label,
         icon: stage.icon,
-        active: current === stage.key
+        active: current === stage.key,
+        disabled: (stage.key === 'cold_review' || stage.key === 'mastered') && !coldReviewAvailable
     }));
 
     if (current === 'cold_review') {
-        actions.push(
-            { key: 'mastered', label: '冷复现成功，标为熟练', icon: '✓' },
-            { key: 'thick_complete', label: '未能独立做出，回到读厚', icon: '↩' }
-        );
-    } else if (current === 'mastered') {
-        actions.push({ key: 'mastered', label: '熟练', icon: '✓', active: true });
+        const masteredAction = actions.find(action => action.key === 'mastered');
+        if (masteredAction) masteredAction.label = '冷复现成功，标为熟练';
+        actions.push({ key: 'thick_complete', label: '冷复现失败，回到读厚', icon: '↩', secondary: true });
     }
 
     menu.innerHTML = actions.map(action => `
-        <button type="button" role="menuitem" onclick="setLessonStatus('${action.key}')" class="lesson-status-option ${action.active ? 'is-active' : ''}">
+        <button type="button" role="menuitem" ${action.disabled ? 'disabled' : `onclick="setLessonStatus('${action.key}')"`} class="lesson-status-option ${action.active ? 'is-active' : ''} ${action.secondary ? 'is-secondary' : ''}">
             <span>${action.icon}</span><span>${action.label}</span>
         </button>
     `).join('');

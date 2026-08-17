@@ -576,6 +576,17 @@ summary { list-style: none; }
     background: rgb(30 41 59 / 0.7);
     color: rgb(226 232 240);
 }
+.lesson-status-option:disabled {
+    cursor: not-allowed;
+    color: rgb(71 85 105);
+    background: transparent;
+}
+.lesson-status-option.is-secondary {
+    margin-top: 4px;
+    border-top: 1px solid rgb(30 41 59);
+    border-radius: 0;
+    color: rgb(251 191 36);
+}
 .lesson-next-action {
     display: flex;
     align-items: flex-start;
