@@ -55,6 +55,31 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-feynman-three-stools",
+        "title": "费曼学习法优化版之三个小板凳",
+        "difficulty_tag": "知识",
+        "stage_tag": "学习观",
+        "mindset_tags": ["学习方法", "费曼学习法", "优化"],
+        "steps": [
+            {
+                "question": "费曼学习法优化版之三个小板凳",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>三个小板凳，是关于小爱因斯坦的一个经典故事。</p>
+<p class='lesson-paragraph'>老师看到小爱因斯坦交上来的小板凳，觉得它做得很丑。小爱因斯坦却拿出了另外两个更丑的小板凳：老师看到的这个，是他做的第三个。它确实仍然很丑，但是已经比前两个更好了。</p>
+<p class='lesson-paragraph'>我把三个小板凳融进费曼学习法。说直接点，就是把同一个题讲三遍，每一遍都尝试比之前讲得更好一点。</p>
+<p class='lesson-paragraph'>第一遍讲完，你会发现自己哪里讲不清楚，哪里会卡住，哪里只是知道步骤，却说不出为什么。</p>
+<p class='lesson-paragraph'>然后讲第二遍。不要只是把第一遍原样重复一次，要把刚才暴露出来的问题改善一点。</p>
+<p class='lesson-paragraph'>再讲第三遍。继续想一想，这一次还能不能比上一次更清楚、更准确一点。</p>
+<p class='lesson-paragraph'>任务不是第三遍必须讲得多么完美，而是做出自己的三个小板凳：每一个都比之前的更好。</p>
+<p class='lesson-paragraph'>优化本来就使人快乐。小爱因斯坦做了三个小板凳，每个都比之前的更好。即使第三个小板凳仍然很丑，但是在得到“丑”的评价之前，爱因斯坦一定是非常快乐的。</p>
+<p class='lesson-paragraph'>事实上，小爱因斯坦应该自豪。因为他能做出这么丑的小板凳，很可能正说明他的手工天赋很差，而且从来没有接触过这种技能。而在这种情况下，他仍然独立地做出了对于自己的突破。</p>
+<p class='lesson-paragraph'>这就是人类知识产生的方式：先独立做出一个可能很差的东西，再看清它哪里不好，然后把它改善一点。新的东西仍然可能不好，那就再改善一点。</p>
+<p class='lesson-paragraph'>所以你讲第一遍时，不必害怕自己讲得很差。第一遍的小板凳越丑，后面能够发现和优化的地方就越多。真正需要追求的不是第一次就像老师一样讲得很好，而是第二遍比第一遍好，第三遍再比第二遍好。</p>
+</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson-functional-equation-01",
         "title": "使用抽象函数",
         "difficulty_tag": "简单",
