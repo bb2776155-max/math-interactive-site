@@ -475,9 +475,13 @@ function handleFilterChange() {
 }
 
 function switchLesson(id, resetScroll = true) {
+    const previousLessonId = activeLessonId;
+    const reachedSavedLesson = previousLessonId !== id && localStorage.getItem('last_read_lesson') === id;
     activeLessonId = id;
     const lesson = ALL_LESSONS.find(l => l.id === id);
     if (!lesson) return;
+
+    if (reachedSavedLesson) clearHistoryResume(id);
 
     document.getElementById('lesson-title').innerText = lesson.title;
 

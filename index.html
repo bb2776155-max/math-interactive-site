@@ -86,12 +86,15 @@
                     </p>
                 </div>
 
-                <div id="history-resume-banner" class="hidden items-center justify-between bg-indigo-500/5 border border-indigo-500/10 rounded-xl px-5 py-3 text-xs animate-fade-in">
+                <div id="history-resume-banner" class="hidden items-center justify-between gap-3 bg-indigo-500/5 border border-indigo-500/10 rounded-xl px-5 py-3 text-xs animate-fade-in">
                     <div class="flex items-center space-x-2 text-slate-400">
                         <span>📍</span>
                         <span>上次读到：<strong id="history-lesson-title" class="text-slate-200 font-bold"></strong></span>
                     </div>
-                    <button onclick="resumeLastRead()" class="text-indigo-400 hover:text-indigo-300 font-bold cursor-pointer transition-colors">点击回位 →</button>
+                    <div class="flex items-center gap-3 shrink-0">
+                        <button onclick="resumeLastRead()" class="text-indigo-400 hover:text-indigo-300 font-bold cursor-pointer transition-colors">点击回位 →</button>
+                        <button type="button" onclick="dismissHistoryResume()" aria-label="关闭上次读到提示" title="关闭" class="text-slate-600 hover:text-slate-300 text-lg leading-none cursor-pointer transition-colors">×</button>
+                    </div>
                 </div>
 
                 <header class="border-b border-slate-900 pb-5 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
@@ -140,8 +143,8 @@
     
     <script src="lessons.js?v=20260817-1"></script>
     <script src="auth.js"></script>
-    <script src="storage.js"></script>
+    <script src="storage.js?v=20260817-1"></script>
     <script src="comments.js"></script>
-    <script src="app.js"></script>
+    <script src="app.js?v=20260817-1"></script>
 </body>
 </html>

@@ -22,11 +22,26 @@ function checkHistoryProgress() {
     banner.classList.add('hidden');
 }
 
+function clearHistoryResume(lessonId = localStorage.getItem('last_read_lesson')) {
+    if (lessonId) localStorage.removeItem(`last_read_step_${lessonId}`);
+    localStorage.removeItem('last_read_lesson');
+    const banner = document.getElementById('history-resume-banner');
+    if (banner) {
+        banner.classList.remove('flex');
+        banner.classList.add('hidden');
+    }
+}
+
+function dismissHistoryResume() {
+    clearHistoryResume();
+}
+
 function resumeLastRead() {
     const lastLessonId = localStorage.getItem('last_read_lesson');
     if (lastLessonId) {
-        switchLesson(lastLessonId);
         const lastStepId = localStorage.getItem(`last_read_step_${lastLessonId}`);
+        switchLesson(lastLessonId);
+        clearHistoryResume(lastLessonId);
         if (lastStepId) {
             setTimeout(() => {
                 const targetDetails = document.getElementById(lastStepId);
