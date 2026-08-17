@@ -1,10 +1,36 @@
 let activeLessonId = ALL_LESSONS[0].id;
 let selectedTagFilter = null;
+let activeStageModule = null;
 let reviewMode = 'full';
 let activeAnnotationSelection = null;
 let mobileLessonListOpen = false;
 let mobileLessonToggleRevealed = false;
 let annotationSelectionTimer = null;
+
+function showModuleHome() {
+    activeStageModule = null;
+    selectedTagFilter = null;
+    const mainContent = document.getElementById('main-content');
+    mainContent?.classList.add('module-home-active');
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
+    clearTagFilter();
+    toggleMobileLessonList(null, false);
+}
+
+function openStageModule(stageTag) {
+    const lessons = ALL_LESSONS.filter(lesson => lesson.stage_tag === stageTag);
+    if (!lessons.length) return;
+    activeStageModule = stageTag;
+    selectedTagFilter = null;
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
+    const filterBox = document.getElementById('filter-status-box');
+    filterBox?.classList.remove('flex');
+    filterBox?.classList.add('hidden');
+    document.getElementById('main-content')?.classList.remove('module-home-active');
+    switchLesson(lessons[0].id);
+}
 
 function revealMobileLessonToggle() {
     mobileLessonToggleRevealed = true;
@@ -426,6 +452,7 @@ function renderSidebar() {
     }
 
     const filtered = ALL_LESSONS.filter(lesson => {
+        const matchesModule = !activeStageModule || lesson.stage_tag === activeStageModule;
         const matchesTitle = lesson.title.toLowerCase().includes(searchQuery);
         const matchesDifficulty = lesson.difficulty_tag.toLowerCase().includes(searchQuery);
         const matchesStage = lesson.stage_tag.toLowerCase().includes(searchQuery);
@@ -439,7 +466,7 @@ function renderSidebar() {
             (selectedTagFilter.type === 'difficulty' && lesson.difficulty_tag === selectedTagFilter.value) ||
             (selectedTagFilter.type === 'stage' && lesson.stage_tag === selectedTagFilter.value) ||
             (selectedTagFilter.type === 'mindset' && lesson.mindset_tags.includes(selectedTagFilter.value));
-        return matchesSearch && matchesTagFilter;
+        return matchesModule && matchesSearch && matchesTagFilter;
     });
 
     if (filtered.length === 0) {

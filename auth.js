@@ -40,6 +40,5 @@ function unlockSite() {
     const mainContent = document.getElementById('main-content');
     mainContent.classList.remove('opacity-0', 'pointer-events-none');
     mainContent.classList.add('opacity-100');
-    renderSidebar();
-    switchLesson(activeLessonId);
+    showModuleHome();
 }

@@ -126,6 +126,155 @@ summary { list-style: none; }
 /* Keep the reading surface usable when the viewport is too narrow for the desktop split view. */
 .app-shell {
     min-height: 100dvh;
+    position: relative;
+}
+.module-home {
+    display: none;
+    position: absolute;
+    z-index: 60;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 4rem;
+    background: rgb(2 6 23);
+}
+.module-home-active .module-home {
+    display: flex;
+}
+.module-home-active > :not(.module-home) {
+    visibility: hidden;
+    pointer-events: none;
+}
+.module-home-brand {
+    position: absolute;
+    top: 2rem;
+    left: 2.25rem;
+    color: rgb(226 232 240);
+    font-size: 1rem;
+    font-weight: 800;
+}
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(68rem, 100%);
+    gap: 1rem;
+}
+.module-tile {
+    position: relative;
+    display: flex;
+    min-height: 16rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 1.75rem;
+    border: 1px solid rgb(30 41 59);
+    border-radius: 0.5rem;
+    color: rgb(226 232 240);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+.module-tile:hover,
+.module-tile:focus-visible {
+    border-color: rgb(100 116 139);
+    transform: translateY(-2px);
+    outline: none;
+}
+.module-tile-philosophy { background: rgb(24 24 27); }
+.module-tile-stage-one { background: rgb(15 36 43); }
+.module-tile-stage-half { background: rgb(35 31 23); }
+.module-tile strong {
+    font-size: 1.65rem;
+    line-height: 1.2;
+}
+.module-tile > span:last-child {
+    margin-top: 0.55rem;
+    color: rgb(148 163 184);
+    font-size: 0.78rem;
+}
+.module-tile-index {
+    position: absolute;
+    top: 1.35rem;
+    left: 1.5rem;
+    color: rgb(100 116 139);
+    font-family: monospace;
+    font-size: 0.72rem;
+}
+.module-door {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.75rem;
+    display: flex;
+    min-width: 4.75rem;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid rgb(51 65 85);
+    border-radius: 0.5rem;
+    color: rgb(148 163 184);
+    background: rgb(15 23 42);
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+.module-door:hover,
+.module-door:focus-visible {
+    color: rgb(226 232 240);
+    border-color: rgb(100 116 139);
+    outline: none;
+}
+.module-door-shape {
+    position: relative;
+    display: block;
+    width: 0.9rem;
+    height: 1.2rem;
+    border: 1px solid currentColor;
+    border-bottom: 0;
+}
+.module-door-shape span {
+    position: absolute;
+    right: 0.15rem;
+    top: 0.55rem;
+    width: 0.13rem;
+    height: 0.13rem;
+    border-radius: 50%;
+    background: currentColor;
+}
+.module-back-button {
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(30 41 59);
+    border-radius: 0.4rem;
+    color: rgb(100 116 139);
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.module-back-button:hover {
+    color: rgb(203 213 225);
+    border-color: rgb(71 85 105);
+}
+.main-module-home-button {
+    display: inline-flex;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(30 41 59);
+    border-radius: 0.5rem;
+    color: rgb(100 116 139);
+    font-size: 1rem;
+    cursor: pointer;
+}
+.main-module-home-button:hover,
+.main-module-home-button:focus-visible {
+    color: rgb(203 213 225);
+    border-color: rgb(71 85 105);
+    outline: none;
 }
 .app-main {
     min-height: 0;
@@ -150,6 +299,40 @@ summary { list-style: none; }
         height: 100dvh;
         min-height: 0;
         flex-direction: column;
+    }
+    .module-home {
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 6rem 1rem 2rem;
+    }
+    .module-home-brand {
+        top: 1.25rem;
+        left: 1rem;
+    }
+    .module-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    .module-tile {
+        min-height: 9.5rem;
+        padding: 1.25rem;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .module-tile strong {
+        font-size: 1.4rem;
+    }
+    .module-door {
+        top: 0.9rem;
+        right: 0.85rem;
+        min-width: 5.25rem;
+        min-height: 2.75rem;
+        justify-content: center;
+        -webkit-tap-highlight-color: transparent;
+    }
+    .main-module-home-button {
+        min-width: 2.5rem;
+        min-height: 2.5rem;
+        -webkit-tap-highlight-color: transparent;
     }
     .app-sidebar {
         display: none;
