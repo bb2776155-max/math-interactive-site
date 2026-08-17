@@ -153,6 +153,68 @@ const ALL_LESSONS = [
         ]
     },
     {
+        "id": "lesson-learning-method-practice",
+        "title": "学习方法训练场：现在就拿一道题来练",
+        "difficulty_tag": "实操",
+        "stage_tag": "学习观",
+        "mindset_tags": ["学习方法", "实操", "吸收", "复习"],
+        "steps": [
+            {
+                "question": "准备：找一道你刚学过或者看过答案的题",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>不要只读这篇文字。现在找一道你刚学过、刚看过答案，或者以前不会做的题。把题目放在面前，把答案暂时遮住。</p>
+<p class='lesson-paragraph'>下面的任务全部围绕这一道题进行。每完成一个，再展开下一个。</p>
+</div>`
+            },
+            {
+                "question": "任务一：出声讲一分钟",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>不要动笔，先出声给自己讲一分钟：</p>
+<p class='lesson-paragraph'>题目告诉了我什么？目标是什么？我已经想到过什么？我现在具体卡在哪里？</p>
+<p class='lesson-paragraph'>不能只说“我不知道怎么做”。如果说不出自己在想什么，就从题目的条件开始读，边读边说这个条件可能怎样使用。</p>
+<p class='lesson-paragraph'>这个任务的目标不是立刻把题做出来，而是确认你的思维正在运行。出声能把思路是否停滞、阻塞直观地表现出来，它就是“发呆式思考”的探测器。</p>
+</div>`
+            },
+            {
+                "question": "任务二：把答案当成棋谱",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>如果仍然不会，打开答案。不要一口气看完，也不要只验证每一步是对的。</p>
+<p class='lesson-paragraph'>看到关键步骤时停下来，回答：</p>
+<p class='lesson-paragraph'>这一步解决了什么困难？作者可能观察到了什么，才想到这一步？我具体为什么没有想到？</p>
+<p class='lesson-paragraph'>把“我不会”拆成一个具体的断点：没观察到结构，没想到尝试基本工具，不知道工具可以这样用，还是知道方向却不会完成变形。</p>
+<p class='lesson-paragraph'>当你觉得自己已经能继续时，立刻把答案遮住，自己往下写。答案就是棋谱，不是让你抄完的过程。</p>
+</div>`
+            },
+            {
+                "question": "任务三：离开答案，完整写一遍",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>把答案彻底放到一边，从头到尾独立写一遍。</p>
+<p class='lesson-paragraph'>不要因为记得某个关键步骤，就直接把它写出来。重新做出产生这一步的观察和尝试：你看到了什么？为什么试这个工具？这个结果为什么值得继续使用？</p>
+<p class='lesson-paragraph'>如果写不出来，再回去只修复卡住的那一处，然后重新离开答案。眼睛一直停留在答案上产生的是眼熟，不是掌握。</p>
+</div>`
+            },
+            {
+                "question": "任务四：做三个小板凳",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>把这道题给自己讲三遍。</p>
+<p class='lesson-paragraph'>第一遍先完整讲出来。讲得差没关系，重点是暴露哪里卡、哪里含糊、哪里只知道步骤却不知道为什么。</p>
+<p class='lesson-paragraph'>第二遍只要求比第一遍好一点：专门修复刚才最差的地方。</p>
+<p class='lesson-paragraph'>第三遍再优化一点：让思路更清楚，或者让某个关键步骤的来源讲得更明白。</p>
+<p class='lesson-paragraph'>不要追求第一次就讲得像老师。你的任务只是做出三个小板凳，每一个都比上一个更好。</p>
+</div>`
+            },
+            {
+                "question": "任务五：留下真正属于你的笔记",
+                "answer": `<div class='thick-content no-auto-format'>
+<p class='lesson-paragraph'>最后，在题目旁边写下这次学习真正留下的东西。</p>
+<p class='lesson-paragraph'>不要抄答案，也不要只写“本题考查某知识点”。写你自己的内容：</p>
+<p class='lesson-paragraph'>我原来具体卡在哪里？答案中的哪一个小逻辑最值得留下？下次看到什么时，我应该想到什么？第二遍、第三遍讲题时，我把哪里讲得更好了？</p>
+<p class='lesson-paragraph'>至少写下一条。能产生自己的感想、疑问和联想，才说明这道题进入了你的思维，而不是只从眼前经过。</p>
+</div>`
+            }
+        ]
+    },
+    {
         "id": "lesson-functional-equation-01",
         "title": "使用抽象函数",
         "difficulty_tag": "简单",
