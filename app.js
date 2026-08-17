@@ -6,6 +6,7 @@ let activeAnnotationSelection = null;
 let mobileLessonListOpen = false;
 let mobileLessonToggleRevealed = false;
 let annotationSelectionTimer = null;
+let lastAnnotationTap = null;
 
 function showModuleHome() {
     activeStageModule = null;
@@ -322,6 +323,84 @@ function scheduleAnnotationSelection(delay = 120) {
     annotationSelectionTimer = window.setTimeout(() => {
         if (window.getSelection()?.rangeCount) handleAnnotationSelection();
     }, delay);
+}
+
+function getCaretRangeAtPoint(clientX, clientY) {
+    if (document.caretPositionFromPoint) {
+        const position = document.caretPositionFromPoint(clientX, clientY);
+        if (!position) return null;
+        const range = document.createRange();
+        range.setStart(position.offsetNode, position.offset);
+        range.collapse(true);
+        return range;
+    }
+    return document.caretRangeFromPoint?.(clientX, clientY) || null;
+}
+
+function getAnnotationWordRange(clientX, clientY) {
+    const caretRange = getCaretRangeAtPoint(clientX, clientY);
+    const textNode = caretRange?.startContainer;
+    if (!textNode || textNode.nodeType !== Node.TEXT_NODE) return null;
+
+    const parent = textNode.parentElement;
+    const answerEl = parent?.closest('.lesson-answer');
+    if (!answerEl || parent.closest('button, input, textarea, summary, mjx-container, .student-highlight')) {
+        return null;
+    }
+
+    const text = textNode.nodeValue || '';
+    if (!text.trim()) return null;
+    const tappedOffset = Math.min(caretRange.startOffset, Math.max(0, text.length - 1));
+    let start = tappedOffset;
+    let end = tappedOffset + 1;
+
+    if (typeof Intl.Segmenter === 'function') {
+        const segments = new Intl.Segmenter('zh-CN', { granularity: 'word' }).segment(text);
+        const segment = Array.from(segments).find(item => (
+            tappedOffset >= item.index && tappedOffset < item.index + item.segment.length && item.isWordLike
+        ));
+        if (segment) {
+            start = segment.index;
+            end = segment.index + segment.segment.length;
+        }
+    } else if (/[A-Za-z0-9_]/.test(text[tappedOffset])) {
+        while (start > 0 && /[A-Za-z0-9_]/.test(text[start - 1])) start -= 1;
+        while (end < text.length && /[A-Za-z0-9_]/.test(text[end])) end += 1;
+    } else if (/\p{Script=Han}/u.test(text[tappedOffset])) {
+        end = Math.min(text.length, start + 2);
+    }
+
+    const selectedText = text.slice(start, end).trim();
+    if (!selectedText || /^\s|\s$/.test(text.slice(start, end))) return null;
+    const range = document.createRange();
+    range.setStart(textNode, start);
+    range.setEnd(textNode, end);
+    return range;
+}
+
+function handleMobileAnnotationTap(event) {
+    if (event.pointerType !== 'touch' || !window.matchMedia('(max-width: 767px)').matches) return;
+    const target = event.target.closest('.lesson-answer');
+    if (!target || event.target.closest('button, input, textarea, a, summary, mjx-container, .student-highlight')) {
+        lastAnnotationTap = null;
+        return;
+    }
+
+    const now = Date.now();
+    const isDoubleTap = lastAnnotationTap
+        && now - lastAnnotationTap.time <= 350
+        && Math.hypot(event.clientX - lastAnnotationTap.x, event.clientY - lastAnnotationTap.y) <= 24;
+    lastAnnotationTap = { time: now, x: event.clientX, y: event.clientY };
+    if (!isDoubleTap) return;
+
+    const range = getAnnotationWordRange(event.clientX, event.clientY);
+    if (!range) return;
+    event.preventDefault();
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    handleAnnotationSelection();
+    lastAnnotationTap = null;
 }
 
 function openAnnotationDeleteToolbar(mark) {
@@ -706,12 +785,7 @@ window.addEventListener('DOMContentLoaded', () => {
     renderAnnotationToolbar();
     document.addEventListener('mouseup', () => scheduleAnnotationSelection(40));
     document.addEventListener('selectionchange', () => scheduleAnnotationSelection(180));
-    document.addEventListener('touchend', (event) => {
-        if (event.target.closest('.student-highlight')) return;
-        // Android browsers create/update the native text selection after touchend.
-        // Wait for that selection, then place our toolbar without disabling copy.
-        scheduleAnnotationSelection(260);
-    });
+    document.addEventListener('pointerup', handleMobileAnnotationTap);
     document.addEventListener('click', (event) => {
         const mark = event.target.closest('.student-highlight');
         if (!mark) return;
